@@ -43,7 +43,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -70,7 +78,28 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schema\Bookmark.cs" />
+    <Compile Include="Schema\ChuKyPhatHanh.cs" />
+    <Compile Include="Schema\Chuong.cs" />
+    <Compile Include="Schema\DanhGiaTruyen.cs" />
+    <Compile Include="Schema\LoaiTruyen.cs" />
+    <Compile Include="Schema\LuuTacGia.cs" />
+    <Compile Include="Schema\LuuTheLoai.cs" />
+    <Compile Include="Schema\NhomDich.cs" />
+    <Compile Include="Schema\PhanQuyen.cs" />
+    <Compile Include="Schema\Quyen.cs" />
+    <Compile Include="Schema\TacGia.cs" />
+    <Compile Include="Schema\TaiKhoan.cs" />
+    <Compile Include="Schema\TheLoai.cs" />
+    <Compile Include="Schema\ThongTinNguoiDung.cs" />
+    <Compile Include="Schema\Token.cs" />
+    <Compile Include="Schema\TrangThaiReset.cs" />
+    <Compile Include="Schema\TrangThaiTaiKhoan.cs" />
+    <Compile Include="Schema\TrangThaiTruyen.cs" />
+    <Compile Include="Schema\Truyen.cs" />
+    <Compile Include="Schema\VaiTro.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
