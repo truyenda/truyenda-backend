@@ -5,12 +5,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Database.Schema
+namespace ReadComic.DataBase.Schema
 {
     [Table("LuuTacGia")]
     public class LuuTacGia
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int Id_Truyen { get; set; }

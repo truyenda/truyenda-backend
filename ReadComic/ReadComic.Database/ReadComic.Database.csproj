@@ -68,6 +68,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Z.EntityFramework.Plus.EF6, Version=1.8.21.0, Culture=neutral, PublicKeyToken=59b66d028979105b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Z.EntityFramework.Plus.EF6.1.8.21\lib\net45\Z.EntityFramework.Plus.EF6.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -79,23 +82,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
+    <Compile Include="Migrations\201902271829242_create-db.cs" />
+    <Compile Include="Migrations\201902271829242_create-db.Designer.cs">
+      <DependentUpon>201902271829242_create-db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schema\BinhLuan.cs" />
     <Compile Include="Schema\Bookmark.cs" />
     <Compile Include="Schema\ChuKyPhatHanh.cs" />
     <Compile Include="Schema\Chuong.cs" />
     <Compile Include="Schema\DanhGiaTruyen.cs" />
+    <Compile Include="Schema\ErrorMsg.cs" />
     <Compile Include="Schema\LoaiTruyen.cs" />
     <Compile Include="Schema\LuuTacGia.cs" />
     <Compile Include="Schema\LuuTheLoai.cs" />
     <Compile Include="Schema\NhomDich.cs" />
     <Compile Include="Schema\PhanQuyen.cs" />
     <Compile Include="Schema\Quyen.cs" />
+    <Compile Include="Schema\Table.cs" />
     <Compile Include="Schema\TacGia.cs" />
     <Compile Include="Schema\TaiKhoan.cs" />
     <Compile Include="Schema\TheLoai.cs" />
     <Compile Include="Schema\ThongTinNguoiDung.cs" />
     <Compile Include="Schema\Token.cs" />
-    <Compile Include="Schema\TrangThaiReset.cs" />
     <Compile Include="Schema\TrangThaiTaiKhoan.cs" />
     <Compile Include="Schema\TrangThaiTruyen.cs" />
     <Compile Include="Schema\Truyen.cs" />
@@ -109,6 +119,11 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902271829242_create-db.resx">
+      <DependentUpon>201902271829242_create-db.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Database.Schema
+namespace ReadComic.DataBase.Schema
 {
     [Table("VaiTro")]
     public class VaiTro
@@ -16,12 +16,14 @@ namespace ReadComic.Database.Schema
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
         [StringLength(50)]
         public string TenVaiTro { get; set; }
 
-        public int TongQuyen { get; set; }
+        public decimal TongQuyen { get; set; }
         public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
 
     }

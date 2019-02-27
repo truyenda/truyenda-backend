@@ -5,15 +5,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Database.Schema
+namespace ReadComic.DataBase.Schema
 {
     [Table("Quyen")]
     public class Quyen
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
-        public int BitQuyen { get; set; }
+        public decimal BitQuyen { get; set; }
 
         [StringLength(50)]
         public string TenQuyen { get; set; }
