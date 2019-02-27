@@ -5,21 +5,24 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Database.Schema
+namespace ReadComic.DataBase.Schema
 {
     [Table("DanhGiaTruyen")]
     public class DanhGiaTruyen
     {
         
-
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
         public int Id_NguoiDanhGia { get; set; }
+
         public int Id_Truyen { get; set; }
+
         public int Diem { get; set; }
 
         [ForeignKey("Id_NguoiDanhGia")]
-        public virtual ThongTinNguoiDung ThongTinNguoiDung { get; set; }
+        public virtual TaiKhoan TaiKhoan { get; set; }
         [ForeignKey("Id_Truyen")]
         public virtual Truyen Truyen { get; set; }
     }

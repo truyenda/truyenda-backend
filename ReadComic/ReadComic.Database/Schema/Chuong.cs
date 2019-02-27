@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Database.Schema
+namespace ReadComic.DataBase.Schema
 {
     [Table("Chuong")]
     public class Chuong
@@ -16,6 +16,7 @@ namespace ReadComic.Database.Schema
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int Id_Truyen { get; set; }
@@ -24,7 +25,7 @@ namespace ReadComic.Database.Schema
         [StringLength(50)]
         public string TenChuong { get; set; }
 
-        public int SoThuTu { get; set; }
+        public long SoThuTu { get; set; }
 
         [Required]
         [StringLength(256)]

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Database.Schema
+namespace ReadComic.DataBase.Schema
 {
     [Table("Truyen")]
     public class Truyen
@@ -14,15 +14,22 @@ namespace ReadComic.Database.Schema
         {
             Chuongs = new HashSet<Chuong>();
             DanhGiaTruyens = new HashSet<DanhGiaTruyen>();
-            Bookmarks = new HashSet<Bookmark>();
             LuuTheLoais = new HashSet<LuuTheLoai>();
             LuuTacGias = new HashSet<LuuTacGia>();
+            BinhLuans = new HashSet<BinhLuan>();
         }
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int Id_Nhom { get; set; }
+
+        public int Id_ChuKy { get; set; }
+
+        public int Id_TrangThai { get; set; }
+
+        public int Id_LoaiTruyen { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -36,17 +43,18 @@ namespace ReadComic.Database.Schema
         public string DuongDan { get; set; }
 
         public int NamPhatHanh { get; set; }
-        [Required]
 
+        [Required]
+        [StringLength(256)]
         public string AnhBia { get; set; }
+
         [Required]
         [StringLength(256)]
         public string AnhDaiDien { get; set; }
+
         public string MoTa { get; set; }
 
-        public int Id_ChuKy { get; set; }
-        public int Id_TrangThai { get; set; }
-        public int Id_LoaiTruyen { get; set; }
+        
         public DateTime NgayTao { get; set; }
 
         [ForeignKey("Id_LoaiTruyen")]
@@ -58,10 +66,12 @@ namespace ReadComic.Database.Schema
         [ForeignKey("Id_Nhom")]
         public virtual NhomDich NhomDich { get; set; }
 
+        public virtual ChuKyPhatHanh ChuKyPhatHanh { get; set; }
+
         public virtual ICollection<Chuong> Chuongs { get; set; }
         public virtual ICollection<DanhGiaTruyen> DanhGiaTruyens { get; set; }
-        public virtual ICollection<Bookmark> Bookmarks { get; set; }
         public virtual ICollection<LuuTheLoai> LuuTheLoais { get; set; }
         public virtual ICollection<LuuTacGia> LuuTacGias { get; set; }
+        public virtual ICollection<BinhLuan> BinhLuans { get; set; }
     }
 }

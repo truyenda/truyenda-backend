@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadComic", "ReadComic\Read
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadComic.Common", "ReadComic.Common\ReadComic.Common.csproj", "{A32D47CD-C522-438E-8C5D-6AE52C0581A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadComic.Database", "ReadComic.Database\ReadComic.Database.csproj", "{86D9B54B-10C3-4024-83C4-176A66A8FD47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadComic.DataBase", "ReadComic.Database\ReadComic.DataBase.csproj", "{86D9B54B-10C3-4024-83C4-176A66A8FD47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadComic.Validate", "ReadComic.Validate\ReadComic.Validate.csproj", "{04B2E590-FD79-4765-BCCA-1BAB29701914}"
 EndProject

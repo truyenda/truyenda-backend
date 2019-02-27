@@ -72,7 +72,9 @@
   <ItemGroup>
     <Compile Include="BaoMat.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="Enum\ConstantsEnum.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
