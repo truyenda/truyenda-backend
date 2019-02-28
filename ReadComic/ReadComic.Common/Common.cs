@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReadComic.DataBase;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace ReadComic.Common
         /// <returns>
         /// Chuỗi token.
         /// </returns>
-        public static string GetToken(int id, int length = 80)
+        public static string GetToken(int id, int length = 49)
         {
             string token = "";
             Random ran = new Random();
@@ -59,7 +60,7 @@ namespace ReadComic.Common
         /// <returns>
         /// Chuỗi token.
         /// </returns>
-        public static string GetToken(string str, int length = 80)
+        public static string GetToken(string str, int length = 50)
         {
             string token = "";
             Random ran = new Random();
@@ -143,6 +144,17 @@ namespace ReadComic.Common
             {
                 throw e;
             }
+        }
+
+        /// <summary>
+        /// Get các error message theo id để trả về client
+        /// Author       :   HoangNM - 28/02/2019 - create
+        /// <param name="idError">ID error cần lấy</param>
+        /// <returns>error message tương ứng</returns>
+        /// </summary>
+        public string GetErrorMessageById(string id)
+        {
+            return new DataContext().ErrorMsgs.FirstOrDefault(x => !x.DelFlag && x.Id.Equals(id)).mgs;
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Data.Entity;
 using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
 using TblToken = ReadComic.DataBase.Schema.Token;
 using ReadComic.Areas.Home.Models.Schema;
+using ReadComic.Common.Enum;
 
 namespace ReadComic.Areas.Home.Models
 {
@@ -22,7 +23,7 @@ namespace ReadComic.Areas.Home.Models
 
         /// <summary>
         /// Kiểm tra thông tin tài khoản người dùng nhập vào có đúng hay không
-        /// Author       :   AnTM - 17/10/2018 - create
+        /// Author       :   HoangNM - 28/02/2019 - create
         /// </summary>
         /// <param name="account">Đối tượng chưa thông tin tài khoản</param>
         /// <returns>Đối tượng ResponseInfo chứa thông tin của việc kiểm tra</returns>
@@ -36,12 +37,12 @@ namespace ReadComic.Areas.Home.Models
                 if (taiKhoan == null)
                 {
                     result.Code = 202;
-                    //result.MsgNo = (int)MessageEnum.MsgNO.KhongCoTaiKhoan;
+                    result.MsgNo = (int)MessageEnum.MsgNO.KhongCoTaiKhoan;
                     //result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
                 }
-                else if ((taiKhoan.hash_Pass) != BaoMat.GetMD5(account.Password+taiKhoan.salt_Pass))
+                else if ((taiKhoan.hash_Pass) != BaoMat.GetMD5(BaoMat.GetSimpleMD5(account.Password), taiKhoan.salt_Pass))
                 {
-                   // result.MsgNo = (int)MessageEnum.MsgNO.MatKhauKhongDung;
+                   result.MsgNo = (int)MessageEnum.MsgNO.MatKhauKhongDung;
                    // result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
                     
                     result.Code = 205;
@@ -58,23 +59,18 @@ namespace ReadComic.Areas.Home.Models
                     };
                     context.Tokens.Add(tokenLG);
                     result.IsSuccess = true;
-                    //result.Data = new
-                    //{
-                    //    Profile = new Profile()
-                    //    {
-                    //        Id = taiKhoan.Id,
-                    //        CMND = taiKhoan.User.CMND,
-                    //        DiaChi = taiKhoan.User.DiaChi,
-                    //        Email = taiKhoan.Email,
-                    //        GioiTinh = taiKhoan.User.GioiTinh,
-                    //        Ho = taiKhoan.User.Ho,
-                    //        NgaySinh = (DateTime)taiKhoan.User.NgaySinh,
-                    //        SoDienThoai = taiKhoan.User.SoDienThoai,
-                    //        Ten = taiKhoan.User.Ten,
-                    //        Avatar = taiKhoan.User.Avatar
-                    //    },
-                    //    Token = BaoMat.Base64Encode(token)
-                    //};
+                    result.Data = new
+                    {
+                        Profile = new Profile()
+                        {
+                            Id = taiKhoan.Id,
+                            Email = taiKhoan.Email,
+                            GioiTinh = taiKhoan.ThongTinNguoiDung.GioiTinh,
+                            Ten = taiKhoan.ThongTinNguoiDung.Ten,
+                            NgaySinh = (DateTime)taiKhoan.ThongTinNguoiDung.NgaySinh,
+                        },
+                        Token = BaoMat.Base64Encode(token)
+                    };
                     context.SaveChanges();
                 }
                 return result;
@@ -84,5 +80,7 @@ namespace ReadComic.Areas.Home.Models
                 throw e;
             }
         }
+
+        
     }
 }

@@ -61,7 +61,7 @@ namespace ReadComic.Areas.Home.Controllers
             catch (Exception e)
             {
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                //response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
                 //response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
                 response.ThongTinBoSung1 = e.Message;
             }
