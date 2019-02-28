@@ -36,7 +36,8 @@ namespace ReadComic.DataBase
         public virtual DbSet<VaiTro> VaiTros { get; set; }
 
         public DataContext()
-        : base(@"data source=ADMIN\SQLEXPRESS;initial catalog=REadComic;User Id=sa;Password=123456;")
+        : base(@"data source=scomic.database.windows.net;initial catalog=ReadComic;User Id=minhduc;Password=5@03mn0l4ch0n9;")
+        //: base(@"data source=ADMIN\SQLEXPRESS;initial catalog=REadComic;User Id=sa;Password=123456;")
         {
         }
 
