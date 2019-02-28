@@ -27,9 +27,9 @@ namespace ReadComic.Common
         /// <returns>
         /// Chuỗi sau khi đã được mã hóa.
         /// </returns>
-        public static string GetMD5(string str)
+        public static string GetMD5(string str,string salt)
         {
-            str = "READCOMIC" + str + "READCOMIC";
+            str = "READCOMIC" + str + salt;
             string str_md5 = "";
             byte[] mang = System.Text.Encoding.UTF8.GetBytes(str);
             MD5CryptoServiceProvider my_md5 = new MD5CryptoServiceProvider();

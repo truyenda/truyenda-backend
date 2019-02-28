@@ -8,7 +8,7 @@ using System.Web;
 namespace ReadComic.DataBase.Schema
 {
     [Table("ErrorMsg")]
-    public class ErrorMsg
+    public class ErrorMsg : TableHaveIdInt
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -171,6 +171,7 @@
     <Compile Include="Areas\Home\Controllers\LoginController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
     <Compile Include="Areas\Home\Models\LoginModel.cs" />
+    <Compile Include="Areas\Home\Models\Schema\Profile.cs" />
     <Compile Include="Areas\Home\Models\Schema\TaiKhoan.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

@@ -8,7 +8,7 @@ using System.Web;
 namespace ReadComic.DataBase.Schema
 {
     [Table("TrangThaiTruyen")]
-    public class TrangThaiTruyen
+    public class TrangThaiTruyen : TableHaveIdInt
     {
         public TrangThaiTruyen()
         {
