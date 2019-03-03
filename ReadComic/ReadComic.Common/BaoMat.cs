@@ -18,6 +18,28 @@ namespace ReadComic.Common
     public class BaoMat
     {
         /// <summary>
+        /// Lấy chuỗi salt cho Tài khoản mới
+        /// Author       :   HoangNM - 28/02/2019 - create
+        /// </summary>
+        /// <param name="length">
+        /// Dộ dài của salt
+        /// </param>
+        /// <returns>
+        /// Chuỗi sau khi đã được mã hóa.
+        /// </returns>
+        public static string GetSalt(int length = 6)
+        {
+            string salt = "";
+            Random ran = new Random();
+            string tmp = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-";
+            for (int i = 0; i < length; i++)
+            {
+                salt += tmp.Substring(ran.Next(0, 63), 1);
+            }
+            return salt;
+        }
+
+        /// <summary>
         /// Mã hóa MD5 của 1 chuỗi có thêm chuối khóa đầu và cuối.
         /// Author       :   HoangNM - 23/02/2019 - create
         /// </summary>
