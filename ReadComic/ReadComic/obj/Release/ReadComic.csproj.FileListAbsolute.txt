@@ -99,3 +99,5 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\obj\Release\ReadComic.csproj
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\obj\Release\ReadComic.csproj.CopyComplete
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\obj\Release\ReadComic.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\obj\Release\ReadComic.pdb
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Swashbuckle.Core.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\WebActivatorEx.dll
