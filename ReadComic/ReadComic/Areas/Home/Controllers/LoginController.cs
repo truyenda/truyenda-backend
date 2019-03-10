@@ -67,5 +67,36 @@ namespace ReadComic.Areas.Home.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Xử lý việc logout khỏi hệ thống.
+        /// Author       :   HoangNM - 03/03/2019 - create
+        /// </summary>
+        /// <returns>Chuỗi Json chứa kết quả logout</returns>
+        /// <param name="token">token của người dùng từ client gửi lên</param>
+        /// <remarks>
+        /// Method: POST
+        /// RouterName: home/api/logout
+        /// </remarks>
+        [HttpPost]
+        public ResponseInfo Logout([FromBody]string token)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                new LoginModel().RemoveToken(token);
+                response.IsSuccess = true;
+                response.IsValid = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
     }
 }

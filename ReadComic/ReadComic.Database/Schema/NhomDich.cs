@@ -13,13 +13,11 @@ namespace ReadComic.DataBase.Schema
         public NhomDich()
         {
             Truyens = new HashSet<Truyen>();
-            ThongTinNguoiDungs = new HashSet<ThongTinNguoiDung>();
+            TaiKhoans = new HashSet<TaiKhoan>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        public int Id_NhomTruong { get; set; }
 
         [Required]
         [StringLength(50)]
@@ -28,13 +26,10 @@ namespace ReadComic.DataBase.Schema
         public string MoTa { get; set; }
 
         [StringLength(256)]
-        public string Website { get; set; }
-
-        [StringLength(256)]
         public string Logo { get; set; }
 
         public virtual ICollection<Truyen> Truyens { get; set; }
 
-        public virtual ICollection<ThongTinNguoiDung> ThongTinNguoiDungs { get; set; }
+        public virtual ICollection<TaiKhoan> TaiKhoans { get; set; }
     }
 }

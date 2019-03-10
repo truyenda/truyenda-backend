@@ -14,9 +14,10 @@ namespace ReadComic.DataBase.Schema
         {
             Chuongs = new HashSet<Chuong>();
             DanhGiaTruyens = new HashSet<DanhGiaTruyen>();
-            LuuTheLoais = new HashSet<LuuTheLoai>();
+            LuuLoaiTruyens = new HashSet<LuuLoaiTruyen>();
             LuuTacGias = new HashSet<LuuTacGia>();
             BinhLuans = new HashSet<BinhLuan>();
+            TheoDoiTruyens = new HashSet<TheoDoiTruyen>();
         }
 
         [Key]
@@ -32,15 +33,11 @@ namespace ReadComic.DataBase.Schema
         public int Id_LoaiTruyen { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(256)]
         public string TenTruyen { get; set; }
 
-        [StringLength(50)]
-        public string TenKhac { get; set; }
-
-        [Required]
         [StringLength(256)]
-        public string DuongDan { get; set; }
+        public string TenKhac { get; set; }
 
         public int NamPhatHanh { get; set; }
 
@@ -70,8 +67,9 @@ namespace ReadComic.DataBase.Schema
 
         public virtual ICollection<Chuong> Chuongs { get; set; }
         public virtual ICollection<DanhGiaTruyen> DanhGiaTruyens { get; set; }
-        public virtual ICollection<LuuTheLoai> LuuTheLoais { get; set; }
+        public virtual ICollection<LuuLoaiTruyen> LuuLoaiTruyens { get; set; }
         public virtual ICollection<LuuTacGia> LuuTacGias { get; set; }
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
+        public virtual ICollection<TheoDoiTruyen> TheoDoiTruyens { get; set; }
     }
 }

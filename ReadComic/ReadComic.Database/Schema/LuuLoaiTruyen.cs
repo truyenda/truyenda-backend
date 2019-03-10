@@ -7,8 +7,8 @@ using System.Web;
 
 namespace ReadComic.DataBase.Schema
 {
-    [Table("LuuTheLoai")]
-    public class LuuTheLoai : TableHaveIdInt
+    [Table("LuuLoaiTruyen")]
+    public class LuuLoaiTruyen : TableHaveIdInt
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,12 +16,12 @@ namespace ReadComic.DataBase.Schema
 
         public int IdTruyen { get; set; }
 
-        public int IdTheLoai { get; set; }
+        public int IdLoaiTruyen { get; set; }
 
         [ForeignKey("IdTruyen")]
         public virtual Truyen Truyen { get; set; }
 
         [ForeignKey("IdTheLoai")]
-        public virtual TheLoai TheLoai { get; set; }
+        public virtual LoaiTruyen LoaiTruyen { get; set; }
     }
 }
