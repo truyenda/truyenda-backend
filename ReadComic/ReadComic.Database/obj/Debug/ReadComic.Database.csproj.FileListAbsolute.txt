@@ -60,3 +60,5 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.pdb
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\bin\Z.EntityFramework.Plus.EF6.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\bin\Z.EntityFramework.Plus.EF6.xml
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.createdb.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.DataBase.csproj.GenerateResource.cache
