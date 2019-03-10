@@ -12,7 +12,7 @@ namespace ReadComic.DataBase.Schema
     {
         public Chuong()
         {
-            Bookmarks = new HashSet<Bookmark>();
+            TheoDoiTruyens = new HashSet<TheoDoiTruyen>();
         }
 
         [Key]
@@ -22,13 +22,12 @@ namespace ReadComic.DataBase.Schema
         public int Id_Truyen { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(256)]
         public string TenChuong { get; set; }
 
-        public long SoThuTu { get; set; }
+        public float SoThuTu { get; set; }
 
         [Required]
-        [StringLength(256)]
         public string LinkAnh { get; set; }
 
         public long LuotXem { get; set; }
@@ -38,6 +37,6 @@ namespace ReadComic.DataBase.Schema
         [ForeignKey("Id_Truyen")]
         public virtual Truyen Truyen { get; set; }
 
-        public virtual ICollection<Bookmark> Bookmarks { get; set; }
+        public virtual ICollection<TheoDoiTruyen> TheoDoiTruyens { get; set; }
     }
 }

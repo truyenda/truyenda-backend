@@ -7,6 +7,7 @@ using System.Web;
 using System.Data.Entity.Infrastructure;
 using Z.EntityFramework.Plus;
 using System.Security.Cryptography;
+using ReadComic.Database.Schema;
 
 namespace ReadComic.DataBase
 {
@@ -14,26 +15,25 @@ namespace ReadComic.DataBase
     {
         
         public virtual DbSet<BinhLuan> BinhLuans { get; set; }
-        public virtual DbSet<Bookmark> Bookmarks { get; set; }
+        public virtual DbSet<TheoDoiTruyen> TheoDoiTruyens { get; set; }
         public virtual DbSet<ChuKyPhatHanh> ChuKyPhatHanhs { get; set; }
         public virtual DbSet<Chuong> Chuongs { get; set; }
         public virtual DbSet<DanhGiaTruyen> DanhGiaTruyens { get; set; }
         public virtual DbSet<ErrorMsg> ErrorMsgs { get; set; }
         public virtual DbSet<LoaiTruyen> LoaiTruyens { get; set; }
         public virtual DbSet<LuuTacGia> LuuTacGias { get; set; }
-        public virtual DbSet<LuuTheLoai> LuuTheLoais { get; set; }
+        public virtual DbSet<LuuLoaiTruyen> LuuLoaiTruyens { get; set; }
         public virtual DbSet<NhomDich> NhomDiches { get; set; }
         public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<Quyen> Quyens { get; set; }
         public virtual DbSet<TacGia> TacGias { get; set; }
         public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
-        public virtual DbSet<TheLoai> TheLoais { get; set; }
         public virtual DbSet<ThongTinNguoiDung> ThongTinNguoiDungs { get; set; }
         public virtual DbSet<Token> Tokens { get; set; }
         public virtual DbSet<TrangThaiTaiKhoan> TrangThaiTaiKhoans { get; set; }
         public virtual DbSet<TrangThaiTruyen> ThaiTruyens { get; set; }
         public virtual DbSet<Truyen> Truyens { get; set; }
-        public virtual DbSet<VaiTro> VaiTros { get; set; }
+        public virtual DbSet<ResetPassWord> ResetPassWords { get; set; }
 
         public DataContext()
         //: base(@"data source=scomic.database.windows.net;initial catalog=ReadComic;User Id=minhduc;Password=5@03mn0l4ch0n9;")
@@ -108,8 +108,126 @@ namespace ReadComic.DataBase
                 throw ex;
             }
         }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ChuKyPhatHanh>()
+                .HasMany(e => e.Truyens)
+                .WithRequired(e => e.ChuKyPhatHanh)
+                .HasForeignKey(e => e.Id_ChuKy)
+                .WillCascadeOnDelete(false);
 
-        
+            modelBuilder.Entity<Chuong>()
+                .HasMany(e => e.TheoDoiTruyens)
+                .WithRequired(e => e.Chuong)
+                .HasForeignKey(e => e.Id_ChuongDanhDau)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<LoaiTruyen>()
+                .HasMany(e => e.LuuLoaiTruyen)
+                .WithRequired(e => e.LoaiTruyen)
+                .HasForeignKey(e => e.IdLoaiTruyen)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NhomDich>()
+               .HasMany(e => e.Truyens)
+               .WithRequired(e => e.NhomDich)
+               .HasForeignKey(e => e.Id_Nhom)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<NhomDich>()
+               .HasMany(e => e.TaiKhoans)
+               .WithRequired(e => e.NhomDich)
+               .HasForeignKey(e => e.Id_NhomDich)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TacGia>()
+               .HasMany(e => e.LuuTacGias)
+               .WithRequired(e => e.TacGia)
+               .HasForeignKey(e => e.Id_TacGia)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+               .HasMany(e => e.PhanQuyens)
+               .WithRequired(e => e.TaiKhoan)
+               .HasForeignKey(e => e.Id_TaiKhoan)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+               .HasMany(e => e.TheoDoiTruyens)
+               .WithRequired(e => e.TaiKhoan)
+               .HasForeignKey(e => e.Id_NguoiDoc)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+               .HasMany(e => e.BinhLuans)
+               .WithRequired(e => e.TaiKhoan)
+               .HasForeignKey(e => e.Id_TaiKhoan)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+               .HasMany(e => e.DanhGiaTruyens)
+               .WithRequired(e => e.TaiKhoan)
+               .HasForeignKey(e => e.Id_NguoiDanhGia)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+               .HasMany(e => e.Tokens)
+               .WithRequired(e => e.TaiKhoan)
+               .HasForeignKey(e => e.Id_TaiKhoan)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TaiKhoan>()
+               .HasMany(e => e.ResetPassWords)
+               .WithRequired(e => e.TaiKhoan)
+               .HasForeignKey(e => e.Id_TaiKhoan)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<TrangThaiTaiKhoan>()
+               .HasMany(e => e.TaiKhoans)
+               .WithRequired(e => e.TrangThaiTaiKhoan)
+               .HasForeignKey(e => e.Id_TrangThai)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Truyen>()
+               .HasMany(e => e.Chuongs)
+               .WithRequired(e => e.Truyen)
+               .HasForeignKey(e => e.Id_Truyen)
+               .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Truyen>()
+              .HasMany(e => e.DanhGiaTruyens)
+              .WithRequired(e => e.Truyen)
+              .HasForeignKey(e => e.Id_Truyen)
+              .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Truyen>()
+              .HasMany(e => e.LuuLoaiTruyens)
+              .WithRequired(e => e.Truyen)
+              .HasForeignKey(e => e.IdTruyen)
+              .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Truyen>()
+              .HasMany(e => e.LuuTacGias)
+              .WithRequired(e => e.Truyen)
+              .HasForeignKey(e => e.Id_Truyen)
+              .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Truyen>()
+              .HasMany(e => e.BinhLuans)
+              .WithRequired(e => e.Truyen)
+              .HasForeignKey(e => e.Id_Truyen)
+              .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Truyen>()
+              .HasMany(e => e.TheoDoiTruyens)
+              .WithRequired(e => e.Truyen)
+              .HasForeignKey(e => e.Id_Truyen)
+              .WillCascadeOnDelete(false);
+
+           
+
+        }
+
     }
 
     public class TaoDataBase : CreateDatabaseIfNotExists<DataContext>
@@ -214,7 +332,7 @@ namespace ReadComic.DataBase
                 {
                     return 0;
                 }
-                return tokenLogin.ThongTinNguoiDung.Id;
+                return tokenLogin.TaiKhoan.Id;
             }
             catch
             {

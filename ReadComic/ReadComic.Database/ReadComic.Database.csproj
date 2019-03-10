@@ -82,38 +82,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="Migrations\201902271829242_create-db.cs" />
-    <Compile Include="Migrations\201902271829242_create-db.Designer.cs">
-      <DependentUpon>201902271829242_create-db.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902280032127_edit-db-1.cs" />
-    <Compile Include="Migrations\201902280032127_edit-db-1.Designer.cs">
-      <DependentUpon>201902280032127_edit-db-1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\BinhLuan.cs" />
-    <Compile Include="Schema\Bookmark.cs" />
+    <Compile Include="Schema\ResetPassWord.cs" />
+    <Compile Include="Schema\TheoDoiTruyen.cs" />
     <Compile Include="Schema\ChuKyPhatHanh.cs" />
     <Compile Include="Schema\Chuong.cs" />
     <Compile Include="Schema\DanhGiaTruyen.cs" />
     <Compile Include="Schema\ErrorMsg.cs" />
-    <Compile Include="Schema\LoaiTruyen.cs" />
     <Compile Include="Schema\LuuTacGia.cs" />
-    <Compile Include="Schema\LuuTheLoai.cs" />
+    <Compile Include="Schema\LuuLoaiTruyen.cs" />
     <Compile Include="Schema\NhomDich.cs" />
     <Compile Include="Schema\PhanQuyen.cs" />
     <Compile Include="Schema\Quyen.cs" />
     <Compile Include="Schema\Table.cs" />
     <Compile Include="Schema\TacGia.cs" />
     <Compile Include="Schema\TaiKhoan.cs" />
-    <Compile Include="Schema\TheLoai.cs" />
+    <Compile Include="Schema\LoaiTruyen.cs" />
     <Compile Include="Schema\ThongTinNguoiDung.cs" />
     <Compile Include="Schema\Token.cs" />
     <Compile Include="Schema\TrangThaiTaiKhoan.cs" />
     <Compile Include="Schema\TrangThaiTruyen.cs" />
     <Compile Include="Schema\Truyen.cs" />
-    <Compile Include="Schema\VaiTro.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -123,14 +114,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201902271829242_create-db.resx">
-      <DependentUpon>201902271829242_create-db.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902280032127_edit-db-1.resx">
-      <DependentUpon>201902280032127_edit-db-1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

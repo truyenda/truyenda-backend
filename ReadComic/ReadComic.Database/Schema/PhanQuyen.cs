@@ -14,13 +14,15 @@ namespace ReadComic.DataBase.Schema
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int Id_VaiTro { get; set; }
+        public string TenVaiTro { get; set; }
+
+        public ulong TongQuyen { get; set; }
+
         public int Id_TaiKhoan { get; set; }
 
         [ForeignKey("Id_TaiKhoan")]
         public virtual TaiKhoan TaiKhoan { get; set; }
 
-        [ForeignKey("Id_TaiKhoan")]
-        public virtual VaiTro VaiTro { get; set; }
+        
     }
 }

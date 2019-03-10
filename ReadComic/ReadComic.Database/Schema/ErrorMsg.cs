@@ -11,7 +11,6 @@ namespace ReadComic.DataBase.Schema
     public class ErrorMsg : TableHaveIdInt
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int Type { get; set; }

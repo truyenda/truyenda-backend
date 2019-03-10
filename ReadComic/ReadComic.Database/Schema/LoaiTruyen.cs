@@ -12,17 +12,18 @@ namespace ReadComic.DataBase.Schema
     {
         public LoaiTruyen()
         {
-            Truyens = new HashSet<Truyen>();
+            LuuLoaiTruyen = new HashSet<LuuLoaiTruyen>();
         }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         [Required]
         [StringLength(50)]
-        public string TenLoai { get; set; }
+        public string TenTheLoai { get; set; }
 
-        public virtual ICollection<Truyen> Truyens { get; set; }
+        public string Mota { get; set; }
+
+        public virtual ICollection<LuuLoaiTruyen> LuuLoaiTruyen { get; set; }
     }
 }
