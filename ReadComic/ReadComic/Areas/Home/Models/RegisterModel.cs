@@ -67,31 +67,30 @@ namespace ReadComic.Areas.Home.Models
                             salt_Pass=salt,
                             hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(newAccount.Password), salt),
                             Email = newAccount.Email,
-                            Id_TrangThai=2,
-                            Id_User=user.Id
+                            Id_TrangThai=1,
+                            Id_User=user.Id,
+                            Id_NhomDich=2,
+                            Id_Face="",
+                            Id_Google=""
                         };
-                        // Cho tài khoản thuộc vào 1 group
-                        //taiKhoan.PhanQuyens.Add(new TblPhanQuyens
-                        //{
-                        //    Id_VaiTro = 1
-                        //});
-                        
-                        
-                       
+                         //Cho tài khoản thuộc vào 1 group
+                        taiKhoan.PhanQuyens.Add(new TblPhanQuyens
+                        {
+                            TenVaiTro="Người dùng",
+                            TongQuyen=1
+                        });
+
+
+
                         context.TaiKhoans.Add(taiKhoan);
                         // Lưu vào CSDL
                         context.SaveChanges();
 
-                        //context.PhanQuyens.Add(new TblPhanQuyens
-                        //{
-                        //    Id_TaiKhoan=taiKhoan.Id,
-                        //    Id_VaiTro=1
-                        //});
-                        //context.SaveChanges();
+                        
                         result.IsSuccess = true;
                         result.IsValid = true;
                         result.MsgNo = 39;
-                        result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
+                        //result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
                         //result.ThongTinBoSung1 = BaoMat.Base64Encode(taiKhoan.Tokens.);
                     }
                     else

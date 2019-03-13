@@ -155,10 +155,14 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyChuKyTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyLoaiTruyenController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\QuanLyLoaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\Schema\LoaiTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\QuanLyTrangThaiTruyenModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\Schema\TrangThaiTruyen.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />

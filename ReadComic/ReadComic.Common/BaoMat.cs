@@ -27,7 +27,7 @@ namespace ReadComic.Common
         /// <returns>
         /// Chuỗi sau khi đã được mã hóa.
         /// </returns>
-        public static string GetSalt(int length = 6)
+        public static string GetSalt(int length = 10)
         {
             string salt = "";
             Random ran = new Random();

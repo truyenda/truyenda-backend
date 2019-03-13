@@ -16,7 +16,7 @@ namespace ReadComic.DataBase.Schema
 
         public string TenVaiTro { get; set; }
 
-        public ulong TongQuyen { get; set; }
+        public decimal TongQuyen { get; set; }
 
         public int Id_TaiKhoan { get; set; }
 
