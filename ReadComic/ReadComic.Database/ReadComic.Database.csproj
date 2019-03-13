@@ -82,9 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext.cs" />
-    <Compile Include="Migrations\201903101435459_create-db.cs" />
-    <Compile Include="Migrations\201903101435459_create-db.Designer.cs">
-      <DependentUpon>201903101435459_create-db.cs</DependentUpon>
+    <Compile Include="Migrations\201903131348019_create_db.cs" />
+    <Compile Include="Migrations\201903131348019_create_db.Designer.cs">
+      <DependentUpon>201903131348019_create_db.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,8 +120,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201903101435459_create-db.resx">
-      <DependentUpon>201903101435459_create-db.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903131348019_create_db.resx">
+      <DependentUpon>201903131348019_create_db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

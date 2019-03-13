@@ -14,7 +14,7 @@ namespace ReadComic.DataBase.Schema
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         
-        public ulong BitQuyen { get; set; }
+        public decimal BitQuyen { get; set; }
 
         [StringLength(50)]
         public string TenQuyen { get; set; }

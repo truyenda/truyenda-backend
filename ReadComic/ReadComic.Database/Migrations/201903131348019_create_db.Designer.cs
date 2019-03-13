@@ -7,13 +7,13 @@ namespace ReadComic.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class createdb : IMigrationMetadata
+    public sealed partial class create_db : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(createdb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(create_db));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903101435459_create-db"; }
+            get { return "201903131348019_create_db"; }
         }
         
         string IMigrationMetadata.Source

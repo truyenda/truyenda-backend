@@ -10,11 +10,6 @@ namespace ReadComic.DataBase.Schema
     [Table("ThongTinNguoiDung")]
     public class ThongTinNguoiDung : TableHaveIdInt
     {
-        public ThongTinNguoiDung()
-        {
-
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

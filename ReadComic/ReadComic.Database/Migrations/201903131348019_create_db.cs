@@ -3,7 +3,7 @@ namespace ReadComic.Database.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class createdb : DbMigration
+    public partial class create_db : DbMigration
     {
         public override void Up()
         {
@@ -267,6 +267,7 @@ namespace ReadComic.Database.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         TenVaiTro = c.String(),
+                        TongQuyen = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Id_TaiKhoan = c.Int(nullable: false),
                         Created_at = c.DateTime(),
                         Created_by = c.Int(nullable: false),
@@ -365,6 +366,7 @@ namespace ReadComic.Database.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        BitQuyen = c.Decimal(nullable: false, precision: 18, scale: 2),
                         TenQuyen = c.String(maxLength: 50),
                         Created_at = c.DateTime(),
                         Created_by = c.Int(nullable: false),
