@@ -10,12 +10,12 @@ using TbLoaiTruyen = ReadComic.DataBase.Schema.LoaiTruyen;
 namespace ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen
 {
     /// <summary>
-    /// Class dùng để xử lý các hoạt động liên quan đến slide.
-    /// Author       :   HangNTD - 18/07/2018 - create
+    /// Class dùng để xử lý các hoạt động liên quan đến loại truyện.
+    /// Author       :   HoangNM - 10/03/2019 - create
     /// </summary>
     /// <remarks>
     /// Package      :   ControlPanel.Models
-    /// Copyright    :   Team Noname
+    /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
     public class QuanLyLoaiTruyenModel
@@ -37,7 +37,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen
             {
                 List<LoaiTruyen> listLoaiTruyen = new List<LoaiTruyen>();
 
-                //.Where(x => !x.DelFlag)
                 listLoaiTruyen = context.LoaiTruyens.Where(x => !x.DelFlag)
                     .Select(x => new LoaiTruyen
                     {
