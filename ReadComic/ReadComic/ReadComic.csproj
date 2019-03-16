@@ -161,6 +161,9 @@
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\QuanLyLoaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\Schema\LoaiTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTacGia\QuanLyTacGiaModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTacGia.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\QuanLyTrangThaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\Schema\TrangThaiTruyen.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />

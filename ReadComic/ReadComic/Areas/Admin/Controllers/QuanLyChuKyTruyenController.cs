@@ -119,7 +119,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: ThemChuKy
         /// </remarks>
         [HttpPost]
-        public ResponseInfo ThemLoaiTruyen(ChuKy data)
+        public ResponseInfo ThemChuKy(ChuKy data)
         {
             ResponseInfo response = new ResponseInfo();
             try
