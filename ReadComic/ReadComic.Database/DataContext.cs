@@ -36,9 +36,8 @@ namespace ReadComic.DataBase
         public virtual DbSet<ResetPassWord> ResetPassWords { get; set; }
 
         public DataContext()
-        //: base(@"data source=scomic.database.windows.net;initial catalog=ReadComic;User Id=minhduc;Password=5@03mn0l4ch0n9;")
-        //: base(@"data source=truyenda.database.windows.net;initial catalog=ReadComic;User Id=truyenda;Password=5@03mn0l4ch0n9;")
-        : base(@"data source=ADMIN\SQLEXPRESS;initial catalog=REadComic;User Id=sa;Password=123456;")
+        
+        : base(Connection.stringConnection())
         {
         }
 
