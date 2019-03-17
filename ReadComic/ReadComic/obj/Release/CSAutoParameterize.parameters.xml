@@ -1,2 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters />
+<parameters>
+  <parameter name="ReadComic.DataBase.DataContext-Web.config Connection String" description="ReadComic.DataBase.DataContext Connection String used in web.config by the application to access the database." defaultValue="ReadComic.DataBase.DataContext_ConnectionString" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Admin\\Desktop\\DoAnCNPM\\ReadComic\\ReadComic\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ReadComic.DataBase.DataContext']/@connectionString" />
+  </parameter>
+</parameters>

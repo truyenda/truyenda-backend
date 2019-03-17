@@ -155,12 +155,15 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyChuKyTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyLoaiTruyenController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyNhomDichController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\QuanLyLoaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\Schema\LoaiTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyNhomDich\QuanLyNhomDichModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyNhomDich\Schema\NhomDich.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\QuanLyTacGiaModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\TacGia.cs" />
@@ -242,8 +245,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\Home\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <None Include="Properties\PublishProfiles\scomic - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\scomic - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
