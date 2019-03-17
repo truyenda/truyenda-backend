@@ -89,6 +89,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\BinhLuan.cs" />
+    <Compile Include="Schema\Connection.cs" />
     <Compile Include="Schema\ResetPassWord.cs" />
     <Compile Include="Schema\TheoDoiTruyen.cs" />
     <Compile Include="Schema\ChuKyPhatHanh.cs" />
