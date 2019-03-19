@@ -32,7 +32,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </returns>
         /// <remarks>
         /// Method: GET
-        /// RouterName: 
+        /// RouterName: APIDanhSachNhomDich
         /// </remarks>
         [HttpGet]
         public ResponseInfo DanhSachNhomDich()
@@ -80,8 +80,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="ids">Danh sách id các nhóm dịch sẽ xóa</param>
         /// <returns>Đối tượng chứa thông tin về quá trình xóa nhóm dịch</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: 
+        /// Method: Delete
+        /// RouterName: APIDeleteNhomDich
         /// </remarks>
         [HttpDelete]
         public ResponseInfo DeleteNhomDich(int id)
@@ -117,7 +117,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thêm loại truyện</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: ThemNhomDich
+        /// RouterName: APICreateNhomDich
         /// </remarks>
         [HttpPost]
         public ResponseInfo ThemNhomDich(NhomDich data)
@@ -144,8 +144,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="data">Là nhóm dịch truyện cần thay đổi</param>
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi nhóm dịch</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: SuaNhomDich
+        /// Method: PUT
+        /// RouterName: APIUpdateNhomDich
         /// </remarks>
         [HttpPut]
         public ResponseInfo UpdateNhomDich(NhomDich data)

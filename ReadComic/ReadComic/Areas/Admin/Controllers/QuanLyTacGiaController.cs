@@ -41,7 +41,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </returns>
         /// <remarks>
         /// Method: GET
-        /// RouterName: 
+        /// RouterName: APIDanhSachTacGia
         /// </remarks>
         [HttpPost]
         public ResponseInfo DanhSachTacGia(TacGiaConditionSearch condition)
@@ -88,8 +88,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="ids">Danh sách id các tác giả sẽ xóa</param>
         /// <returns>Đối tượng chứa thông tin về quá trình xóa tác giả</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: 
+        /// Method: Delete
+        /// RouterName: APIDeleteTacGia
         /// </remarks>
         [HttpDelete]
         public ResponseInfo DeleteTacGia(int id)
@@ -125,7 +125,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thêm tác giả</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: ThemTacGia
+        /// RouterName: APICreateTacGia
         /// </remarks>
         [HttpPost]
         public ResponseInfo ThemTacGia(TacGia data)
@@ -153,7 +153,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin tác giả</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: SuaTacGia
+        /// RouterName: APIUpdateTacGia
         /// </remarks>
         [HttpPut]
         public ResponseInfo UpdateTacGia(TacGia data)
