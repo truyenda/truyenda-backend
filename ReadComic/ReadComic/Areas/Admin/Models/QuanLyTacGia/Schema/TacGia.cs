@@ -24,7 +24,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema
     }
 
     /// <summary>
-    /// Class dùng để chứa thông tin tìm kiếm của danh sách tài khoản
+    /// Class dùng để chứa thông tin tìm kiếm của danh sách tác giả
     /// Author       :   HoangNM - 16/03/2019 - create
     /// </summary>
     /// <remarks>
