@@ -32,7 +32,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </returns>
         /// <remarks>
         /// Method: GET
-        /// RouterName: 
+        /// RouterName: APIDanhSachTrangThaiTruyen
         /// </remarks>
         [HttpGet]
         public ResponseInfo DanhSachTrangThaiTruyen()
@@ -80,8 +80,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="ids">Danh sách id các trạng thái phát hành truyện sẽ xóa</param>
         /// <returns>Đối tượng chứa thông tin về quá trình xóa trạng thái truyện</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: 
+        /// Method: Delete
+        /// RouterName: APIDeleteTrangThaiTruyen
         /// </remarks>
         [HttpDelete]
         public ResponseInfo DeleteTrangThaiTruyen(int id)
@@ -117,7 +117,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thêm trạng thái truyện</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: ThemTrangThaiTruyen
+        /// RouterName: APICreateTrangThaiTruyen
         /// </remarks>
         [HttpPost]
         public ResponseInfo ThemTrangThaiTruyen(TrangThaiTruyen data)
@@ -144,8 +144,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="data">Là trạng thái truyện cần thay đổi</param>
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin trạng thái truyện</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: SuaTrangThai
+        /// Method: PUT
+        /// RouterName: APIUpdateTrangThaiTruyen
         /// </remarks>
         [HttpPut]
         public ResponseInfo UpdateTrangThaiTruyen(TrangThaiTruyen data)

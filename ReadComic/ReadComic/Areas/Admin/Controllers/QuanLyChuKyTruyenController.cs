@@ -31,7 +31,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </returns>
         /// <remarks>
         /// Method: GET
-        /// RouterName: 
+        /// RouterName: APIDanhSachChuKyPhatHanh
         /// </remarks>
         [HttpGet]
         public ResponseInfo DanhSachChuKyPhatHanh()
@@ -79,8 +79,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="ids">Danh sách id các chu kỳ phát hành truyện sẽ xóa</param>
         /// <returns>Đối tượng chứa thông tin về quá trình xóa chu kỳ phát hành truyện</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: 
+        /// Method: Delete
+        /// RouterName: APIDeleteChuKyPhatHanh
         /// </remarks>
         [HttpDelete]
         public ResponseInfo DeleteChuKyTruyen(int id)
@@ -116,7 +116,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thêm loại truyện</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: ThemChuKy
+        /// RouterName: APICreateChuKyPhatHanh
         /// </remarks>
         [HttpPost]
         public ResponseInfo ThemChuKy(ChuKy data)
@@ -143,8 +143,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="data">Là chu kỳ phát hành truyện cần thay đổi</param>
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin loại truyện</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: SuaChuKy
+        /// Method: PUT
+        /// RouterName: APIUpdateChuKyPhatHanh
         /// </remarks>
         [HttpPut]
         public ResponseInfo UpdateChuKy(ChuKy data)

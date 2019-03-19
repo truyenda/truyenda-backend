@@ -22,16 +22,16 @@ namespace ReadComic.Areas.Admin.Controllers
     /// </remarks>
     public class QuanLyLoaiTruyenController : ApiController
     {
-        
+
         /// <summary>
         /// Điều hướng đến trang hiển thị danh sách loại truyên.
         /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
         /// Author       :   HoangNM - 10/03/2019 - create
         /// </summary>
-        
+
         /// <remarks>
         /// Method: GET
-        /// RouterName: 
+        /// RouterName: APIDanhSachLoaiTruyen
         /// </remarks>
         [HttpGet]
         public ResponseInfo DanhSachLoaiTruyen()
@@ -80,7 +80,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình xóa loại truyện</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: DeleteLoaiTruyen
+        /// RouterName: APIDeleteLoaiTruyen
         /// </remarks>
         [HttpDelete]
         public ResponseInfo DeleteLoaiTruyen(int id)
@@ -116,7 +116,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thêm loại truyện</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: ThemLoaiTruyen
+        /// RouterName: APICreateLoaiTruyen
         /// </remarks>
         [HttpPost]
         public ResponseInfo ThemLoaiTruyen(LoaiTruyen data)
@@ -143,8 +143,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="data">Là loại truyện cần thêm</param>
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin loại truyện</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: SuaLoaiTruyen
+        /// Method: PUT
+        /// RouterName: APIUpdateLoaiTruyen
         /// </remarks>
         [HttpPut]
         public ResponseInfo UpdateLoaiTruyen(LoaiTruyen data)

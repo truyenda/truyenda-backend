@@ -40,8 +40,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Trang danh sách tài khoản
         /// </returns>
         /// <remarks>
-        /// Method: GET
-        /// RouterName: 
+        /// Method: Post
+        /// RouterName: APIDanhSachTaiKhoan
         /// </remarks>
         [HttpPost]
         public ResponseInfo DanhSachTacGia(TaiKhoanConditionSearch condition)
@@ -88,8 +88,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="ids">Danh sách id các tác giả sẽ xóa</param>
         /// <returns>Đối tượng chứa thông tin về quá trình xóa tài khoản</returns>
         /// <remarks>
-        /// Method: POST
-        /// RouterName: 
+        /// Method: Delete
+        /// RouterName: APIDeleteTaiKhoan
         /// </remarks>
         [HttpDelete]
         public ResponseInfo DeleteTaiKhoan(int id)
@@ -127,26 +127,26 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin tài khoản</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: SuaTaiKhoan
+        /// RouterName: APIUpdateTaiKhoan
         /// </remarks>
 
-        [HttpPut]
-        public ResponseInfo UpdateTaiKhoan(TaiKhoan data)
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
+        //[HttpPut]
+        //public ResponseInfo UpdateTaiKhoan(TaiKhoan data)
+        //{
+        //    ResponseInfo response = new ResponseInfo();
+        //    try
+        //    {
+        //        response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+        //        response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+        //        response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+        //        response.ThongTinBoSung1 = e.Message;
+        //    }
+        //    return response;
+        //}
 
         /// <summary>
         /// Dùng để cập nhật trạng thái cho tài khoán (khóa hay bình thường)
@@ -156,7 +156,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi trạng thái tài khoản</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: UpdateTrangThaiTaiKhoan
+        /// RouterName: APIUpdateTrangThai
         /// </remarks>
 
         [HttpPut]
@@ -185,7 +185,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi nhóm cho tài khoản</returns>
         /// <remarks>
         /// Method: POST
-        /// RouterName: UpdateNhomTaiKhoan
+        /// RouterName: APIUpdateNhom
         /// </remarks>
 
         [HttpPut]
