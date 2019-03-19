@@ -157,6 +157,7 @@
     <Compile Include="Areas\Admin\Controllers\QuanLyLoaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyNhomDichController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyTaiKhoanController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
@@ -167,6 +168,11 @@
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\QuanLyTacGiaModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\TacGia.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\QuanLyTaiKhoanModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\DanhSachTaiKhoan.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\Nhom.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\TaiKhoan.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\TrangThaiTaiKhoan.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\QuanLyTrangThaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\Schema\TrangThaiTruyen.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
@@ -245,7 +251,7 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\Home\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
