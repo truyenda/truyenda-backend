@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ReadComic.Areas.Admin.Controllers
 {
@@ -20,6 +21,7 @@ namespace ReadComic.Areas.Admin.Controllers
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
+    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuanLyTacGiaController : ApiController
     {
         [HttpOptions]
