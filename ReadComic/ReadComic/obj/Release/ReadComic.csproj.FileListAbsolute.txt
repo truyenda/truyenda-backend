@@ -106,3 +106,6 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Z.EntityFramework.Extens
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\EntityFramework.Extended.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\EntityFramework.Extended.dll.config
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Z.EntityFramework.Extensions.xml
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Web.Cors.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Web.Http.Cors.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Web.Http.Cors.xml

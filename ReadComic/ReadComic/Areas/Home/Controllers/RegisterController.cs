@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using static ReadComic.Common.Enum.ConstantsEnum;
 using static ReadComic.Common.Enum.MessageEnum;
 
@@ -21,6 +22,7 @@ namespace ReadComic.Areas.Home.Controllers
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
+    //[EnableCors(origins: "http://localhost,http://truyenda.tk", headers: "*", methods: "*")]
     public class RegisterController : ApiController
     {
         /// <summary>
