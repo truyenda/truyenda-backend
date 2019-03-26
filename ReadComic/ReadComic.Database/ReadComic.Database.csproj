@@ -86,10 +86,27 @@
     <Compile Include="Migrations\201903131348019_create_db.Designer.cs">
       <DependentUpon>201903131348019_create_db.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903250342569_add_TblLuotXemNgay.cs" />
+    <Compile Include="Migrations\201903250342569_add_TblLuotXemNgay.Designer.cs">
+      <DependentUpon>201903250342569_add_TblLuotXemNgay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903250401398_edit_loaiTruyen.cs" />
+    <Compile Include="Migrations\201903250401398_edit_loaiTruyen.Designer.cs">
+      <DependentUpon>201903250401398_edit_loaiTruyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903251721478_Edit_LuotXemNgay.cs" />
+    <Compile Include="Migrations\201903251721478_Edit_LuotXemNgay.Designer.cs">
+      <DependentUpon>201903251721478_Edit_LuotXemNgay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903251724091_Edit_LuotXemNgay_2.cs" />
+    <Compile Include="Migrations\201903251724091_Edit_LuotXemNgay_2.Designer.cs">
+      <DependentUpon>201903251724091_Edit_LuotXemNgay_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\BinhLuan.cs" />
     <Compile Include="Schema\Connection.cs" />
+    <Compile Include="Schema\LuotXemNgay.cs" />
     <Compile Include="Schema\ResetPassWord.cs" />
     <Compile Include="Schema\TheoDoiTruyen.cs" />
     <Compile Include="Schema\ChuKyPhatHanh.cs" />
@@ -123,6 +140,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201903131348019_create_db.resx">
       <DependentUpon>201903131348019_create_db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250342569_add_TblLuotXemNgay.resx">
+      <DependentUpon>201903250342569_add_TblLuotXemNgay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250401398_edit_loaiTruyen.resx">
+      <DependentUpon>201903250401398_edit_loaiTruyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903251721478_Edit_LuotXemNgay.resx">
+      <DependentUpon>201903251721478_Edit_LuotXemNgay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903251724091_Edit_LuotXemNgay_2.resx">
+      <DependentUpon>201903251724091_Edit_LuotXemNgay_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

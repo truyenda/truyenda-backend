@@ -22,7 +22,10 @@ namespace ReadComic.DataBase.Schema
         [StringLength(1000)]
         public string NoiDung { get; set; }
 
+        [ForeignKey("Id_TaiKhoan")]
         public virtual TaiKhoan TaiKhoan { get; set; }
+
+        [ForeignKey("Id_Truyen")]
         public virtual Truyen Truyen { get; set; }
     }
 }

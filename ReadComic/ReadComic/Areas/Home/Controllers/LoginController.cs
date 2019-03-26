@@ -21,7 +21,6 @@ namespace ReadComic.Areas.Home.Controllers
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LoginController : ApiController
     {
         [HttpOptions]
