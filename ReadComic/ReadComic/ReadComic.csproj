@@ -168,6 +168,7 @@
     <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\QuanLyLoaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\Schema\LoaiTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyNhomDich\QuanLyNhomDichModel.cs" />
@@ -210,9 +211,13 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\Home\Controllers\HomeController.cs" />
     <Compile Include="Areas\Home\Controllers\LoginController.cs" />
     <Compile Include="Areas\Home\Controllers\RegisterController.cs" />
     <Compile Include="Areas\Home\HomeAreaRegistration.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\HomeModel.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\Comic.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\TheLoai.cs" />
     <Compile Include="Areas\Home\Models\LoginModel.cs" />
     <Compile Include="Areas\Home\Models\RegisterModel.cs" />
     <Compile Include="Areas\Home\Models\Schema\NewAccount.cs" />
