@@ -29,8 +29,20 @@ namespace ReadComic.Areas.Home
 
             context.Routes.MapHttpRoute(
                 "APICheckLogin",
-                "api/home/login",
+                "login",
                 new { controller = "Login", action = "CheckLogin", id = UrlParameter.Optional }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APILogout",
+                "logout",
+                new { controller = "Login", action = "Logout", id = UrlParameter.Optional }
+            );
+
+            context.Routes.MapHttpRoute(
+                "GetNewComic",
+                "NewComicList",
+                new { controller = "Home", action = "GetNewComicList", id = UrlParameter.Optional }
             );
 
             context.MapRoute(
