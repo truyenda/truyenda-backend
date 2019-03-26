@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReadComic.Database.Schema;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,7 @@ namespace ReadComic.DataBase.Schema
             LuuTacGias = new HashSet<LuuTacGia>();
             BinhLuans = new HashSet<BinhLuan>();
             TheoDoiTruyens = new HashSet<TheoDoiTruyen>();
+            LuotXemNgay = new HashSet<LuotXemNgay>();
         }
 
         [Key]
@@ -29,8 +31,6 @@ namespace ReadComic.DataBase.Schema
         public int Id_ChuKy { get; set; }
 
         public int Id_TrangThai { get; set; }
-
-        public int Id_LoaiTruyen { get; set; }
 
         [Required]
         [StringLength(256)]
@@ -54,8 +54,6 @@ namespace ReadComic.DataBase.Schema
         
         public DateTime NgayTao { get; set; }
 
-        [ForeignKey("Id_LoaiTruyen")]
-        public virtual LoaiTruyen LoaiTruyen { get; set; }
 
         [ForeignKey("Id_TrangThai")]
         public virtual TrangThaiTruyen TrangThaiTruyen { get; set; }
@@ -63,7 +61,10 @@ namespace ReadComic.DataBase.Schema
         [ForeignKey("Id_Nhom")]
         public virtual NhomDich NhomDich { get; set; }
 
+        [ForeignKey("Id_ChuKy")]
         public virtual ChuKyPhatHanh ChuKyPhatHanh { get; set; }
+
+        
 
         public virtual ICollection<Chuong> Chuongs { get; set; }
         public virtual ICollection<DanhGiaTruyen> DanhGiaTruyens { get; set; }
@@ -71,5 +72,6 @@ namespace ReadComic.DataBase.Schema
         public virtual ICollection<LuuTacGia> LuuTacGias { get; set; }
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         public virtual ICollection<TheoDoiTruyen> TheoDoiTruyens { get; set; }
+        public virtual ICollection<LuotXemNgay> LuotXemNgay { get; set; }
     }
 }

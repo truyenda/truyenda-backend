@@ -62,3 +62,7 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\bin\Z.EntityFramewo
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\bin\Z.EntityFramework.Plus.EF6.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.create_db.resources
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.DataBase.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.add_TblLuotXemNgay.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.edit_loaiTruyen.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_LuotXemNgay.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_LuotXemNgay_2.resources
