@@ -23,11 +23,13 @@ namespace ReadComic.DataBase.Schema
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [ForeignKey("ThongTinNguoiDung")]
         public int Id { get; set; }
 
         public int Id_TrangThai { get; set; }
 
-        public int Id_User { get; set; }
+       
+        //public int Id_User { get; set; }
 
         public int Id_NhomDich { get; set; }
 
@@ -60,7 +62,7 @@ namespace ReadComic.DataBase.Schema
         [ForeignKey("Id_TrangThai")]
         public virtual TrangThaiTaiKhoan TrangThaiTaiKhoan { get; set; }
 
-        [ForeignKey("Id_User")]
+        
         public virtual ThongTinNguoiDung ThongTinNguoiDung { get; set; }
 
         public virtual NhomDich NhomDich { get; set; }

@@ -8,6 +8,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
+using TblToken = ReadComic.DataBase.Schema.Token;
+using TblPhanQuyen = ReadComic.DataBase.Schema.PhanQuyen;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
 {
@@ -34,8 +36,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// Author       :   HoangNM - 18/03/2019 - create
         /// </summary>
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
+        /// <param name="type">loại quyền của tài khoản</param>
         /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachTaiKhoan GetListTaiKhoan(TaiKhoanConditionSearch condition)
+        public DanhSachTaiKhoan GetListTaiKhoan(TaiKhoanConditionSearch condition,int type)
         {
             try
             {
@@ -45,6 +48,12 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                     condition = new TaiKhoanConditionSearch();
                 }
                 DanhSachTaiKhoan listTaiKhoan = new DanhSachTaiKhoan();
+                if (type == 2)
+                {
+                    string Token = BaoMat.Base64Decode(condition.Token);
+                    TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
+                    condition.IdNhom = context.TaiKhoans.FirstOrDefault(x => x.Id == TblToken.Id_TaiKhoan).Id_NhomDich;
+                }
 
                 // Lấy các thông tin dùng để phân trang
                 listTaiKhoan.Paging = new Paging(context.TaiKhoans.Count(x =>
@@ -52,7 +61,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                     && (condition.Username == null || (condition.Username != null &&  x.Username.Contains(condition.Username) ))
                     && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.TrangThaiTaiKhoan.Id==condition.IdTrangThai))
                     && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.NhomDich.Id==condition.IdNhom)))
-                    , condition.CurrentPage, condition.PageSize);
+                    , condition.CurrentPage);
                 // Tìm kiếm và lấy dữ liệu theo trang
                 listTaiKhoan.listTaiKhoan = context.TaiKhoans.Where(x =>
                 (condition.Email == null || (condition.Email != null && (x.Email.Contains(condition.Email))))
@@ -229,6 +238,38 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                 response.IsSuccess = false;
                 transaction.Rollback();
                 throw e;
+            }
+        }
+
+        /// <summary>
+        /// Check quyền của tài khoản
+        /// Author       :   HoangNM - 29/03/2019 - create
+        /// </summary>
+        /// <param name="token">token của tài khoản</param>
+        /// <returns>Nếu trả về là 1 tức là admin, có quyền xem hết danh sách tài khoản</returns>
+        /// <returns>Nếu trả về là 2 tức là Team leader , có quyền xem hết danh sách tài khoản trong nhóm</returns>
+        public int CheckQuyen(string token)
+        {
+            
+            try
+            {
+                string Token = BaoMat.Base64Decode(token);
+                TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
+                if(context.PhanQuyens.FirstOrDefault(x => x.Id == 1).Id_TaiKhoan == TblToken.Id_TaiKhoan)
+                {
+                    return 1;
+                }else if(context.PhanQuyens.FirstOrDefault(x => x.Id == 2).Id_TaiKhoan == TblToken.Id_TaiKhoan)
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            catch (Exception e)
+            {
+                return 0;
             }
         }
 

@@ -68,7 +68,6 @@ namespace ReadComic.Areas.Home.Models
                             hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(newAccount.Password), salt),
                             Email = newAccount.Email,
                             Id_TrangThai=1,
-                            Id_User=user.Id,
                             Id_NhomDich=2,
                             Id_Face="",
                             Id_Google=""
@@ -86,7 +85,7 @@ namespace ReadComic.Areas.Home.Models
                         // Lưu vào CSDL
                         context.SaveChanges();
 
-                        
+                        result.Code = 200;
                         result.IsSuccess = true;
                         result.IsValid = true;
                         result.MsgNo = 39;

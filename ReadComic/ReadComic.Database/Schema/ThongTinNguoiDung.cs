@@ -25,7 +25,7 @@ namespace ReadComic.DataBase.Schema
         [StringLength(50)]
         public string token_EmailResetPass { get; set; }
 
-        
+        public virtual TaiKhoan TaiKhoan { get; set; }
 
     }
 }

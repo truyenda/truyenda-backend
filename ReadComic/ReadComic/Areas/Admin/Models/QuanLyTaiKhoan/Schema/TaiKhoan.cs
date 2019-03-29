@@ -51,7 +51,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
         public string Username { get; set; }
         public string Email { get; set; }
         public int CurrentPage { set; get; }
-        public int PageSize { set; get; }
+        public string Token { get; set; }
 
         public TaiKhoanConditionSearch()
         {
@@ -59,7 +59,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
             this.IdTrangThai = 0;
             this.Username = "";
             this.Email = "";
-            this.PageSize = 10;
             this.CurrentPage = 1;
         }
     }

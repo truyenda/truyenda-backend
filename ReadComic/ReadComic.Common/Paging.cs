@@ -37,9 +37,9 @@ namespace ReadComic.Common
         /// Trang hiện tại đang hiển thị.
         /// </param>
         /// <param name="NumberOfRecord">
-        /// Số hàng sẽ hiển thị trong 1 trang, mặc định là 30.
+        /// Số hàng sẽ hiển thị trong 1 trang, mặc định là 20.
         /// </param>
-        public Paging(int TotalRecord, int CurrenPage, int NumberOfRecord = 30)
+        public Paging(int TotalRecord, int CurrenPage, int NumberOfRecord = 20)
         {
             this.TotalRecord = TotalRecord;
             this.NumberOfRecord = NumberOfRecord;
