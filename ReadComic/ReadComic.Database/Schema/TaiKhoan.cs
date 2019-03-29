@@ -32,7 +32,7 @@ namespace ReadComic.DataBase.Schema
         public int Id_NhomDich { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(24)]
         public string Username { get; set; }
 
         [Required]

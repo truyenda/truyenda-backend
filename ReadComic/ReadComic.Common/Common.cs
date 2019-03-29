@@ -156,5 +156,8 @@ namespace ReadComic.Common
         {
             return new DataContext().ErrorMsgs.FirstOrDefault(x => !x.DelFlag && x.Id.Equals(id)).mgs;
         }
+
+       
     }
+
 }

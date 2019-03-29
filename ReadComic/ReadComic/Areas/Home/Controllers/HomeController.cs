@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace ReadComic.Areas.Home.Controllers
@@ -39,6 +40,8 @@ namespace ReadComic.Areas.Home.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
+                
+                //return resp;
                 response.Data = new HomeModel().GetDanhSachTruyenMoi();
                 response.IsSuccess = true;
             }

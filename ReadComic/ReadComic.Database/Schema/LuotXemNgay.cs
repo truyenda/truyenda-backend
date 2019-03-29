@@ -17,8 +17,6 @@ namespace ReadComic.Database.Schema
 
         public int Id_Truyen { get; set; }
 
-        public DateTime Date { get; set; }
-
         public int  View { get; set; }
 
         public virtual Truyen Truyen { get; set; }
