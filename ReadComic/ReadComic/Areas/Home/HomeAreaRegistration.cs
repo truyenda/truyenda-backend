@@ -45,6 +45,12 @@ namespace ReadComic.Areas.Home
                 new { controller = "Home", action = "GetNewComicList", id = UrlParameter.Optional }
             );
 
+            context.Routes.MapHttpRoute(
+                "GetAccount",
+                "accounts/my",
+                new { controller = "Login", action = "GetAccount", id = UrlParameter.Optional }
+            );
+
             context.MapRoute(
                 "Home_default",
                 "Home/{controller}/{action}/{id}",

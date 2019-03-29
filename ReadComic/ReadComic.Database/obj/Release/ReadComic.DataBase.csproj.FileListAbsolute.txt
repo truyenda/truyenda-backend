@@ -62,3 +62,8 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadCom
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.pdb
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.create_db.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.add_TblLuotXemNgay.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.edit_loaiTruyen.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.Edit_LuotXemNgay.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.Edit_LuotXemNgay_2.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.Edit_TaiKhoan.resources

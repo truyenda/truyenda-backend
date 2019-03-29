@@ -18,7 +18,7 @@ namespace ReadComic.Areas.Home.Models.Schema
     public class TaiKhoan
     {
         [Required(ErrorMessage = "1")]
-        [MaxLength(50, ErrorMessage = "2")]
+        [MaxLength(24, ErrorMessage = "2")]
         public string Username { set; get; }
 
         [Required(ErrorMessage = "1")]

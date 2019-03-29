@@ -20,6 +20,8 @@ namespace ReadComic.DataBase.Schema
             BinhLuans = new HashSet<BinhLuan>();
             TheoDoiTruyens = new HashSet<TheoDoiTruyen>();
             LuotXemNgay = new HashSet<LuotXemNgay>();
+            LuotXemTuan = new HashSet<LuotXemTuan>();
+            LuotXemThang = new HashSet<LuotXemThang>();
         }
 
         [Key]
@@ -73,5 +75,7 @@ namespace ReadComic.DataBase.Schema
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }
         public virtual ICollection<TheoDoiTruyen> TheoDoiTruyens { get; set; }
         public virtual ICollection<LuotXemNgay> LuotXemNgay { get; set; }
+        public virtual ICollection<LuotXemTuan> LuotXemTuan { get; set; }
+        public virtual ICollection<LuotXemThang> LuotXemThang { get; set; }
     }
 }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -56,7 +58,7 @@ namespace ReadComic.Areas.Home.Controllers
                 else
                 {
                     response.Code = (int)ConstantsEnum.CodeResponse.NotValidate;
-                   // response.ListError = ModelState.GetModelErrors();
+                    // response.ListError = ModelState.GetModelErrors();
                 }
             }
             catch (Exception e)
@@ -80,12 +82,12 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: home/api/logout
         /// </remarks>
         [HttpPost]
-        public ResponseInfo Logout([FromBody]string token)
+        public ResponseInfo Logout(string token)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                new LoginModel().RemoveToken(token);
+                response = new LoginModel().RemoveToken(token);
                 response.IsSuccess = true;
                 response.IsValid = true;
             }
@@ -94,6 +96,36 @@ namespace ReadComic.Areas.Home.Controllers
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
                 response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
                 response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Lấy thông tin tài khoản đang đăng nhập
+        /// Author: HoangNM - 27/03/2019 - create
+        /// </summary>
+        /// <param name="token">token của tài khoản đang đăng nhập</param>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: /accounts/my
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetAccount(string token)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.Data = new LoginModel().GetAccount(token);
+                response.Code = 200;
+                response.IsValid = true;
+
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                //response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;

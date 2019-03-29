@@ -75,6 +75,7 @@ namespace ReadComic.Areas.Home.Models
                     };
                     context.SaveChanges();
                 }
+                
                 return result;
             }
             catch (Exception e)
@@ -89,14 +90,17 @@ namespace ReadComic.Areas.Home.Models
         /// Author       :   HoangNM - 03/03/2019 - create
         /// </summary>
         /// <returns>true nếu xóa thành công</returns>
-        public bool RemoveToken(string token)
+        public ResponseInfo RemoveToken(string token)
         {
             try
             {
                 token = BaoMat.Base64Decode(token);
                 context.Tokens.Where(x => x.TokenTaiKhoan == token).Delete();
                 context.Tokens.Where(x => x.ThoiGianHetHan < DateTime.Now).Delete();
-                return true;
+                return new ResponseInfo
+                {
+                    Code=200
+                };
             }
             catch (Exception e)
             {
@@ -227,6 +231,39 @@ namespace ReadComic.Areas.Home.Models
                 transaction.Rollback();
                 throw e;
             }
+        }
+
+        /// <summary>
+        /// Lấy thông tin tài khoản đang đăng nhập
+        /// Author       :   HoangNM - 27/03/2019 - create
+        /// </summary>
+        /// <param name="token">
+        /// token của account đăng nhập.
+        /// </param>
+        /// <returns>
+        /// Chuỗi token.
+        /// </returns>
+
+        public GetAccount GetAccount(string token)
+        {
+            string Token= BaoMat.Base64Decode(token);
+            TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
+            GetAccount getAccount= context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).Select(x=> new GetAccount
+            {
+                Email=x.Email,
+                GioiTinh=x.ThongTinNguoiDung.GioiTinh,
+                Id_Face=x.Id_Face,
+                Id_google=x.Id_Google,
+                Id_TrangThai=x.Id_TrangThai,
+                TenTrangThai=x.TrangThaiTaiKhoan.TenTrangThai,
+                Id_NhomDich=x.Id_NhomDich,
+                TenNhom=x.NhomDich.TenNhomDich,
+                Username=x.Username,
+                Ten=x.ThongTinNguoiDung.Ten,
+                NgaySinh=x.ThongTinNguoiDung.NgaySinh
+
+            }).FirstOrDefault();
+            return getAccount;
         }
 
     }

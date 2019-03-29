@@ -35,6 +35,8 @@ namespace ReadComic.DataBase
         public virtual DbSet<Truyen> Truyens { get; set; }
         public virtual DbSet<ResetPassWord> ResetPassWords { get; set; }
         public virtual DbSet<LuotXemNgay> LuotXemNgays { get; set; }
+        public virtual DbSet<LuotXemTuan> LuotXemTuans { get; set; }
+        public virtual DbSet<LuotXemThang> LuotXemThangs { get; set; }
 
         public DataContext()
         
@@ -231,7 +233,17 @@ namespace ReadComic.DataBase
               .HasForeignKey(e => e.Id_Truyen)
               .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Truyen>()
+             .HasMany(e => e.LuotXemTuan)
+             .WithRequired(e => e.Truyen)
+             .HasForeignKey(e => e.Id_Truyen)
+             .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Truyen>()
+             .HasMany(e => e.LuotXemThang)
+             .WithRequired(e => e.Truyen)
+             .HasForeignKey(e => e.Id_Truyen)
+             .WillCascadeOnDelete(false);
 
         }
 
