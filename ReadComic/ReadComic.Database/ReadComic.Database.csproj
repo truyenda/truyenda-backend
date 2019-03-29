@@ -110,6 +110,14 @@
     <Compile Include="Migrations\201903290356309_Add_LuotXemTuan_LuotXemThang.Designer.cs">
       <DependentUpon>201903290356309_Add_LuotXemTuan_LuotXemThang.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903291021321_Edit_TblThongTinNguoiDung_1.cs" />
+    <Compile Include="Migrations\201903291021321_Edit_TblThongTinNguoiDung_1.Designer.cs">
+      <DependentUpon>201903291021321_Edit_TblThongTinNguoiDung_1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903291022152_Edit_TblThongTinNguoiDung_2.cs" />
+    <Compile Include="Migrations\201903291022152_Edit_TblThongTinNguoiDung_2.Designer.cs">
+      <DependentUpon>201903291022152_Edit_TblThongTinNguoiDung_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\BinhLuan.cs" />
@@ -168,6 +176,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903290356309_Add_LuotXemTuan_LuotXemThang.resx">
       <DependentUpon>201903290356309_Add_LuotXemTuan_LuotXemThang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903291021321_Edit_TblThongTinNguoiDung_1.resx">
+      <DependentUpon>201903291021321_Edit_TblThongTinNguoiDung_1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903291022152_Edit_TblThongTinNguoiDung_2.resx">
+      <DependentUpon>201903291022152_Edit_TblThongTinNguoiDung_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

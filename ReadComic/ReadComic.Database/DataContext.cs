@@ -27,8 +27,8 @@ namespace ReadComic.DataBase
         public virtual DbSet<PhanQuyen> PhanQuyens { get; set; }
         public virtual DbSet<Quyen> Quyens { get; set; }
         public virtual DbSet<TacGia> TacGias { get; set; }
-        public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
         public virtual DbSet<ThongTinNguoiDung> ThongTinNguoiDungs { get; set; }
+        public virtual DbSet<TaiKhoan> TaiKhoans { get; set; }
         public virtual DbSet<Token> Tokens { get; set; }
         public virtual DbSet<TrangThaiTaiKhoan> TrangThaiTaiKhoans { get; set; }
         public virtual DbSet<TrangThaiTruyen> ThaiTruyens { get; set; }
@@ -245,6 +245,7 @@ namespace ReadComic.DataBase
              .HasForeignKey(e => e.Id_Truyen)
              .WillCascadeOnDelete(false);
 
+            
         }
 
     }

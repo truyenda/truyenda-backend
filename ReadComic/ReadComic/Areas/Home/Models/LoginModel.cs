@@ -203,8 +203,7 @@ namespace ReadComic.Areas.Home.Models
                             hash_Pass = "",
                             salt_Pass="",
                             Email = socialAccount.Email,
-                            Id_Face= socialAccount.Id,
-                            Id_User=user.Id
+                            Id_Face= socialAccount.Id
                     };
                         
                             
@@ -233,38 +232,6 @@ namespace ReadComic.Areas.Home.Models
             }
         }
 
-        /// <summary>
-        /// Lấy thông tin tài khoản đang đăng nhập
-        /// Author       :   HoangNM - 27/03/2019 - create
-        /// </summary>
-        /// <param name="token">
-        /// token của account đăng nhập.
-        /// </param>
-        /// <returns>
-        /// Chuỗi token.
-        /// </returns>
-
-        public GetAccount GetAccount(string token)
-        {
-            string Token= BaoMat.Base64Decode(token);
-            TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-            GetAccount getAccount= context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).Select(x=> new GetAccount
-            {
-                Email=x.Email,
-                GioiTinh=x.ThongTinNguoiDung.GioiTinh,
-                Id_Face=x.Id_Face,
-                Id_google=x.Id_Google,
-                Id_TrangThai=x.Id_TrangThai,
-                TenTrangThai=x.TrangThaiTaiKhoan.TenTrangThai,
-                Id_NhomDich=x.Id_NhomDich,
-                TenNhom=x.NhomDich.TenNhomDich,
-                Username=x.Username,
-                Ten=x.ThongTinNguoiDung.Ten,
-                NgaySinh=x.ThongTinNguoiDung.NgaySinh
-
-            }).FirstOrDefault();
-            return getAccount;
-        }
-
+       
     }
 }

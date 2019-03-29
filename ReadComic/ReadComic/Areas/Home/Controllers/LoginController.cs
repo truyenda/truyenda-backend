@@ -101,35 +101,7 @@ namespace ReadComic.Areas.Home.Controllers
             return response;
         }
 
-        /// <summary>
-        /// Lấy thông tin tài khoản đang đăng nhập
-        /// Author: HoangNM - 27/03/2019 - create
-        /// </summary>
-        /// <param name="token">token của tài khoản đang đăng nhập</param>
-        /// <remarks>
-        /// Method: GET
-        /// RouterName: /accounts/my
-        /// </remarks>
-        [HttpGet]
-        public ResponseInfo GetAccount(string token)
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response.Data = new LoginModel().GetAccount(token);
-                response.Code = 200;
-                response.IsValid = true;
-
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                //response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
+        
 
     }
 }

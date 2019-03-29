@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.Areas.Home.Models.Schema
+namespace ReadComic.Areas.Home.Models.Information.Schema
 {
     public class GetAccount
     {

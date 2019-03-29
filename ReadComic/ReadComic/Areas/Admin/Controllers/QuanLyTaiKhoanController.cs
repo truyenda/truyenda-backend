@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Cors;
+
 
 namespace ReadComic.Areas.Admin.Controllers
 {
@@ -21,7 +21,6 @@ namespace ReadComic.Areas.Admin.Controllers
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuanLyTaiKhoanController : ApiController
     {
         [HttpOptions]
@@ -45,14 +44,26 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Method: Post
         /// RouterName: APIDanhSachTaiKhoan
         /// </remarks>
-        [HttpPost]
-        public ResponseInfo DanhSachTacGia(TaiKhoanConditionSearch condition)
+        [HttpGet]
+        public ResponseInfo DanhSachTaiKhoan(TaiKhoanConditionSearch condition)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition);
-                response.IsSuccess = true;
+                if(new QuanLyTaiKhoanModel().CheckQuyen(condition.Token)==1)
+                {
+                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition,1);
+                    response.IsSuccess = true;
+                }else if(new QuanLyTaiKhoanModel().CheckQuyen(condition.Token) == 2)
+                {
+                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition, 2);
+                    response.IsSuccess = true;
+                }
+                else
+                {
+                    response.MsgError = "Không đủ quyền";
+                }
+               
             }
             catch (Exception e)
             {
@@ -128,7 +139,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// <param name="data">Là tài khoản cần thay đổi</param>
         /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin tài khoản</returns>
         /// <remarks>
-        /// Method: POST
+        /// Method: PUT
         /// RouterName: APIUpdateTaiKhoan
         /// </remarks>
 

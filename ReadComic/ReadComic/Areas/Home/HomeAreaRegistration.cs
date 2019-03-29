@@ -1,5 +1,6 @@
 ﻿using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ReadComic.Areas.Home
 {
@@ -15,18 +16,7 @@ namespace ReadComic.Areas.Home
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
-            context.Routes.MapHttpRoute(
-               "APICheckExit",
-               "api/home/check-exit",
-               new { controller = "Register", action = "CheckExistAccount", id = UrlParameter.Optional }
-           );
-
-            context.Routes.MapHttpRoute(
-               "APIRegister",
-               "api/home/register",
-               new { controller = "Register", action = "CreateAccount", id = UrlParameter.Optional }
-           );
-
+            
             context.Routes.MapHttpRoute(
                 "APICheckLogin",
                 "login",
@@ -46,10 +36,34 @@ namespace ReadComic.Areas.Home
             );
 
             context.Routes.MapHttpRoute(
-                "GetAccount",
+                "updateAccount",
                 "accounts/my",
-                new { controller = "Login", action = "GetAccount", id = UrlParameter.Optional }
+                new { controller = "Information", action = "UpdateAccount", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
+
+            context.Routes.MapHttpRoute(
+                "getAccount",
+                "accounts/my",
+                new { controller = "Information", action = "GetAccount", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "CreateAccount",
+                "accounts",
+                new { controller = "Register", action = "CreateAccount", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "CheckAccount",
+                "accounts/check",
+                new { controller = "Register", action = "CheckExistAccount", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+
 
             context.MapRoute(
                 "Home_default",
