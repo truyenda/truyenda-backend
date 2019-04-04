@@ -54,5 +54,37 @@ namespace ReadComic.Areas.Home.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Lấy thông tin truyện và thông tin các chương của truyện
+        /// Author       :   HoangNM - 04/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Thông tin truyên và các chương truyện
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: GetTruyen
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetTruyen(int IdTruyen)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                //return resp;
+                response.Data = new HomeModel().GetThongTinTruyen(IdTruyen);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }

@@ -97,6 +97,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/EntityFramework.SqlServer.dll">
       <publishTime>06/07/2018 11:03:48</publishTime>
     </File>
+    <File Include="bin/Imgur.API.dll">
+      <publishTime>08/01/2016 12:07:22</publishTime>
+    </File>
+    <File Include="bin/ImgurNet.dll">
+      <publishTime>10/26/2014 20:42:20</publishTime>
+    </File>
     <File Include="bin/Microsoft.AspNet.TelemetryCorrelation.dll">
       <publishTime>06/28/2017 15:05:26</publishTime>
     </File>
@@ -110,37 +116,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/18/2018 09:44:54</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.dll">
-      <publishTime>03/29/2019 19:55:47</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.dll.config">
-      <publishTime>02/28/2019 07:59:24</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.pdb">
-      <publishTime>03/29/2019 19:55:47</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.dll">
-      <publishTime>03/29/2019 19:55:46</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.dll.config">
       <publishTime>02/23/2019 10:55:12</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.pdb">
-      <publishTime>03/29/2019 19:55:46</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/ReadComic.dll">
-      <publishTime>03/29/2019 19:55:47</publishTime>
+      <publishTime>04/04/2019 21:53:49</publishTime>
     </File>
     <File Include="bin/ReadComic.pdb">
-      <publishTime>03/29/2019 19:55:47</publishTime>
+      <publishTime>04/04/2019 21:53:49</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.dll">
-      <publishTime>03/29/2019 19:55:46</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.dll.config">
       <publishTime>02/23/2019 00:28:29</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.pdb">
-      <publishTime>03/29/2019 19:55:46</publishTime>
+      <publishTime>04/04/2019 21:53:48</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>05/24/2018 13:38:22</publishTime>
@@ -286,8 +292,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/System.Diagnostics.DiagnosticSource.dll">
       <publishTime>07/19/2017 10:01:30</publishTime>
     </File>
+    <File Include="bin/System.Net.Http.Extensions.dll">
+      <publishTime>07/21/2014 13:52:18</publishTime>
+    </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
       <publishTime>11/28/2018 13:00:36</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Primitives.dll">
+      <publishTime>07/21/2014 13:52:18</publishTime>
     </File>
     <File Include="bin/System.Web.Cors.dll">
       <publishTime>11/28/2018 12:58:44</publishTime>
@@ -425,7 +437,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/23/2019 00:24:17</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/29/2019 19:55:50</publishTime>
+      <publishTime>04/04/2019 21:48:57</publishTime>
     </File>
   </ItemGroup>
 </Project>

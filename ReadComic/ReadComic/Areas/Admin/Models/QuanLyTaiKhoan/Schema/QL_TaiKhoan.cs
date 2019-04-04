@@ -15,7 +15,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    public class TaiKhoan
+    public class QL_TaiKhoan
     {
         public int Id { get; set; }
         [Required]

@@ -1,12 +1,23 @@
-﻿using ReadComic.DataBase;
+﻿using Imgur.API;
+using Imgur.API.Authentication.Impl;
+using Imgur.API.Endpoints.Impl;
+using Imgur.API.Models;
+using Imgur.API.Models.Impl;
+using ReadComic.Common.Schema;
+using ReadComic.DataBase;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
+using TblToken = ReadComic.DataBase.Schema.Token;
 
 namespace ReadComic.Common
 {
@@ -157,7 +168,201 @@ namespace ReadComic.Common
             return new DataContext().ErrorMsgs.FirstOrDefault(x => !x.DelFlag && x.Id.Equals(id)).mgs;
         }
 
-       
+        /// <summary>
+        /// Lấy thông tin của tài khoản đang đăng nhập
+        /// Author       :   HoangNM - 1/04/2019 - create
+        /// </summary>
+        /// <param name="token">
+        /// token của tài khoản đang đăng nhập
+        /// </param>
+        /// <returns>
+        /// Trả về tài khoản đang đăng nhập
+        /// </returns>
+        public static GetAccount GetAccount(string token)
+        {
+            DataContext context = new DataContext();
+            string Token = BaoMat.Base64Decode(token);
+            TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
+            return context.PhanQuyens.Where(x => x.Id_TaiKhoan == TblToken.Id_TaiKhoan && !x.DelFlag).Select(x => new GetAccount
+            {
+                Id = x.Id_TaiKhoan,
+                IdNhom = x.TaiKhoan.Id_NhomDich,
+                IdQuyen = x.Id,
+                TongQuyen = x.TongQuyen
+            }).FirstOrDefault();
+        }
+
+
+
+        /// <summary>
+        /// Chuyển đổi từ base64String về Image
+        /// Author       :   HoangNM - 03/04/2019 - create
+        /// </summary>
+        /// <param name="base64String">
+        /// base64String
+        /// </param>
+        /// <returns>
+        /// file ảnh
+        /// </returns>
+        private System.Drawing.Image Base64ToImage(string base64String)
+        {
+            // Convert Base64 String to byte[]
+            byte[] imageBytes = Convert.FromBase64String(base64String);
+            Bitmap tempBmp;
+            using (MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            {
+                // Convert byte[] to Image
+                ms.Write(imageBytes, 0, imageBytes.Length);
+                using (System.Drawing.Image image = System.Drawing.Image.FromStream(ms, true))
+                {
+                    //Create another object image for dispose old image handler
+                    tempBmp = new Bitmap(image.Width, image.Height);
+                    Graphics g = Graphics.FromImage(tempBmp);
+                    g.DrawImage(image, 0, 0, image.Width, image.Height);
+                }
+            }
+            return tempBmp;
+        }
+
+        /// <summary>
+        /// Lưu ảnh vào thư mục đinh trước
+        /// Author       :   HoangNM - 03/04/2019 - create
+        /// </summary>
+        /// <param name="imagerPath">
+        /// đường dẫn hình ảnh
+        /// </param>
+        /// <param name="IdCommon">
+        /// Id đối tượng
+        /// </param>
+        /// <returns>
+        /// file ảnh
+        /// </returns>
+        public string SaveImage(string imagerPath,int IdCommon,string name)
+        {
+
+
+
+            WebClient w = new WebClient();
+            w.Headers.Add("Authorization", "Client-ID " + new BaoMat().ClientId);
+            System.Collections.Specialized.NameValueCollection Keys = new System.Collections.Specialized.NameValueCollection();
+            try
+            {
+                Keys.Add("image", imagerPath);
+                Keys.Add("album", new BaoMat().AlbumId);
+                byte[] responseArray = w.UploadValues("https://api.imgur.com/3/upload.xml", Keys);
+                String result = Encoding.ASCII.GetString(responseArray);
+                System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex("link\":\"(.*?)\"");
+                Match match = reg.Match(result);
+                string url = match.ToString().Replace("link\":\"", "").Replace("\"", "").Replace("\\/", "/");
+                return url;
+            }
+            catch (Exception s)
+            {
+                //MessageBox.Show("Something went wrong. " + s.Message);
+                return "Failed!";
+            }
+
+
+            //string strFileName = null;
+            //if (!string.IsNullOrEmpty(imagerPath))
+            //{
+            //    using (Image image = Base64ToImage(imagerPath))
+            //    {
+            //        strFileName = "Public/Imagers/"+ DateTime.Now.ToString("yyyyMMddHHmmss_") + IdCommon +"_"+name+ ".jpg";
+            //        image.Save(HttpContext.Current.Server.MapPath("~/"+strFileName), ImageFormat.Jpeg);
+            //    }
+            //}
+            //return strFileName;
+        }
+
+        /// <summary>
+        /// Chuyển đổi từ Image về base64String 
+        /// Author       :   HoangNM - 03/04/2019 - create
+        /// </summary>
+        /// <param name="image">
+        /// file ảnh cần chuyển đổi
+        /// </param>
+        /// <returns>
+        /// chuổi base 64
+        /// </returns>
+        private string ImageToBase64(System.Drawing.Image image, ImageFormat format)
+        {
+            string base64String;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                // Convert Image to byte[]
+                image.Save(ms, format);
+                ms.Position = 0;
+                byte[] imageBytes = ms.ToArray();
+
+                // Convert byte[] to Base64 String
+                base64String = Convert.ToBase64String(imageBytes);
+            }
+            return base64String;
+        }
+
+        public string GetImgager(string linkAnh)
+        {
+            string imagePath;
+            string base64String= null;
+            try
+            {
+                imagePath = HostingEnvironment.MapPath("~/" + linkAnh);
+                if (File.Exists(imagePath))
+                {
+                    using (System.Drawing.Image img = System.Drawing.Image.FromFile(imagePath))
+                    {
+                        if (img != null)
+                        {
+                            base64String = ImageToBase64(img, ImageFormat.Jpeg);
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return base64String;
+        }
+
+
+        //public OAuth2Token CreateToken()
+        //{
+        //    var token = new OAuth2Token("5c3118ebb73fbb275945ab340be60b610a3216d6", "d36b474c95bb9ee54b992c7c34fffc2cc343d0a7", "Bearer", ID_ACCOUNT, "Rocklee97", int.Parse("3600"));
+        //    return token;
+        //}
+
+        ////Use it only if your token is expired
+        //public Task<IOAuth2Token> RefreshToken()
+        //{
+        //    var client = new ImgurClient(new BaoMat().ClientId, new BaoMat().CLIENT_SECRET);
+        //    var endpoint = new OAuth2Endpoint(client);
+        //    var token = endpoint.GetTokenByRefreshTokenAsync("5c3118ebb73fbb275945ab340be60b610a3216d6");
+        //    return token;
+        //}
+
+
+        //public async Task UploadImage()
+        //{
+        //    try
+        //    {
+        //        var client = new ImgurClient(new BaoMat().ClientId, new BaoMat().CLIENT_SECRET, CreateToken());
+        //        var endpoint = new ImageEndpoint(client);
+        //        IImage image;
+        //        //Here you have to link your image location
+        //        using (var fs = new FileStream(@"IMAGE_LOCATION", FileMode.Open))
+        //        {
+        //            image = await endpoint.UploadImageStreamAsync(fs);
+        //        }
+        //        Debug.Write("Image uploaded. Image Url: " + image.Link);
+        //    }
+        //    catch (ImgurException imgurEx)
+        //    {
+        //        Debug.Write("Error uploading the image to Imgur");
+        //        Debug.Write(imgurEx.Message);
+        //    }
+        //}
     }
 
 }
