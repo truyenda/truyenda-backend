@@ -17,13 +17,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
     /// </remarks>
     public class DanhSachTaiKhoan
     {
-        public List<TaiKhoan> listTaiKhoan { set; get; }
+        public List<QL_TaiKhoan> listTaiKhoan { set; get; }
         public Paging Paging { set; get; }
         public TaiKhoanConditionSearch Condition { set; get; }
 
         public DanhSachTaiKhoan()
         {
-            this.listTaiKhoan = new List<TaiKhoan>();
+            this.listTaiKhoan = new List<QL_TaiKhoan>();
             this.Condition = new TaiKhoanConditionSearch();
             this.Paging = new Paging();
         }

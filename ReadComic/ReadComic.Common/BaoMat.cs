@@ -17,6 +17,11 @@ namespace ReadComic.Common
     /// </remarks>
     public class BaoMat
     {
+        public string ClientId = "c82e34c61608b04";
+        public string CLIENT_SECRET = "71352053e4149bfb4b5ab2c2e744241a70fefc4a";
+        public string AlbumId = "HVttysh";
+
+
         /// <summary>
         /// Lấy chuỗi salt cho Tài khoản mới
         /// Author       :   HoangNM - 28/02/2019 - create

@@ -35,11 +35,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema
     public class TacGiaConditionSearch
     {
         public int CurrentPage { set; get; }
-        public int PageSize { set; get; }
 
         public TacGiaConditionSearch()
         {
-            this.PageSize = 10;
             this.CurrentPage = 1;
         }
     }

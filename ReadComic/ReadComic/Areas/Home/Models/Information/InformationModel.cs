@@ -114,5 +114,7 @@ namespace ReadComic.Areas.Home.Models.Information
             return response;
         }
 
+
+
     }
 }

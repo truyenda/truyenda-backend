@@ -76,13 +76,22 @@ namespace ReadComic.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public ResponseInfo Get(int id)
+        public ResponseInfo Get(int id,string token)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyTaiKhoanModel().LoadTaiKhoan(id);
-                response.IsSuccess = true;
+                if (new QuanLyTaiKhoanModel().CheckQuyen(token) == 1 || new QuanLyTaiKhoanModel().CheckQuyen(token) == 2)
+                {
+                    response.Data = new QuanLyTaiKhoanModel().LoadTaiKhoan(id,token);
+                    response.IsSuccess = true;
+                }
+                else
+                {
+                    response.MsgError = "Không đủ quyền";
+                }
+
+               
             }
             catch (Exception e)
             {
@@ -143,23 +152,23 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateTaiKhoan
         /// </remarks>
 
-        //[HttpPut]
-        //public ResponseInfo UpdateTaiKhoan(TaiKhoan data)
-        //{
-        //    ResponseInfo response = new ResponseInfo();
-        //    try
-        //    {
-        //        response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-        //        response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-        //        response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
-        //        response.ThongTinBoSung1 = e.Message;
-        //    }
-        //    return response;
-        //}
+        [HttpPut]
+        public ResponseInfo UpdateTaiKhoan(QL_TaiKhoan data)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
 
         /// <summary>
         /// Dùng để cập nhật trạng thái cho tài khoán (khóa hay bình thường)

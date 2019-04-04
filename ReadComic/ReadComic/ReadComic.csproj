@@ -54,6 +54,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Imgur.API, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Imgur.API.4.0.1\lib\net45\Imgur.API.dll</HintPath>
+    </Reference>
+    <Reference Include="ImgurNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImgurNet.1.2.0\lib\ImgurNet.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
@@ -61,8 +67,14 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
@@ -166,9 +178,20 @@
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTaiKhoanController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\QuanLyTruyenModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ChuKyTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\DanhSachTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\NewComic.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\TheLoaiChoTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ThemTacGiaChoTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\T_TrangThaiTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\Truyen.cs" />
     <Compile Include="Areas\Home\Controllers\InformationController.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\Chuong.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\ChuongTruyen.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\QuanLyLoaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\Schema\LoaiTruyen.cs" />
@@ -180,7 +203,7 @@
     <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\QuanLyTaiKhoanModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\DanhSachTaiKhoan.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\Nhom.cs" />
-    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\TaiKhoan.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\QL_TaiKhoan.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\TrangThaiTaiKhoan.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\QuanLyTrangThaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTrangThaiTruyen\Schema\TrangThaiTruyen.cs" />
@@ -267,7 +290,9 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Areas\Home\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -296,6 +321,7 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\Home\Views\Shared\" />
     <Folder Include="Models\" />
+    <Folder Include="Public\Imagers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -373,6 +399,11 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

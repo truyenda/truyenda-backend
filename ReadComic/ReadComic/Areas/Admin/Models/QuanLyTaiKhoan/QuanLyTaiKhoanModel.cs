@@ -70,7 +70,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                     && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.Id_NhomDich == condition.IdNhom))
                     && !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTaiKhoan.Paging.CurrentPage - 1) * listTaiKhoan.Paging.NumberOfRecord)
-                    .Take(listTaiKhoan.Paging.NumberOfRecord).Select(x => new TaiKhoan
+                    .Take(listTaiKhoan.Paging.NumberOfRecord).Select(x => new QL_TaiKhoan
                     {
                         Id = x.Id,
                         Username = x.Username,
@@ -94,20 +94,36 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// Author       :   HoangNM - 18/03/2019 - create
         /// </summary>
         /// <returns>lấy ra tài khoản theo id. Exception nếu có lỗi</returns>
-        public TaiKhoan LoadTaiKhoan(int id)
+        public QL_TaiKhoan LoadTaiKhoan(int id,string token)
         {
             try
             {
-                TaiKhoan taiKhoan = new TaiKhoan();
-                TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                if (tblTaiKhoan != null)
+                QL_TaiKhoan taiKhoan = new QL_TaiKhoan();
+                if(Common.Common.GetAccount(token).IdQuyen == 1)
                 {
-                    taiKhoan.Id = tblTaiKhoan.Id;
-                    taiKhoan.Username = tblTaiKhoan.Username;
-                    taiKhoan.Email = tblTaiKhoan.Email;
-                    taiKhoan.IdTrangThai = tblTaiKhoan.Id_TrangThai;
-                    taiKhoan.IdNhom = tblTaiKhoan.Id_NhomDich;
+                    TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                    if (tblTaiKhoan != null)
+                    {
+                        taiKhoan.Id = tblTaiKhoan.Id;
+                        taiKhoan.Username = tblTaiKhoan.Username;
+                        taiKhoan.Email = tblTaiKhoan.Email;
+                        taiKhoan.IdTrangThai = tblTaiKhoan.Id_TrangThai;
+                        taiKhoan.IdNhom = tblTaiKhoan.Id_NhomDich;
+                    }
                 }
+                else 
+                {
+                    TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id &&x.Id_NhomDich== Common.Common.GetAccount(token).IdNhom && !x.DelFlag);
+                    if (tblTaiKhoan != null)
+                    {
+                        taiKhoan.Id = tblTaiKhoan.Id;
+                        taiKhoan.Username = tblTaiKhoan.Username;
+                        taiKhoan.Email = tblTaiKhoan.Email;
+                        taiKhoan.IdTrangThai = tblTaiKhoan.Id_TrangThai;
+                        taiKhoan.IdNhom = tblTaiKhoan.Id_NhomDich;
+                    }
+                }
+                
                 return taiKhoan;
             }
             catch (Exception e)
@@ -154,7 +170,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// </summary>
         /// <param name="taiKhoan">thông tin về tài khoản muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật tài khoản, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTaiKhoan(TaiKhoan taiKhoan)
+        public ResponseInfo UpadateTaiKhoan(QL_TaiKhoan taiKhoan)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();

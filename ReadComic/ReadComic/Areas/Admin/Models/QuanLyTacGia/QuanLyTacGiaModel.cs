@@ -47,7 +47,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                 DanhSachTacGia listTacGia = new DanhSachTacGia();
 
                 // Lấy các thông tin dùng để phân trang
-                listTacGia.Paging = new Paging(context.TacGias.Count(x => !x.DelFlag), condition.CurrentPage, condition.PageSize);
+                listTacGia.Paging = new Paging(context.TacGias.Count(x => !x.DelFlag), condition.CurrentPage);
                 // Tìm kiếm và lấy dữ liệu theo trang
                 listTacGia.listTacGia = context.TacGias.Where(x => !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTacGia.Paging.CurrentPage - 1) * listTacGia.Paging.NumberOfRecord)
