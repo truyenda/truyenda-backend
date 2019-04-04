@@ -311,6 +311,22 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
+            //Chương truyện ---------------------------------------------------------------------------------------
+
+            context.Routes.MapHttpRoute(
+                "APChuongTruyen",
+                "chapers/{id}",
+                new { controller = "QuanLyChuongTruyen", action = "Get", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIAddChuongTruyen",
+                "chapers",
+                new { controller = "QuanLyChuongTruyen", action = "ThemChuongTruyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
