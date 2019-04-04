@@ -173,6 +173,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyChuKyTruyenController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyChuongTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyLoaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyNhomDichController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
@@ -181,6 +182,8 @@
     <Compile Include="Areas\Admin\Controllers\QuanLyTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\QuanLyChuKyModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\QuanLyChuongTruyenModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\ChuongCuaTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\QuanLyTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ChuKyTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\DanhSachTruyen.cs" />
