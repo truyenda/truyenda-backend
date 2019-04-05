@@ -70,6 +70,20 @@ namespace ReadComic.Areas.Home
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
+            context.Routes.MapHttpRoute(
+                "GetALLComic",
+                "story/all",
+                new { controller = "Home", action = "GetAllComicList", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "GetComicWithCategorys",
+                "story/categorys",
+                new { controller = "Home", action = "GetComicListWithCategorys", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
             context.MapRoute(
                 "Home_default",
                 "Home/{controller}/{action}/{id}",

@@ -86,5 +86,69 @@ namespace ReadComic.Areas.Home.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Lấy danh sách truyện tất cả các truyện
+        /// Author       :   HoangNM - 05/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách tất cả các truyện
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetAllComicList()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                //return resp;
+                response.Data = new HomeModel().GetDanhSachTruyen();
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Lấy danh sách truyện theo thể loại 
+        /// Author       :   HoangNM - 05/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách tất cả các truyện theo thể loại 
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetComicListWithCategorys(int IdTheLoai)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                //return resp;
+                response.Data = new HomeModel().GetDanhSachTruyenTheoTheLoai(IdTheLoai);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }

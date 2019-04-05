@@ -110,5 +110,93 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Lấy danh sách tất cả các truyện
+        /// Author       :   HoangNM - 05/04/2019 - create
+        /// </summary>
+        /// <returns>Danh sách truyện. Exception nếu có lỗi</returns>
+        public List<Comic> GetDanhSachTruyen()
+        {
+            try
+            {
+                List<Comic> NewComicList = new List<Comic>();
+                NewComicList = context.Truyens.Where(x => !x.DelFlag)
+                    .Select(x => new Comic
+                    {
+                        Id = x.Id,
+                        TenTruyen = x.TenTruyen,
+                        TenKhac = x.TenKhac,
+                        NamPhatHanh = x.NamPhatHanh,
+                        AnhBia = x.AnhBia,
+                        AnhDaiDien = x.AnhDaiDien,
+                        MoTa = x.MoTa,
+                        NgayTao = x.NgayTao,
+                        TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy,
+                        DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                        {
+                            Id = y.TacGia.Id,
+                            TenTacGia = y.TacGia.TenTacGia
+                        }).ToList(),
+                        DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                        {
+                            Id = y.LoaiTruyen.Id,
+                            TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                            MoTa = y.LoaiTruyen.Mota
+                        }).ToList()
+
+                    }).OrderByDescending(x => x.NgayTao).ToList();
+                return NewComicList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách tất cả các truyện theo thể loại
+        /// Author       :   HoangNM - 05/04/2019 - create
+        /// </summary>
+        /// <returns>Danh sách truyện. Exception nếu có lỗi</returns>
+        public List<Comic> GetDanhSachTruyenTheoTheLoai(int IdTheLoai)
+        {
+            try
+            {
+                List<Comic> NewComicList = new List<Comic>();
+                NewComicList = context.LuuLoaiTruyens.Where(x =>x.IdLoaiTruyen==IdTheLoai && !x.DelFlag)
+                    .Select(x => new Comic
+                    {
+                        Id = x.Truyen.Id,
+                        TenTruyen = x.Truyen.TenTruyen,
+                        TenKhac = x.Truyen.TenKhac,
+                        NamPhatHanh = x.Truyen.NamPhatHanh,
+                        AnhBia = x.Truyen.AnhBia,
+                        AnhDaiDien = x.Truyen.AnhDaiDien,
+                        MoTa = x.Truyen.MoTa,
+                        NgayTao = x.Truyen.NgayTao,
+                        TrangThai = x.Truyen.TrangThaiTruyen.TenTrangThai,
+                        ChuKyPhatHanh = x.Truyen.ChuKyPhatHanh.TenChuKy,
+                        DanhSachTacGia = x.Truyen.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                        {
+                            Id = y.TacGia.Id,
+                            TenTacGia = y.TacGia.TenTacGia
+                        }).ToList(),
+                        DanhSachTheLoai = x.Truyen.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                        {
+                            Id = y.LoaiTruyen.Id,
+                            TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                            MoTa = y.LoaiTruyen.Mota
+                        }).ToList()
+
+                    }).OrderByDescending(x => x.NgayTao).ToList();
+                return NewComicList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
