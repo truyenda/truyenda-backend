@@ -116,37 +116,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/18/2018 09:44:54</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.dll">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:18</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.dll.config">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:18</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.pdb">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:18</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.dll">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:17</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.dll.config">
       <publishTime>02/23/2019 10:55:12</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.pdb">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:17</publishTime>
     </File>
     <File Include="bin/ReadComic.dll">
-      <publishTime>04/04/2019 23:36:35</publishTime>
+      <publishTime>04/05/2019 23:36:19</publishTime>
     </File>
     <File Include="bin/ReadComic.pdb">
-      <publishTime>04/04/2019 23:36:35</publishTime>
+      <publishTime>04/05/2019 23:36:19</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.dll">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:18</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.dll.config">
       <publishTime>02/23/2019 00:28:29</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.pdb">
-      <publishTime>04/04/2019 23:36:34</publishTime>
+      <publishTime>04/05/2019 23:36:18</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>05/24/2018 13:38:22</publishTime>
