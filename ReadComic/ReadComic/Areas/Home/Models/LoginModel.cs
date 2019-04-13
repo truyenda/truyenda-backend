@@ -73,6 +73,7 @@ namespace ReadComic.Areas.Home.Models
                         },
                         Token = BaoMat.Base64Encode(token)
                     };
+                    result.ThongTinBoSung1 = BaoMat.Base64Encode(token);
                     context.SaveChanges();
                 }
                 

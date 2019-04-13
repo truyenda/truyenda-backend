@@ -161,14 +161,16 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 context.Truyens.Where(x => x.Id == truyen.Id && !x.DelFlag)
                     .Update(x => new TblTruyen
                     {
-                        Id_ChuKy = truyen.Id_ChuKy,
-                        TenTruyen = truyen.TenTruyen,
-                        TenKhac = truyen.TenKhac,
-                        Id_TrangThai = truyen.Id_TrangThai,
-                        NamPhatHanh = truyen.NamPhatHanh,
-                        AnhBia = new Common.Common().SaveImage(truyen.AnhBia, truyen.Id, truyen.AnhBiaName),
-                        AnhDaiDien = new Common.Common().SaveImage(truyen.AnhDaiDien, truyen.Id, truyen.AnhDaiDienName),
-                        MoTa = truyen.MoTa
+                       // Id_ChuKy = truyen.Id_ChuKy,
+                       // TenTruyen = truyen.TenTruyen,
+                        //TenKhac = truyen.TenKhac,
+                       // Id_TrangThai = truyen.Id_TrangThai,
+                       // NamPhatHanh = truyen.NamPhatHanh,
+                        // AnhBia = new Common.Common().SaveImage(truyen.AnhBia,truyen.Id,truyen.AnhBiaName),
+                        AnhBia = truyen.AnhBia,
+                        //AnhDaiDien = new Common.Common().SaveImage(truyen.AnhDaiDien, truyen.Id,truyen.AnhDaiDienName),
+                        AnhDaiDien = truyen.AnhDaiDien,
+                        //MoTa = truyen.MoTa
                     });
                 context.SaveChanges();
                 response.IsSuccess = true;
@@ -265,9 +267,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     TenKhac = truyen.TenKhac,
                     Id_TrangThai = truyen.Id_TrangThai,
                     NamPhatHanh = truyen.NamPhatHanh,
-                    //AnhBia = new Common.Common().SaveImage(truyen.AnhBia,truyen.Id,truyen.AnhBiaName),
+                   // AnhBia = new Common.Common().SaveImage(truyen.AnhBia,truyen.Id,truyen.AnhBiaName),
                     AnhBia = truyen.AnhBia,
-                   // AnhDaiDien = new Common.Common().SaveImage(truyen.AnhDaiDien, truyen.Id,truyen.AnhDaiDienName),
+                    //AnhDaiDien = new Common.Common().SaveImage(truyen.AnhDaiDien, truyen.Id,truyen.AnhDaiDienName),
                     AnhDaiDien = truyen.AnhDaiDien,
                     MoTa = truyen.MoTa,
                     NgayTao=DateTime.Now

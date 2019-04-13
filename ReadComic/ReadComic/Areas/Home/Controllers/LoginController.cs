@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -25,14 +26,6 @@ namespace ReadComic.Areas.Home.Controllers
     /// </remarks>
     public class LoginController : ApiController
     {
-        [HttpOptions]
-        public HttpResponseMessage Options()
-        {
-            return new HttpResponseMessage
-            {
-                StatusCode = HttpStatusCode.OK
-            };
-        }
 
         /// <summary>
         /// Xác thực thông tin người dùng gửi lên.
@@ -45,8 +38,9 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: home/api/login
         /// </remarks>
         [HttpPost]
-        public ResponseInfo CheckLogin(TaiKhoan account)
+        public HttpResponseMessage CheckLogin(TaiKhoan account)
         {
+            
             ResponseInfo response = new ResponseInfo();
             try
             {
@@ -68,7 +62,16 @@ namespace ReadComic.Areas.Home.Controllers
                 //response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
                 response.ThongTinBoSung1 = e.Message;
             }
-            return response;
+
+            var cookie = new CookieHeaderValue("ToKen", response.ThongTinBoSung1);
+            response.ThongTinBoSung1 = null;
+            cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            cookie.Domain = "truyenda.tk";
+            cookie.Path = "/";
+            var resp = Request.CreateResponse(HttpStatusCode.OK, response);
+            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+            Request.CreateResponse(response);
+            return resp;
         }
 
         /// <summary>
@@ -101,7 +104,7 @@ namespace ReadComic.Areas.Home.Controllers
             return response;
         }
 
-        
+
 
     }
 }
