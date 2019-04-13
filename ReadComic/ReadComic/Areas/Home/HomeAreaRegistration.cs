@@ -16,7 +16,9 @@ namespace ReadComic.Areas.Home
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
+
             
+
             context.Routes.MapHttpRoute(
                 "APICheckLogin",
                 "login",
