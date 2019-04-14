@@ -177,5 +177,38 @@ namespace ReadComic.Areas.Home.Controllers
             }
             return response;
         }
+
+
+        /// <summary>
+        /// Lấy danh sách truyện vừa mới cập nhật ra. (5 truyện)
+        /// Author       :   HoangNM - 26/03/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách các truyện vừa cập nhật
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetRandomComicList()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new HomeModel().GetDanhSachTruyenRandom();
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
     }
 }
