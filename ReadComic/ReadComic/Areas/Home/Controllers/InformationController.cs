@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace ReadComic.Areas.Home.Controllers
@@ -41,11 +42,12 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: /accounts/my
         /// </remarks>
         [HttpGet]
-        public ResponseInfo GetAccount(string token)
+        public ResponseInfo GetAccount()
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
+                string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
                 response.Data = new InformationModel().GetAccount(token);
                 response.Code = 200;
                 response.IsValid = true;
@@ -79,6 +81,7 @@ namespace ReadComic.Areas.Home.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
+                
                 response = new InformationModel().UpdateAccount(account);
                 response.IsSuccess = true;
             }

@@ -57,35 +57,35 @@ namespace ReadComic.Areas.Admin
             //loại truyện
             context.Routes.MapHttpRoute(
                 "APIDanhSachLoaiTruyen",
-                "categorys",
+                "categories",
                 new { controller = "QuanLyLoaiTruyen", action = "DanhSachLoaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APILoaiTruyenPhatHanh",
-                "categorys/{id}",
+                "categories/{id}",
                 new { controller = "QuanLyLoaiTruyen", action = "Get", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIDeleteLoaiTruyen",
-                "categorys/{id}",
+                "categories/{id}",
                 new { controller = "QuanLyLoaiTruyen", action = "DeleteLoaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
             );
 
             context.Routes.MapHttpRoute(
                 "APICreateLoaiTruyen",
-                "categorys",
+                "categories",
                 new { controller = "QuanLyLoaiTruyen", action = "ThemLoaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIUpdateLoaiTruyen",
-                "categorys/{id}",
+                "categories/{id}",
                 new { controller = "QuanLyLoaiTruyen", action = "UpdateLoaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
@@ -243,75 +243,90 @@ namespace ReadComic.Areas.Admin
             //truyện  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyen",
-                "story",
+                "stories",
                 new { controller = "QuanLyTruyen", action = "DanhSachTatCaTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APTruyen",
-                "story/{id}",
+                "stories/{id}",
                 new { controller = "QuanLyTruyen", action = "Get", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIDeleteTruyen",
-                "story/{id}",
+                "stories/{id}",
                 new { controller = "QuanLyTruyen", action = "DeleteTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
             );
 
             context.Routes.MapHttpRoute(
                "APIUpdateTruyen",
-               "story",
+               "stories",
                new { controller = "QuanLyTruyen", action = "UpdateTruyen", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
            );
 
             context.Routes.MapHttpRoute(
                 "APIUpdate",
-                "story/status/{id}",
+                "stories/status/{id}",
                 new { controller = "QuanLyTruyen", action = "UpdateTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIAddTruyen",
-                "story/add",
+                "stories/add",
                 new { controller = "QuanLyTruyen", action = "AddTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIUpdateChuKy",
-                "story/frequencies",
+                "stories/frequencies",
                 new { controller = "QuanLyTruyen", action = "UpdateChuKyTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyenNhom",
-                "story/teams",
+                "stories/teams",
                 new { controller = "QuanLyTruyen", action = "DanhSachTruyenTrongNhom", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIAddTacGiaChoTruyen",
-                "story/authors",
+                "stories/authors",
                 new { controller = "QuanLyTruyen", action = "AddTacGiaChoTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIThemTheLoaiChoTruyen",
-                "story/categorys",
+                "stories/categories",
                 new { controller = "QuanLyTruyen", action = "AddTheLoaiChoTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             //Chương truyện ---------------------------------------------------------------------------------------
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachChuongTruyen",
+                "chapers",
+                new { controller = "QuanLyChuongTruyen", action = "DanhSachTatCaTruyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+
+            context.Routes.MapHttpRoute(
+                "APIDeleteChuong",
+                "chapers/{id}",
+                new { controller = "QuanLyChuongTruyen", action = "DeleteChuongTruyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
+            );
 
             context.Routes.MapHttpRoute(
                 "APChuongTruyen",
@@ -326,6 +341,15 @@ namespace ReadComic.Areas.Admin
                 new { controller = "QuanLyChuongTruyen", action = "ThemChuongTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
+
+            context.Routes.MapHttpRoute(
+              "APIUpdateChuongTruyen",
+              "chapers/{id}",
+              new { controller = "QuanLyChuongTruyen", action = "UpdateChuongTruyen", id = UrlParameter.Optional },
+              constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+          );
+
+            
 
             context.MapRoute(
                 "Admin_default",

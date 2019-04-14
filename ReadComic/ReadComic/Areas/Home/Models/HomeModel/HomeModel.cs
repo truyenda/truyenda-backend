@@ -198,5 +198,49 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Lấy các truyện phù hợp với mục tìm kiếm
+        /// Author       :   HoangNM - 13/04/2019 - create
+        /// </summary>
+        /// <returns>Danh sách truyện Mới. Exception nếu có lỗi</returns>
+        public List<Comic> SearchComic(string search)
+        {
+            try
+            {
+                List<Comic> NewComicList = new List<Comic>();
+                NewComicList = context.Truyens.Where(x => !x.DelFlag && x.TenTruyen.Contains(search))
+                    .Select(x => new Comic
+                    {
+                        Id = x.Id,
+                        TenTruyen = x.TenTruyen,
+                        TenKhac = x.TenKhac,
+                        NamPhatHanh = x.NamPhatHanh,
+                        AnhBia = x.AnhBia,
+                        AnhDaiDien = x.AnhDaiDien,
+                        MoTa = x.MoTa,
+                        NgayTao = x.NgayTao,
+                        TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy,
+                        DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                        {
+                            Id = y.TacGia.Id,
+                            TenTacGia = y.TacGia.TenTacGia
+                        }).ToList(),
+                        DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                        {
+                            Id = y.LoaiTruyen.Id,
+                            TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                            MoTa = y.LoaiTruyen.Mota
+                        }).ToList()
+
+                    }).OrderByDescending(x => x.NgayTao).Take(5).ToList();
+                return NewComicList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

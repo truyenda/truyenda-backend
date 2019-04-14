@@ -1,8 +1,4 @@
-﻿using Imgur.API;
-using Imgur.API.Authentication.Impl;
-using Imgur.API.Endpoints.Impl;
-using Imgur.API.Models;
-using Imgur.API.Models.Impl;
+﻿
 using ReadComic.Common.Schema;
 using ReadComic.DataBase;
 using System;
@@ -327,42 +323,7 @@ namespace ReadComic.Common
         }
 
 
-        //public OAuth2Token CreateToken()
-        //{
-        //    var token = new OAuth2Token("5c3118ebb73fbb275945ab340be60b610a3216d6", "d36b474c95bb9ee54b992c7c34fffc2cc343d0a7", "Bearer", ID_ACCOUNT, "Rocklee97", int.Parse("3600"));
-        //    return token;
-        //}
-
-        ////Use it only if your token is expired
-        //public Task<IOAuth2Token> RefreshToken()
-        //{
-        //    var client = new ImgurClient(new BaoMat().ClientId, new BaoMat().CLIENT_SECRET);
-        //    var endpoint = new OAuth2Endpoint(client);
-        //    var token = endpoint.GetTokenByRefreshTokenAsync("5c3118ebb73fbb275945ab340be60b610a3216d6");
-        //    return token;
-        //}
-
-
-        //public async Task UploadImage()
-        //{
-        //    try
-        //    {
-        //        var client = new ImgurClient(new BaoMat().ClientId, new BaoMat().CLIENT_SECRET, CreateToken());
-        //        var endpoint = new ImageEndpoint(client);
-        //        IImage image;
-        //        //Here you have to link your image location
-        //        using (var fs = new FileStream(@"IMAGE_LOCATION", FileMode.Open))
-        //        {
-        //            image = await endpoint.UploadImageStreamAsync(fs);
-        //        }
-        //        Debug.Write("Image uploaded. Image Url: " + image.Link);
-        //    }
-        //    catch (ImgurException imgurEx)
-        //    {
-        //        Debug.Write("Error uploading the image to Imgur");
-        //        Debug.Write(imgurEx.Message);
-        //    }
-        //}
+        
     }
 
 }

@@ -67,6 +67,7 @@ namespace ReadComic.Areas.Home.Controllers
             response.ThongTinBoSung1 = null;
             cookie.Expires = DateTimeOffset.Now.AddDays(1);
             cookie.Domain = "truyenda.tk";
+            cookie.Domain = Request.RequestUri.Host;
             cookie.Path = "/";
             var resp = Request.CreateResponse(HttpStatusCode.OK, response);
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
@@ -85,9 +86,11 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: home/api/logout
         /// </remarks>
         [HttpPost]
-        public ResponseInfo Logout(string token)
+        public ResponseInfo Logout()
         {
             ResponseInfo response = new ResponseInfo();
+            string token= HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d","=");
+            
             try
             {
                 response = new LoginModel().RemoveToken(token);

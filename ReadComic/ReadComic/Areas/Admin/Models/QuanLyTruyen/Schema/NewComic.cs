@@ -36,6 +36,5 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
 
         public string AnhBiaName { get; set; }
 
-        public string Token { get; set; }
     }
 }

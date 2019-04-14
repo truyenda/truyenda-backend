@@ -63,12 +63,9 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\obj\Release\ReadComic
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\obj\Release\ReadComic.Common.csproj.CopyComplete
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\obj\Release\ReadComic.Common.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\obj\Release\ReadComic.Common.pdb
-C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\Imgur.API.dll
-C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\ImgurNet.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\Newtonsoft.Json.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.Extensions.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.Primitives.dll
-C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\Imgur.API.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\Newtonsoft.Json.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.Extensions.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.Primitives.xml
