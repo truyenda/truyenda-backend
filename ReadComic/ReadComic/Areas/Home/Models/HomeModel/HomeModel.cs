@@ -242,5 +242,39 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Lấy danh sách truyện ngẫu nhiên
+        /// Author       :   HoangNM - 14/04/2019 - create
+        /// </summary>
+        /// <returns>Danh sách truyện Mới. Exception nếu có lỗi</returns>
+        public List<Comic> GetDanhSachTruyenRandom()
+        {
+            try
+            {
+                List<Comic> NewComicList = new List<Comic>();
+                
+                NewComicList = context.Truyens.Where(x => !x.DelFlag)
+                    .Select(x => new Comic
+                    {
+                        Id = x.Id,
+                        TenTruyen = x.TenTruyen,
+                        TenKhac = x.TenKhac,
+                        NamPhatHanh = x.NamPhatHanh,
+                        AnhBia = x.AnhBia,
+                        AnhDaiDien = x.AnhDaiDien,
+                        MoTa = x.MoTa,
+                        NgayTao = x.NgayTao,
+                        TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy
+
+                    }).OrderBy(x=>Guid.NewGuid()).Take(5).ToList();
+                return NewComicList;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

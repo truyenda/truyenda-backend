@@ -87,6 +87,13 @@ namespace ReadComic.Areas.Home
             );
 
             context.Routes.MapHttpRoute(
+                "GetComicWithRecommend",
+                "story/recommend",
+                new { controller = "Home", action = "GetRandomComicList", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
                "SearchComic",
                "story/search",
                new { controller = "Home", action = "SearchComic", id = UrlParameter.Optional },
