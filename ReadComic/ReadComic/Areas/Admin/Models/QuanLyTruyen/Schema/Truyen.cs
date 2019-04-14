@@ -7,7 +7,7 @@ using System.Web;
 namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
 {
     /// <summary>
-    /// Class dùng để chứa thông tin của một tác giả
+    /// Class dùng để chứa thông tin của một truyện
     /// Author       :   HoangNM - 16/03/2019 - create
     /// </summary>
     /// <remarks>
@@ -46,7 +46,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
         public int IdTrangThai { get; set; }
         public int IdChuKy { get; set; }
         public string TenTruyen { get; set; }
-        public string Token { get; set; }
         public TruyenConditionSearch()
         {
             this.CurrentPage = 1;

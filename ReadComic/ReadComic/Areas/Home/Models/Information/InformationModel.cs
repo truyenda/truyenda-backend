@@ -73,8 +73,8 @@ namespace ReadComic.Areas.Home.Models.Information
             ResponseInfo response = new ResponseInfo();
             try
             {
-                string Token = BaoMat.Base64Decode(account.Token);
-                TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
+                string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+                TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == token);
                 
                 if (account.New_Passord != "" && string.Compare(account.New_Passord, account.Confirm_Password) == 0)
                 {
@@ -97,9 +97,6 @@ namespace ReadComic.Areas.Home.Models.Information
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
-
-
-
 
                 response.MsgError = "Cập nhật thông tin tài khoản thành công";
                 response.Code = 200;

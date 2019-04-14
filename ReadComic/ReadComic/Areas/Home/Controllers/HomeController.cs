@@ -41,7 +41,6 @@ namespace ReadComic.Areas.Home.Controllers
             try
             {
                 
-                //return resp;
                 response.Data = new HomeModel().GetDanhSachTruyenMoi();
                 response.IsSuccess = true;
             }
@@ -73,7 +72,6 @@ namespace ReadComic.Areas.Home.Controllers
             try
             {
 
-                //return resp;
                 response.Data = new HomeModel().GetThongTinTruyen(IdTruyen);
                 response.IsSuccess = true;
             }
@@ -105,7 +103,6 @@ namespace ReadComic.Areas.Home.Controllers
             try
             {
 
-                //return resp;
                 response.Data = new HomeModel().GetDanhSachTruyen();
                 response.IsSuccess = true;
             }
@@ -137,8 +134,38 @@ namespace ReadComic.Areas.Home.Controllers
             try
             {
 
-                //return resp;
                 response.Data = new HomeModel().GetDanhSachTruyenTheoTheLoai(IdTheLoai);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Dùng để tìm kiếm truyện theo tên
+        /// Author       :   HoangNM - 13/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Các truyện phù hợp với mục tìm kiếm
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo SearchComic(string search)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new HomeModel().SearchComic(search);
                 response.IsSuccess = true;
             }
             catch (Exception e)

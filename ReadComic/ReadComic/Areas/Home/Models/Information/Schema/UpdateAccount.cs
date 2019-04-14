@@ -7,8 +7,6 @@ namespace ReadComic.Areas.Home.Models.Information.Schema
 {
     public class UpdateAccount
     {
-        public string Token { get; set; }
-
         public string Ten { get; set; }
 
         public DateTime NgaySinh { get; set; }

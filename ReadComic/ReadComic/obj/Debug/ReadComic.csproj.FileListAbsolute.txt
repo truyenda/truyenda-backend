@@ -109,11 +109,8 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Z.EntityFramework.Extens
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Web.Cors.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Web.Http.Cors.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Web.Http.Cors.xml
-C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Imgur.API.dll
-C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\ImgurNet.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Extensions.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Primitives.dll
-C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Imgur.API.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Extensions.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Primitives.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\obj\Debug\ReadComic.csproj.App.config

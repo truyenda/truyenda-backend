@@ -126,7 +126,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             try
             {
                 bool result = true;
-                if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                if (context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
                 {
                     TblTruyen truyen = context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     truyen.DelFlag = true;
@@ -257,7 +257,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
-                int IdNhom = Common.Common.GetAccount(truyen.Token).IdNhom;
+                string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+                int IdNhom = Common.Common.GetAccount(token).IdNhom;
                 truyen.Id = context.Truyens.Count() == 0 ? 1 : context.Truyens.Max(x => x.Id) + 1;
                 context.Truyens.Add(new TblTruyen
                 {
@@ -267,9 +268,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     TenKhac = truyen.TenKhac,
                     Id_TrangThai = truyen.Id_TrangThai,
                     NamPhatHanh = truyen.NamPhatHanh,
-                   // AnhBia = new Common.Common().SaveImage(truyen.AnhBia,truyen.Id,truyen.AnhBiaName),
                     AnhBia = truyen.AnhBia,
-                    //AnhDaiDien = new Common.Common().SaveImage(truyen.AnhDaiDien, truyen.Id,truyen.AnhDaiDienName),
                     AnhDaiDien = truyen.AnhDaiDien,
                     MoTa = truyen.MoTa,
                     NgayTao=DateTime.Now
@@ -305,7 +304,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 }
                 DanhSachTruyen listTruyen = new DanhSachTruyen();
 
-                int IdNhom = Common.Common.GetAccount(condition.Token).IdNhom;
+                string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+                int IdNhom = Common.Common.GetAccount(token).IdNhom;
                     
                 // Lấy các thông tin dùng để phân trang
                 listTruyen.Paging = new Paging(context.Truyens.Count(x =>
