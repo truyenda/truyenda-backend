@@ -150,12 +150,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateNhomDich
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpdateNhomDich(NhomDich data)
+        public ResponseInfo UpdateNhomDich(NhomDich data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyNhomDichModel().UpadateNhomDich(data);
+                response = new QuanLyNhomDichModel().UpadateNhomDich(data,id);
             }
             catch (Exception e)
             {

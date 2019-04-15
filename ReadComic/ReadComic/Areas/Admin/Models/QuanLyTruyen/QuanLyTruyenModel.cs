@@ -10,6 +10,11 @@ using System.Web;
 using TblTruyen = ReadComic.DataBase.Schema.Truyen;
 using TblLuuTacGia = ReadComic.DataBase.Schema.LuuTacGia;
 using TblLuuLoaiTruyen = ReadComic.DataBase.Schema.LuuLoaiTruyen;
+using TblChuongTruyen= ReadComic.DataBase.Schema.Chuong;
+using TblTacGia = ReadComic.DataBase.Schema.TacGia;
+using System.IO;
+using System.Text;
+using System.Web.Script.Serialization;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
 {
@@ -402,6 +407,125 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 response.ThongTinBoSung1 = data.IdTruyen + "";
                 response.IsSuccess = true;
                 transaction.Commit();
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.IsSuccess = false;
+                transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Dùng để xử lý file json
+        /// Author       :   HoangNM - 15/04/2019 - create
+        /// </summary>
+        /// <param name="path">file json cần xử lý</param>
+        /// <returns>Trả về các thông tin khi cập nhật truyện, Excetion nếu có lỗi</returns>
+        public ResponseInfo XulyJson(string path)
+        {
+            DbContextTransaction transaction = context.Database.BeginTransaction();
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                //int[] t = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+                //foreach(int i in t)
+                //{
+                //    TblTruyen truyen1 = context.Truyens.FirstOrDefault(x => x.Id == i && !x.DelFlag);
+                //    truyen1.DelFlag = true;
+                //    context.SaveChanges();
+                //}
+
+
+                //xử lý file json
+                string[] lines = File.ReadAllLines(path);
+                string json = string.Join("", lines);
+                JsonTruyen Story = new JavaScriptSerializer().Deserialize<JsonTruyen>(json);
+                List<Chapter> chapters = Story.chapters;
+                //thêm truyên-------------------------------------------------------------------------------
+                TblTruyen truyen = context.Truyens.Add(new TblTruyen
+                {
+                    Id_Nhom = 1,
+                    Id_ChuKy = new Random().Next(1, 2),
+                    TenTruyen = Story.name,
+                    TenKhac = string.Join(",", Story.oname),
+                    Id_TrangThai = new Random().Next(2, 4),
+                    NamPhatHanh = new Random().Next(2004, 2018),
+                    AnhBia = Story.thumb,
+                    AnhDaiDien = Story.thumb,
+                    MoTa = Story.description,
+                    NgayTao = DateTime.Now
+                });
+                context.SaveChanges();
+                int id_truyen = truyen.Id;
+                response.ThongTinBoSung1 = "Thêm truyện thành công";
+
+                //thêm chương truyên ----------------------------------------------------------------------
+
+                int stt = 0;
+                chapters.Reverse();
+                foreach (Chapter chapter in chapters)
+                {
+                    string title = chapter.title;
+                    string data = "{" + string.Join(",", chapter.data) + "}";
+                    context.Chuongs.Add(new TblChuongTruyen
+                    {
+                        Id_Truyen = id_truyen,
+                        TenChuong = chapter.title,
+                        SoThuTu = ++stt,
+                        LinkAnh = "{" + string.Join(",", chapter.data) + "}",
+                        LuotXem = 0,
+                        NgayTao = DateTime.Now
+                    });
+                    context.SaveChanges();
+                }
+                response.ThongTinBoSung2 = "Thêm chương thành công";
+
+                //thêm thể loại cho truyện ----------------------------------------------------------------
+
+                foreach (string idTheLoai in Story.cate)
+                {
+                    context.LuuLoaiTruyens.Add(new TblLuuLoaiTruyen
+                    {
+                        IdTruyen = id_truyen,
+                        IdLoaiTruyen = Convert.ToInt32(idTheLoai)
+                    });
+                }
+
+                context.SaveChanges();
+                response.ThongTinBoSung3 = "Thêm thể loại thành công";
+
+                //thêm tác giả cho truyên ----------------------------------------------------------------
+
+                foreach (string tacgia in Story.authors)
+                {
+                    TblTacGia tblTacGia = context.TacGias.FirstOrDefault(x => string.Compare(x.TenTacGia, tacgia) == 0 && !x.DelFlag);
+                    int Id_TacGia = 0;
+                    if (tblTacGia != null)
+                    {
+                        Id_TacGia = tblTacGia.Id;
+                    }
+                    else
+                    {
+                        tblTacGia = context.TacGias.Add(new TblTacGia
+                        {
+                            TenTacGia = tacgia
+                        });
+                        context.SaveChanges();
+                        Id_TacGia = tblTacGia.Id;
+                    }
+                    context.LuuTacGias.Add(new TblLuuTacGia
+                    {
+                        Id_Truyen = id_truyen,
+                        Id_TacGia = Id_TacGia
+                    });
+                    context.SaveChanges();
+
+                }
+                response.ThongTinBoSung1 = "Thêm tác giả thành công";
+                transaction.Commit();
+                response.MsgError = "Thêm thành công";
                 return response;
             }
             catch (Exception e)

@@ -120,13 +120,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
         /// </summary>
         /// <param name="nhomDich">thông tin về nhóm dịch muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật nhóm dịch, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateNhomDich(NhomDich nhomDich)
+        public ResponseInfo UpadateNhomDich(NhomDich nhomDich,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.NhomDiches.Where(x => x.Id == nhomDich.Id && !x.DelFlag)
+                context.NhomDiches.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblNhomDich
                     {
                         TenNhomDich = nhomDich.TenNhomDich,
@@ -159,7 +159,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
             {
                 ResponseInfo response = new ResponseInfo();
 
-                nhomDich.Id = context.NhomDiches.Count() == 0 ? 1 : context.NhomDiches.Max(x => x.Id) + 1;
+                int id = context.NhomDiches.Count() == 0 ? 1 : context.NhomDiches.Max(x => x.Id) + 1;
                 context.NhomDiches.Add(new TblNhomDich
                 {
                     TenNhomDich = nhomDich.TenNhomDich,
@@ -167,7 +167,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                     Logo=nhomDich.Logo
                 });
                 context.SaveChanges();
-                response.ThongTinBoSung1 = nhomDich.Id + "";
+                response.ThongTinBoSung1 = id + "";
                 transaction.Commit();
                 return response;
             }

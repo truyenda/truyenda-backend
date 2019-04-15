@@ -54,7 +54,7 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
 
-            //loại truyện
+            //loại truyện-------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachLoaiTruyen",
                 "categories",
@@ -129,9 +129,9 @@ namespace ReadComic.Areas.Admin
             //tác giả  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTacGia",
-                "authors",
+                "authors/{page}",
                 new { controller = "QuanLyTacGia", action = "DanhSachTacGia", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
@@ -150,7 +150,7 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APICreateTacGia",
-                "authors/add",
+                "authors",
                 new { controller = "QuanLyTacGia", action = "ThemTacGia", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
@@ -160,6 +160,13 @@ namespace ReadComic.Areas.Admin
                 "authors/{id}",
                 new { controller = "QuanLyTacGia", action = "UpdateTacGia", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachTruyenVoiTacGia",
+                "authors/{Id_TacGia}/stories",
+                new { controller = "QuanLyTacGia", action = "DanhSachTruyenVoiTacGia", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             //tài khoản  ----------------------------------------------------------------------------------------
@@ -207,35 +214,35 @@ namespace ReadComic.Areas.Admin
             //trạng thái truyện  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTrangThaiTruyen",
-                "sstatus",
+                "status",
                 new { controller = "QuanLyTrangThaiTruyen", action = "DanhSachTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APITrangThaiTruyen",
-                "sstatus/{id}",
+                "status/{id}",
                 new { controller = "QuanLyTrangThaiTruyen", action = "Get", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIDeleteTrangThaiTruyen",
-                "sstatus/{id}",
+                "status/{id}",
                 new { controller = "QuanLyTrangThaiTruyen", action = "DeleteTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
             );
 
             context.Routes.MapHttpRoute(
                 "APICreateTrangThaiTruyen",
-                "sstatus",
+                "status",
                 new { controller = "QuanLyTrangThaiTruyen", action = "ThemTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIUpdateTrangThaiTruyen",
-                "sstatus/{id}",
+                "status/{id}",
                 new { controller = "QuanLyTrangThaiTruyen", action = "UpdateTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
@@ -311,6 +318,13 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
+            context.Routes.MapHttpRoute(
+                "APIThemTruyenTuJson",
+                "json/add/story",
+                new { controller = "QuanLyTruyen", action = "GetJson", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
             //Chương truyện ---------------------------------------------------------------------------------------
 
             context.Routes.MapHttpRoute(
@@ -349,7 +363,40 @@ namespace ReadComic.Areas.Admin
               constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
           );
 
-            
+
+            //ErrorMsg  -----------------------------------------------------------------------------------------------
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachErrorMgs",
+                "errorMsg",
+                new { controller = "QuanLyErrorMgs", action = "DanhSachErrorMgs", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+
+            context.Routes.MapHttpRoute(
+                "APIDeleteErrorMsg",
+                "errorMsg/{id}",
+                new { controller = "QuanLyErrorMgs", action = "DeleteErrorMsg", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
+            );
+
+
+            context.Routes.MapHttpRoute(
+                "APICreateErrorMgs",
+                "errorMsg",
+                new { controller = "QuanLyErrorMgs", action = "ThemErrorMgs", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            context.Routes.MapHttpRoute(
+              "APIUpdateErrorMsg",
+              "errorMsg/{id}",
+              new { controller = "QuanLyErrorMgs", action = "UpdateErrorMsg", id = UrlParameter.Optional },
+              constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+          );
+
+
 
             context.MapRoute(
                 "Admin_default",

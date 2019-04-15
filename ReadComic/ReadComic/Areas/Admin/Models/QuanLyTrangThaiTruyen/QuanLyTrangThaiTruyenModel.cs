@@ -116,13 +116,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTrangThaiTruyen
         /// </summary>
         /// <param name="trangThaiTruyen">thông tin về trạng thái truyện muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật trạng thái truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTrangThaiTruyen(TrangThaiTruyen trangThaiTruyen)
+        public ResponseInfo UpadateTrangThaiTruyen(TrangThaiTruyen trangThaiTruyen,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.ThaiTruyens.Where(x => x.Id == trangThaiTruyen.Id && !x.DelFlag)
+                context.ThaiTruyens.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblTrangThaiTruyen
                     {
                         TenTrangThai = trangThaiTruyen.TentrangThai,

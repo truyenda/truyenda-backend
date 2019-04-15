@@ -146,13 +146,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
         /// </summary>
         /// <param name="chuong">thông tin về chương truyện muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật chương truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateChuongTruyen(ChuongCuaTruyen chuong)
+        public ResponseInfo UpadateChuongTruyen(ChuongCuaTruyen chuong,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.Chuongs.Where(x => x.Id == chuong.Id && !x.DelFlag)
+                context.Chuongs.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblChuongTruyen
                     {
                         Id_Truyen = chuong.IdTruyen,

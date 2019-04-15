@@ -115,13 +115,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuKyTruyen.Schema
         /// </summary>
         /// <param name="chuKyTruyen">thông tin về chu kỳ truyện muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật loại truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateChuKy(ChuKy chuKyTruyen)
+        public ResponseInfo UpadateChuKy(ChuKy chuKyTruyen,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.ChuKyPhatHanhs.Where(x => x.Id == chuKyTruyen.Id && !x.DelFlag)
+                context.ChuKyPhatHanhs.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblChuKy
                     {
                         TenChuKy = chuKyTruyen.TenChuKy,
@@ -152,13 +152,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuKyTruyen.Schema
             {
                 ResponseInfo response = new ResponseInfo();
 
-                chuKy.Id = context.ChuKyPhatHanhs.Count() == 0 ? 1 : context.ChuKyPhatHanhs.Max(x => x.Id) + 1;
+                int id = context.ChuKyPhatHanhs.Count() == 0 ? 1 : context.ChuKyPhatHanhs.Max(x => x.Id) + 1;
                 context.ChuKyPhatHanhs.Add(new TblChuKy
                 {
                     TenChuKy = chuKy.TenChuKy
                 });
                 context.SaveChanges();
-                response.ThongTinBoSung1 = chuKy.Id + "";
+                response.ThongTinBoSung1 = id + "";
                 transaction.Commit();
                 return response;
             }

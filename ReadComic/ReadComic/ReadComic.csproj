@@ -55,6 +55,12 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NodaMoney, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaMoney.1.0.5\lib\net45\NodaMoney.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaMoney.Serialization.AspNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NodaMoney.Serialization.AspNet.1.0.5\lib\net45\NodaMoney.Serialization.AspNet.dll</HintPath>
+    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
     </Reference>
@@ -78,6 +84,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
@@ -168,6 +175,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyChuKyTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyChuongTruyenController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyErrorMgsController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyLoaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyNhomDichController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
@@ -180,9 +188,15 @@
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\ChuongCuaTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\DanhSachChuongTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\GetChuongTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyErrorMgs\QuanLyErrorMsgModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyErrorMgs\Schema\ErrorMgs.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTruyenTheoTacGia.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\Truyen_TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\QuanLyTruyenModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\Chapter.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ChuKyTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\DanhSachTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\JsonTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\NewComic.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\TheLoaiChoTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ThemTacGiaChoTruyen.cs" />

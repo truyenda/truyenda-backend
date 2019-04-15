@@ -21,7 +21,6 @@ namespace ReadComic.Areas.Admin.Controllers
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuanLyTrangThaiTruyenController : ApiController
     {
         /// <summary>
@@ -150,12 +149,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateTrangThaiTruyen
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpdateTrangThaiTruyen(TrangThaiTruyen data)
+        public ResponseInfo UpdateTrangThaiTruyen(TrangThaiTruyen data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyTrangThaiTruyenModel().UpadateTrangThaiTruyen(data);
+                response = new QuanLyTrangThaiTruyenModel().UpadateTrangThaiTruyen(data,id);
             }
             catch (Exception e)
             {

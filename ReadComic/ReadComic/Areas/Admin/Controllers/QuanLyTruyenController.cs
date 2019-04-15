@@ -314,5 +314,36 @@ namespace ReadComic.Areas.Admin.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Điều hướng đến trang hiển thị danh sách truyên
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 01/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Trang danh sách tất cả truyện
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachTruyen
+        /// </remarks>
+        [HttpPost]
+        public ResponseInfo GetJson(string test)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.Data = new QuanLyTruyenModel().XulyJson(test);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }

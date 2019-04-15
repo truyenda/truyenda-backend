@@ -116,13 +116,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen
         /// </summary>
         /// <param name="loaiTruyen">thông tin về loại truyện muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật loại truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateLoaiTruyen(LoaiTruyen loaiTruyen)
+        public ResponseInfo UpadateLoaiTruyen(LoaiTruyen loaiTruyen,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.LoaiTruyens.Where(x => x.Id == loaiTruyen.Id && !x.DelFlag)
+                context.LoaiTruyens.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TbLoaiTruyen
                     {
                         TenTheLoai = loaiTruyen.TenLoaiTruyen,
@@ -154,14 +154,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen
             {
                 ResponseInfo response = new ResponseInfo();
 
-                loaiTruyen.Id = context.LoaiTruyens.Count() == 0 ? 1 : context.LoaiTruyens.Max(x => x.Id) + 1;
+                int id = context.LoaiTruyens.Count() == 0 ? 1 : context.LoaiTruyens.Max(x => x.Id) + 1;
                 context.LoaiTruyens.Add(new TbLoaiTruyen
                 {
                     TenTheLoai = loaiTruyen.TenLoaiTruyen,
                     Mota = loaiTruyen.MoTa
                 });
                 context.SaveChanges();
-                response.ThongTinBoSung1 = loaiTruyen.Id + "";
+                response.ThongTinBoSung1 = id + "";
                 transaction.Commit();
                 return response;
             }
