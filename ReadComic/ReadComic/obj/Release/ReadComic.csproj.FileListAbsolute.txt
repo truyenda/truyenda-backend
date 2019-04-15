@@ -114,3 +114,7 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Primitiv
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Extensions.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Net.Http.Primitives.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\obj\Release\ReadComic.csproj.App.config
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\NodaMoney.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\NodaMoney.Serialization.AspNet.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\NodaMoney.xml
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\NodaMoney.Serialization.AspNet.xml

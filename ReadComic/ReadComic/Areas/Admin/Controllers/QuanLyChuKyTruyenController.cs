@@ -149,12 +149,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateChuKyPhatHanh
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpdateChuKy(ChuKy data)
+        public ResponseInfo UpdateChuKy(ChuKy data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyChuKyModel().UpadateChuKy(data);
+                response = new QuanLyChuKyModel().UpadateChuKy(data,id);
             }
             catch (Exception e)
             {

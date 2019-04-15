@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Extensions;
 using ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema;
+using ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema;
 using ReadComic.Common;
 using ReadComic.DataBase;
 using System;
@@ -22,7 +23,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
     /// </remarks>
     public class QuanLyTacGiaModel
     {
-        private  DataContext context;
+        private DataContext context;
 
         public QuanLyTacGiaModel()
         {
@@ -35,19 +36,15 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
         /// </summary>
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
         /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachTacGia GetListTacGia(TacGiaConditionSearch condition)
+        public DanhSachTacGia GetListTacGia(int page)
         {
             try
             {
-                // Nếu không tồn tại điều kiện tìm kiếm thì khởi tạo giá trị tìm kiếm ban đầu
-                if (condition == null)
-                {
-                    condition = new TacGiaConditionSearch();
-                }
+
                 DanhSachTacGia listTacGia = new DanhSachTacGia();
 
                 // Lấy các thông tin dùng để phân trang
-                listTacGia.Paging = new Paging(context.TacGias.Count(x => !x.DelFlag), condition.CurrentPage);
+                listTacGia.Paging = new Paging(context.TacGias.Count(x => !x.DelFlag), page);
                 // Tìm kiếm và lấy dữ liệu theo trang
                 listTacGia.listTacGia = context.TacGias.Where(x => !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTacGia.Paging.CurrentPage - 1) * listTacGia.Paging.NumberOfRecord)
@@ -56,8 +53,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                         Id = x.Id,
                         TenTacGia = x.TenTacGia
                     }).ToList();
-                listTacGia.Condition = condition;
-                
+                listTacGia.CurrentPage = page;
+
                 return listTacGia;
             }
             catch (Exception e)
@@ -128,13 +125,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
         /// </summary>
         /// <param name="tacGia">thông tin về tác giả muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật tác giả, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTacGia(TacGia tacGia)
+        public ResponseInfo UpadateTacGia(TacGia tacGia, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.TacGias.Where(x => x.Id == tacGia.Id && !x.DelFlag)
+                context.TacGias.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblTacGia
                     {
                         TenTacGia = tacGia.TenTacGia,
@@ -165,19 +162,55 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
             {
                 ResponseInfo response = new ResponseInfo();
 
-                tacGia.Id = context.ChuKyPhatHanhs.Count() == 0 ? 1 : context.ChuKyPhatHanhs.Max(x => x.Id) + 1;
+                int id = context.ChuKyPhatHanhs.Count() == 0 ? 1 : context.ChuKyPhatHanhs.Max(x => x.Id) + 1;
                 context.TacGias.Add(new TblTacGia
                 {
                     TenTacGia = tacGia.TenTacGia
                 });
                 context.SaveChanges();
-                response.ThongTinBoSung1 = tacGia.Id + "";
+                response.ThongTinBoSung1 = id + "";
                 transaction.Commit();
                 return response;
             }
             catch (Exception e)
             {
                 transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Tìm kiếm tất cả truyện của tác giả 
+        /// Author       :   HoangNM - 14/04/2019 - create
+        /// </summary>
+        /// <param name="Id_TacGia">Id của tác giả của truyện muốn tìm</param>
+        /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachTruyenTheoTacGia GetListTruyenWithAuthor(int Id_TacGia)
+        {
+            try
+            {
+
+                DanhSachTruyenTheoTacGia listTruyen = new DanhSachTruyenTheoTacGia();
+                listTruyen = context.TacGias.Where(x => x.Id == Id_TacGia).Select(x => new DanhSachTruyenTheoTacGia
+                {
+                    Id_TacGia = x.Id,
+                    TenTacGia = x.TenTacGia
+                }).FirstOrDefault();
+
+
+                listTruyen.listTruyen = context.LuuTacGias.Where(x => !x.DelFlag && x.Id_TacGia == Id_TacGia)
+                    .Select(x => new Truyen_TacGia
+                    {
+                        Id_Truyen = x.Id_Truyen,
+                        TenTruyen = x.Truyen.TenTruyen,
+                        AnhDaiDien = x.Truyen.AnhDaiDien,
+                        MoTa = x.Truyen.MoTa
+                    }).ToList();
+
+                return listTruyen;
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }

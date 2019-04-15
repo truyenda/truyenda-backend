@@ -23,22 +23,5 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema
         public string TenTacGia { get; set; }
     }
 
-    /// <summary>
-    /// Class dùng để chứa thông tin tìm kiếm của danh sách tác giả
-    /// Author       :   HoangNM - 16/03/2019 - create
-    /// </summary>
-    /// <remarks>
-    /// Package      :   ControlPanel.Models
-    /// Copyright    :   Team Hoang_C#
-    /// Version      :   1.0.0
-    /// </remarks>
-    public class TacGiaConditionSearch
-    {
-        public int CurrentPage { set; get; }
-
-        public TacGiaConditionSearch()
-        {
-            this.CurrentPage = 1;
-        }
-    }
+    
 }

@@ -124,12 +124,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </remarks>
 
         [HttpPut]
-        public ResponseInfo UpdateChuongTruyen(ChuongCuaTruyen data)
+        public ResponseInfo UpdateChuongTruyen(ChuongCuaTruyen data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyChuongTruyenModel().UpadateChuongTruyen(data);
+                response = new QuanLyChuongTruyenModel().UpadateChuongTruyen(data,id);
             }
             catch (Exception e)
             {

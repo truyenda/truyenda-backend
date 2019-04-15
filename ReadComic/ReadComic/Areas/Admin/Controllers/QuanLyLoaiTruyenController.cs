@@ -149,12 +149,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateLoaiTruyen
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpdateLoaiTruyen(LoaiTruyen data)
+        public ResponseInfo UpdateLoaiTruyen(LoaiTruyen data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyLoaiTruyenModel().UpadateLoaiTruyen(data);
+                response = new QuanLyLoaiTruyenModel().UpadateLoaiTruyen(data,id);
             }
             catch (Exception e)
             {

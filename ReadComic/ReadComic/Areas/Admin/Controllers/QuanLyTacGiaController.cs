@@ -44,13 +44,13 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Method: GET
         /// RouterName: APIDanhSachTacGia
         /// </remarks>
-        [HttpPost]
-        public ResponseInfo DanhSachTacGia(TacGiaConditionSearch condition)
+        [HttpGet]
+        public ResponseInfo DanhSachTacGia(int page = 1)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyTacGiaModel().GetListTacGia(condition);
+                response.Data = new QuanLyTacGiaModel().GetListTacGia(page);
                 response.IsSuccess = true;
             }
             catch (Exception e)
@@ -157,12 +157,43 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateTacGia
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpdateTacGia(TacGia data)
+        public ResponseInfo UpdateTacGia(TacGia data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyTacGiaModel().UpadateTacGia(data);
+                response = new QuanLyTacGiaModel().UpadateTacGia(data,id);
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
+                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Lấy danh sách truyện theo tác giả
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 14/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách truyện với tác giả tìm kiếm
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachTruyenVoiTacGia
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo DanhSachTruyenVoiTacGia(int Id_TacGia )
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.Data = new QuanLyTacGiaModel().GetListTruyenWithAuthor(Id_TacGia);
+                response.IsSuccess = true;
             }
             catch (Exception e)
             {
