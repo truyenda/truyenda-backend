@@ -121,7 +121,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyQuyen
         /// <param name="quyen">thông tin về quyền muốn thay đổi</param>
         /// <param name="id">là id của quyền muốn cập nhật</param>
         /// <returns>Trả về các thông tin khi cập nhật quyền, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateChuKy(NewQuyen quyen, int id)
+        public ResponseInfo UpadateQuyen(NewQuyen quyen, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
@@ -155,14 +155,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyQuyen
         /// </summary>
         /// <param name="quyen">quyền sẽ thêm</param>
         /// <returns>Trả về các thông tin khi thêm quyền vào db, Excetion nếu có lỗi</returns>
-        public ResponseInfo ThemChuKy(NewQuyen quyen)
+        public ResponseInfo ThemQuyen(NewQuyen quyen)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             try
             {
                 ResponseInfo response = new ResponseInfo();
 
-                int id = context.Quyens.Count() == 0 ? 1 : context.ChuKyPhatHanhs.Max(x => x.Id) + 1;
+                int id = context.Quyens.Count() == 0 ? 1 : context.PhanQuyens.Max(x => x.Id) + 1;
                 context.Quyens.Add(new TblQuyen
                 {
                     TenQuyen = quyen.TenQuyen,

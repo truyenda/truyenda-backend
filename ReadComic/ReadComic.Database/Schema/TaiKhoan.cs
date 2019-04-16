@@ -13,23 +13,23 @@ namespace ReadComic.DataBase.Schema
     {
         public TaiKhoan()
         {
-            PhanQuyens = new HashSet<PhanQuyen>();
             TheoDoiTruyens = new HashSet<TheoDoiTruyen>();
             BinhLuans = new HashSet<BinhLuan>();
             DanhGiaTruyens = new HashSet<DanhGiaTruyen>();
             Tokens = new HashSet<Token>();
             ResetPassWords = new HashSet<ResetPassWord>();
         }
-
-        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [ForeignKey("ThongTinNguoiDung")]
+        [Key]
+        
         public int Id { get; set; }
+
+        public int Id_User { get; set; }
 
         public int Id_TrangThai { get; set; }
 
-       
-        //public int Id_User { get; set; }
+
+        public int Id_PhanQuyen { get; set; }
 
         public int Id_NhomDich { get; set; }
 
@@ -56,18 +56,18 @@ namespace ReadComic.DataBase.Schema
         public string Id_Google { get; set; }
 
 
-
-        
+        [ForeignKey("Id_PhanQuyen")]
+        public virtual PhanQuyen PhanQuyen { get; set; }
 
         [ForeignKey("Id_TrangThai")]
         public virtual TrangThaiTaiKhoan TrangThaiTaiKhoan { get; set; }
 
-        
+        [ForeignKey("Id_User")]
         public virtual ThongTinNguoiDung ThongTinNguoiDung { get; set; }
 
         public virtual NhomDich NhomDich { get; set; }
 
-        public virtual ICollection<PhanQuyen> PhanQuyens { get; set; }
+       
         public virtual ICollection<DanhGiaTruyen> DanhGiaTruyens { get; set; }
         public virtual ICollection<TheoDoiTruyen> TheoDoiTruyens { get; set; }
         public virtual ICollection<BinhLuan> BinhLuans { get; set; }

@@ -70,3 +70,6 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Add_LuotXemTuan_LuotXemThang.resources
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_TblThongTinNguoiDung_1.resources
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_TblThongTinNguoiDung_2.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_PhanQuyen.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_PhanQuyen_2.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Debug\ReadComic.Database.Migrations.Edit_TaiKhoan1.resources

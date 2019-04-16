@@ -71,7 +71,7 @@ namespace ReadComic.Areas.Home.Controllers
             response.ThongTinBoSung1 = null;
             cookie.Expires = DateTimeOffset.Now.AddDays(1);
             cookie.Domain = "truyenda.tk";
-           // cookie.Domain = Request.RequestUri.Host;
+            //cookie.Domain = Request.RequestUri.Host;
             cookie.Path = "/";
             var resp = Request.CreateResponse(HttpStatusCode.OK, response);
             resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
