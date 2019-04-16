@@ -21,7 +21,6 @@ namespace ReadComic.Areas.Admin.Controllers
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    //[EnableCors(origins: "*", headers: "*", methods: "*")]
     public class QuanLyChuKyTruyenController : ApiController
     {
         /// <summary>
