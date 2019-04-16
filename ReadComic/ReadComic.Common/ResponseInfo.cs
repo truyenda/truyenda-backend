@@ -10,11 +10,17 @@ namespace ReadComic.Common
     {
         // 200: Thành công
         // 201: Validate sai
+        // 203: Thất bại
         // 500: Lỗi server
-        // 403: Không có quyền truy cập
+        // 401: Không có quyền truy cập
+        // 403: Bị cấm truy nhập
+        // 404: không tìm thấy
+        // 405: Phương thức không được phép
+        // 406: Không được chấp nhận
+        // 409: Xung đột
         public int Code { set; get; }
 
-        public int MsgNo { set; get; }
+        public int TypeMsgError { set; get; }
         public string MsgError { set; get; }
         public Dictionary<string, string> ListError { set; get; }
         public string ThongTinBoSung1 { set; get; }
@@ -29,7 +35,7 @@ namespace ReadComic.Common
         public ResponseInfo()
         {
             Code = (int)CodeResponse.OK;
-            MsgNo = 0;
+            TypeMsgError = 0;
             IsSuccess = false;
             IsValid = false;
         }

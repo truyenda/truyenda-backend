@@ -9,6 +9,8 @@ using System.Web;
 using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
 using TblThongTinNguoiDung = ReadComic.DataBase.Schema.ThongTinNguoiDung;
 using TblPhanQuyens = ReadComic.DataBase.Schema.PhanQuyen;
+using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Enum;
 
 namespace ReadComic.Areas.Home.Models
 {
@@ -88,29 +90,31 @@ namespace ReadComic.Areas.Home.Models
                         result.Code = 200;
                         result.IsSuccess = true;
                         result.IsValid = true;
-                        result.MsgNo = 39;
-                        //result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
-                        //result.ThongTinBoSung1 = BaoMat.Base64Encode(taiKhoan.Tokens.);
+
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.TaoTaiKhoanThanhCong);
+                        result.TypeMsgError = errorMsg.Type;
+                        result.MsgError = errorMsg.Msg;
                     }
                     else
                     {
-                        result.Code = 202;
-                        result.MsgNo = 37;
-                        result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
+                        result.Code = 203;
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.EmailDaTonTai);
+                        result.TypeMsgError = errorMsg.Type;
+                        result.MsgError = errorMsg.Msg;
                     }
                 }
                 else
                 {
-                    result.Code = 202;
-                    result.MsgNo = 36;
-                    result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
+                    result.Code = 203;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.UserNameDaDung);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
                 }
                 //transaction.Commit();
                 return result;
             }
             catch (Exception e)
             {
-                //transaction.Rollback();
                 throw e;
             }
         }

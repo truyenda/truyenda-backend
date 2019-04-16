@@ -246,6 +246,7 @@
     <Content Include="Global.asax" />
     <Content Include="Areas\Home\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="json.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml">
       <SubType>Designer</SubType>
     </None>
