@@ -59,33 +59,35 @@ namespace ReadComic.Areas.Home.Models
                             GioiTinh = newAccount.GioiTinh,
                             NgaySinh = newAccount.NgaySinh,
                         };
-                        context.ThongTinNguoiDungs.Add(user);
-                        context.SaveChanges();
+                        
+                       
+
+
                         string salt = BaoMat.GetSalt();
-                        // Tạo tài khoản đăng nhập cho user
+
+                        //// Tạo tài khoản đăng nhập cho user
                         taiKhoan = new TblTaiKhoan
                         {
+                            //Id_User=user.Id,
                             Username = newAccount.Username,
-                            salt_Pass=salt,
+                            salt_Pass = salt,
                             hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(newAccount.Password), salt),
                             Email = newAccount.Email,
-                            Id_TrangThai=1,
-                            Id_NhomDich=2,
-                            Id_Face="",
-                            Id_Google=""
+                            Id_TrangThai = 1,
+                            Id_NhomDich = 1,
+                            Id_Face = "",
+                            Id_Google = "",
+                            Id_PhanQuyen = 1
                         };
-                         //Cho tài khoản thuộc vào 1 group
-                        taiKhoan.PhanQuyens.Add(new TblPhanQuyens
-                        {
-                            TenVaiTro="Người dùng",
-                            TongQuyen=1
-                        });
 
 
 
                         context.TaiKhoans.Add(taiKhoan);
                         // Lưu vào CSDL
                         context.SaveChanges();
+
+
+                        
 
                         result.Code = 200;
                         result.IsSuccess = true;

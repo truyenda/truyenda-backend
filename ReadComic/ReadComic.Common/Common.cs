@@ -179,13 +179,15 @@ namespace ReadComic.Common
             DataContext context = new DataContext();
             string Token = BaoMat.Base64Decode(token);
             TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-            return context.PhanQuyens.Where(x => x.Id_TaiKhoan == TblToken.Id_TaiKhoan && !x.DelFlag).Select(x => new GetAccount
+            return context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).Select(x => new GetAccount
             {
-                Id = x.Id_TaiKhoan,
-                IdNhom = x.TaiKhoan.Id_NhomDich,
-                IdQuyen = x.Id,
-                TongQuyen = x.TongQuyen
+                Id = x.Id,
+                IdNhom = x.Id_NhomDich,
+                IdQuyen = x.Id_PhanQuyen,
+                TongQuyen = x.PhanQuyen.TongQuyen
             }).FirstOrDefault();
+
+            return new GetAccount();
         }
 
 

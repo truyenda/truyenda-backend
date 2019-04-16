@@ -12,6 +12,7 @@ using TblLuuTacGia = ReadComic.DataBase.Schema.LuuTacGia;
 using TblLuuLoaiTruyen = ReadComic.DataBase.Schema.LuuLoaiTruyen;
 using TblChuongTruyen= ReadComic.DataBase.Schema.Chuong;
 using TblTacGia = ReadComic.DataBase.Schema.TacGia;
+using TblToken = ReadComic.DataBase.Schema.Token;
 using System.IO;
 using System.Text;
 using System.Web.Script.Serialization;
@@ -450,7 +451,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 //    truyen1.DelFlag = true;
                 //    context.SaveChanges();
                 //}
-
 
                 //xử lý file json
                 string[] lines = File.ReadAllLines(path);

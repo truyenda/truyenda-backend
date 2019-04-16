@@ -277,10 +277,11 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             {
                 string Token = BaoMat.Base64Decode(token);
                 TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-                if(context.PhanQuyens.FirstOrDefault(x => x.Id == 1).Id_TaiKhoan == TblToken.Id_TaiKhoan)
+                if (true)
                 {
                     return 1;
-                }else if(context.PhanQuyens.FirstOrDefault(x => x.Id == 2).Id_TaiKhoan == TblToken.Id_TaiKhoan)
+                }
+                else if (true)
                 {
                     return 2;
                 }

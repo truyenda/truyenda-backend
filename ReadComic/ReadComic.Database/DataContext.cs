@@ -149,10 +149,10 @@ namespace ReadComic.DataBase
                .HasForeignKey(e => e.Id_TacGia)
                .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<TaiKhoan>()
-               .HasMany(e => e.PhanQuyens)
-               .WithRequired(e => e.TaiKhoan)
-               .HasForeignKey(e => e.Id_TaiKhoan)
+            modelBuilder.Entity<PhanQuyen>()
+               .HasMany(e => e.TaiKhoans)
+               .WithRequired(e => e.PhanQuyen)
+               .HasForeignKey(e => e.Id_PhanQuyen)
                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TaiKhoan>()

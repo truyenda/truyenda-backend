@@ -133,7 +133,7 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyQuyenModel().ThemChuKy(data);
+                response = new QuanLyQuyenModel().ThemQuyen(data);
             }
             catch (Exception e)
             {
@@ -162,7 +162,7 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyQuyenModel().UpadateChuKy(data, id);
+                response = new QuanLyQuyenModel().UpadateQuyen(data, id);
             }
             catch (Exception e)
             {

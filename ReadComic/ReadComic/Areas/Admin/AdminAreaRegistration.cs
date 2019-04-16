@@ -428,10 +428,41 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
+            //Phân Quyền-----------------------------------------------------------------------------------------------
+
             context.Routes.MapHttpRoute(
-              "APIUpdateQuyen",
-              "permissions/{id}",
-              new { controller = "QuanLyQuyen", action = "UpdateQuyen", id = UrlParameter.Optional },
+                "APIDanhSachPhanQuyen",
+                "role",
+                new { controller = "QuanLyPhanQuyen", action = "DanhSachPhanQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APiPhanQuyen",
+                "role/{id}",
+                new { controller = "QuanLyPhanQuyen", action = "Get", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDeletePhanQuyen",
+                "role/{id}",
+                new { controller = "QuanLyPhanQuyen", action = "DeletePhanQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
+            );
+
+
+            context.Routes.MapHttpRoute(
+                "APICreatePhanQuyen",
+                "role",
+                new { controller = "QuanLyPhanQuyen", action = "ThemPhanQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            context.Routes.MapHttpRoute(
+              "APIUpdatePhanQuyen",
+              "role/{id}",
+              new { controller = "QuanLyPhanQuyen", action = "UpdatePhanQuyen", id = UrlParameter.Optional },
               constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
           );
 
