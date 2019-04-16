@@ -1,6 +1,7 @@
 ﻿using ReadComic.Areas.Admin.Models.QuanLyChuKyTruyen.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
+using ReadComic.Common.ErrorMsg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,8 +49,9 @@ namespace ReadComic.Areas.Admin.Controllers
             catch (Exception e)
             {
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;
@@ -67,8 +69,9 @@ namespace ReadComic.Areas.Admin.Controllers
             catch (Exception e)
             {
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;
@@ -94,17 +97,23 @@ namespace ReadComic.Areas.Admin.Controllers
                 if (deleted)
                 {
                     response.IsSuccess = true;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
                 }
                 else
                 {
-                    response.MsgError = "Xóa thất bại. Vui lòng thử lại";
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
                 }
             }
             catch (Exception e)
             {
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;
@@ -131,8 +140,9 @@ namespace ReadComic.Areas.Admin.Controllers
             catch (Exception e)
             {
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;
@@ -159,8 +169,9 @@ namespace ReadComic.Areas.Admin.Controllers
             catch (Exception e)
             {
                 response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                response.MsgNo = (int)MessageEnum.MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;

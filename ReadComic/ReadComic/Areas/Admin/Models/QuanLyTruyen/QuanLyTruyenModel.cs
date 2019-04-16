@@ -15,6 +15,8 @@ using TblTacGia = ReadComic.DataBase.Schema.TacGia;
 using System.IO;
 using System.Text;
 using System.Web.Script.Serialization;
+using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Enum;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
 {
@@ -180,6 +182,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)
@@ -282,6 +287,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 response.ThongTinBoSung1 = truyen.Id + "";
                 response.IsSuccess = true;
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)
@@ -372,6 +380,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 response.ThongTinBoSung1 = data.IdTruyen + "";
                 response.IsSuccess = true;
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)
@@ -407,6 +418,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 response.ThongTinBoSung1 = data.IdTruyen + "";
                 response.IsSuccess = true;
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)
@@ -474,7 +488,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         Id_Truyen = id_truyen,
                         TenChuong = chapter.title,
                         SoThuTu = ++stt,
-                        LinkAnh = "{" + string.Join(",", chapter.data) + "}",
+                        LinkAnh = string.Join(",", chapter.data),
                         LuotXem = 0,
                         NgayTao = DateTime.Now
                     });
@@ -523,7 +537,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     context.SaveChanges();
 
                 }
-                response.ThongTinBoSung1 = "Thêm tác giả thành công";
+                response.ThongTinBoSung5 = "Thêm tác giả thành công";
+                response.TypeMsgError = id_truyen;
                 transaction.Commit();
                 response.MsgError = "Thêm thành công";
                 return response;

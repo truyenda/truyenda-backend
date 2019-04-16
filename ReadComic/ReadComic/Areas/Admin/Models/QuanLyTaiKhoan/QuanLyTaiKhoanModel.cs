@@ -10,6 +10,8 @@ using System.Web;
 using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
 using TblToken = ReadComic.DataBase.Schema.Token;
 using TblPhanQuyen = ReadComic.DataBase.Schema.PhanQuyen;
+using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Enum;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
 {
@@ -187,6 +189,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)
@@ -217,6 +222,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
+
                 return response;
             }
             catch (Exception e)

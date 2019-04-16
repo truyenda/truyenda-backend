@@ -1,6 +1,8 @@
 ﻿using EntityFramework.Extensions;
 using ReadComic.Areas.Home.Models.Information.Schema;
 using ReadComic.Common;
+using ReadComic.Common.Enum;
+using ReadComic.Common.ErrorMsg;
 using ReadComic.DataBase;
 using System;
 using System.Collections.Generic;
@@ -98,8 +100,9 @@ namespace ReadComic.Areas.Home.Models.Information
                 response.IsSuccess = true;
                 transaction.Commit();
 
-                response.MsgError = "Cập nhật thông tin tài khoản thành công";
-                response.Code = 200;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatThongTinThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
             }
             catch (Exception e)
             {

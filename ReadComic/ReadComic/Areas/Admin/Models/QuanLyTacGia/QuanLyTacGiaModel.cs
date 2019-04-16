@@ -2,6 +2,8 @@
 using ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema;
 using ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema;
 using ReadComic.Common;
+using ReadComic.Common.Enum;
+using ReadComic.Common.ErrorMsg;
 using ReadComic.DataBase;
 using System;
 using System.Collections.Generic;
@@ -139,6 +141,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)
@@ -170,6 +175,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                 context.SaveChanges();
                 response.ThongTinBoSung1 = id + "";
                 transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)

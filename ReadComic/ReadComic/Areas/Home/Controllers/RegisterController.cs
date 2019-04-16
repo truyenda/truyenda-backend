@@ -1,6 +1,8 @@
 ﻿using ReadComic.Areas.Home.Models;
 using ReadComic.Areas.Home.Models.Schema;
 using ReadComic.Common;
+using ReadComic.Common.Enum;
+using ReadComic.Common.ErrorMsg;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,15 +50,18 @@ namespace ReadComic.Areas.Home.Controllers
                 }
                 else
                 {
-                    response.Code = (int)CodeResponse.NotValidate;
-                    //response.ListError = ModelState.GetModelErrors();
+                    response.Code = (int)ConstantsEnum.CodeResponse.NotValidate;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DuLieuNhapSai);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
                 }
             }
             catch (Exception e)
             {
-                response.Code = (int)CodeResponse.ServerError;
-                response.MsgNo = (int)MsgNO.ServerError;
-                response.MsgError = new Common.Common().GetErrorMessageById(response.MsgNo.ToString());
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
             return response;

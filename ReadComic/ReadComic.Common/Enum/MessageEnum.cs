@@ -9,32 +9,28 @@ namespace ReadComic.Common.Enum
     {
         public enum MsgNO
         {
-            BatBuocNhap = 1,
-            SaiMaxlength = 2,
-            SaiMinLength = 3,
-            SaiFormatNgayThang = 4,
-            EmailSaiFormat = 5,
-            SaiFormatSDT = 6,
-            SaiNgayBatDauVaKetThuc = 7,
-            PhaiLonHon0 = 11,
-            SaiFormatMatKhau = 19,
-            XacNhanMatKhauSai = 20,
-            KhongCoTaiKhoan = 28,
-            TaiKhoanBiKhoa = 29,
-            MatKhauKhongDung = 31,
-            XacThucKhongHopLe = 33,
-            TenDangNhapSai = 34,
-            EmailKhongTonTai = 38,
-            DaGuiMailKichHoat = 39,
-            MatKhauSai = 20,
-            ChuaChonFile = 50,
-            DungLuongFileQuaLon = 51,
-            FileKhongDungDinhDang = 53,
-            TaiFileBiLoi = 55,
-            BanKhongCoQuyenDangNhap = 56,
-            BeautyIdDaTonTai = 60,
-            ServerError = 500,
-            permissions = 57
+            DangNhapThanhCong=1,
+            DangNhapThatBai=2,
+            XacNhanMatKhauSai=3,
+            KhongCoTaiKhoan=4,
+            TaiKhoanBiKhoa = 5,
+            MatKhauSai = 6,
+            BanKhongDuQuyen = 7,
+            DuLieuNhapSai = 8,
+            TaoTaiKhoanThanhCong = 9,
+            TaoTaiKhoanThatBai = 10,
+            EmailDaTonTai = 11,
+            UserNameDaDung = 12,
+            CapNhatThongTinThanhCong = 13,
+            XoaDuLieuThanhCong = 14,
+            XoaDuLieuThatBai = 15,
+            CapNhatDuLieuThanhCong = 16,
+            ThemDuLieuThanhCong = 17,
+
+
+
+
+            ServerError = 500
         }
     }
 }

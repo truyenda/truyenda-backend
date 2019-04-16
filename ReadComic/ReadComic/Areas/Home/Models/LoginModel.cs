@@ -11,6 +11,7 @@ using ReadComic.Common.Enum;
 using System.Net.Http;
 using Newtonsoft.Json;
 using EntityFramework.Extensions;
+using ReadComic.Common.ErrorMsg;
 
 namespace ReadComic.Areas.Home.Models
 {
@@ -38,16 +39,15 @@ namespace ReadComic.Areas.Home.Models
                 
                 if (taiKhoan == null)
                 {
-                    result.Code = 202;
-                    result.MsgNo = (int)MessageEnum.MsgNO.KhongCoTaiKhoan;
-                    //result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.KhongCoTaiKhoan);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
                 }
                 else if ((taiKhoan.hash_Pass) != BaoMat.GetMD5(BaoMat.GetSimpleMD5(account.Password), taiKhoan.salt_Pass))
                 {
-                   result.MsgNo = (int)MessageEnum.MsgNO.MatKhauKhongDung;
-                   // result.MsgError = new Common.Common().GetErrorMessageById(result.MsgNo.ToString());
-                    
-                    result.Code = 205;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.MatKhauSai);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
                 }
                 else
                 {
@@ -75,6 +75,10 @@ namespace ReadComic.Areas.Home.Models
                     };
                     result.ThongTinBoSung1 = BaoMat.Base64Encode(token);
                     context.SaveChanges();
+
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangNhapThanhCong);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
                 }
                 
                 return result;
@@ -93,15 +97,19 @@ namespace ReadComic.Areas.Home.Models
         /// <returns>true nếu xóa thành công</returns>
         public ResponseInfo RemoveToken(string token)
         {
+            ResponseInfo result = new ResponseInfo();
             try
             {
                 token = BaoMat.Base64Decode(token);
                 context.Tokens.Where(x => x.TokenTaiKhoan == token).Delete();
                 context.Tokens.Where(x => x.ThoiGianHetHan < DateTime.Now).Delete();
-                return new ResponseInfo
-                {
-                    Code=200
-                };
+                
+                
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangNhapThanhCong);
+                result.TypeMsgError = errorMsg.Type;
+                result.MsgError = errorMsg.Msg;
+
+                return result;
             }
             catch (Exception e)
             {

@@ -1,0 +1,130 @@
+﻿[
+  {
+    "key": 1,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Đăng nhập thành công"
+    }
+  },
+  {
+    "key": 2,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Đăng nhập thất bại,bạn vui lòng kiểm tra lại"
+    }
+
+  },
+  {
+    "key": 3,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Xác nhận mật khẩu sai, vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 4,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Tài khoản không tồn tại, bạn vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 5,
+    "ErrorMsg": {
+      "Type": 6,
+      "Msg": "Tài khoản của bạn đã bị khóa,vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 6,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Mật khẩu không đúng"
+    }
+  },
+  {
+    "key": 7,
+    "ErrorMsg": {
+      "Type": 6,
+      "Msg": "Bạn không đủ quyền để thực hiện chức năng, vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 8,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Dữ liệu bạn nhập vào có lỗi, vui lòng nhập lại"
+    }
+  },
+  {
+    "key": 9,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Bạn đã tạo tài khoản thành công"
+    }
+  },
+  {
+    "key": 10,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Tạo tài khoản thất bại, bạn vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 11,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Email đã tồn tại, bạn vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 12,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Username đã được sử dụng, bạn vui lòng nhập lại Username khác"
+    }
+  },
+  {
+    "key": 13,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Cập nhật thông tin thành công"
+    }
+  },
+  {
+    "key": 14,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Xóa dữ liệu thành công"
+    }
+  },
+  {
+    "key": 15,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Xóa dữ liệu thất bại, bạn vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 16,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Cập nhật dữ liệu thành công"
+    }
+  },
+  {
+    "key": 17,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Thêm dữ liệu thành công"
+    }
+  },
+  {
+    "key": 500,
+    "ErrorMsg": {
+      "Type": 6,
+      "Msg": "Máy chủ đang gặp vấn đề, bạn vui lòng trở lại sau"
+    }
+  }
+
+]
