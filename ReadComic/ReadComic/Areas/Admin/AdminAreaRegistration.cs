@@ -397,6 +397,44 @@ namespace ReadComic.Areas.Admin
           );
 
 
+            //Quyền  -----------------------------------------------------------------------------------------------
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachQuyen",
+                "permissions",
+                new { controller = "QuanLyQuyen", action = "DanhSachQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APiQuyen",
+                "permissions/{id}",
+                new { controller = "QuanLyQuyen", action = "Get", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDeleteQuyen",
+                "permissions/{id}",
+                new { controller = "QuanLyQuyen", action = "DeleteQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
+            );
+
+
+            context.Routes.MapHttpRoute(
+                "APICreateQuyen",
+                "permissions",
+                new { controller = "QuanLyQuyen", action = "ThemQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            context.Routes.MapHttpRoute(
+              "APIUpdateQuyen",
+              "permissions/{id}",
+              new { controller = "QuanLyQuyen", action = "UpdateQuyen", id = UrlParameter.Optional },
+              constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+          );
+
 
             context.MapRoute(
                 "Admin_default",

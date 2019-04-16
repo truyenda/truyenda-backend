@@ -178,6 +178,7 @@
     <Compile Include="Areas\Admin\Controllers\QuanLyErrorMgsController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyLoaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyNhomDichController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyQuyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTaiKhoanController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
@@ -190,6 +191,9 @@
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\GetChuongTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyErrorMgs\QuanLyErrorMsgModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyErrorMgs\Schema\ErrorMgs.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyQuyen\QuanLyQuyenModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyQuyen\Schema\NewQuyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyQuyen\Schema\Quyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTruyenTheoTacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\Truyen_TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\QuanLyTruyenModel.cs" />
