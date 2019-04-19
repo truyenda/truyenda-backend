@@ -18,6 +18,7 @@ using System.Text;
 using System.Web.Script.Serialization;
 using ReadComic.Common.ErrorMsg;
 using ReadComic.Common.Enum;
+using ReadComic.Common.Permission;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
 {
@@ -269,7 +270,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             try
             {
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
-                int IdNhom = Common.Common.GetAccount(token).IdNhom;
+                int IdNhom = Common.Common.GetAccount().IdNhom;
                 truyen.Id = context.Truyens.Count() == 0 ? 1 : context.Truyens.Max(x => x.Id) + 1;
                 context.Truyens.Add(new TblTruyen
                 {
@@ -319,7 +320,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 DanhSachTruyen listTruyen = new DanhSachTruyen();
 
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
-                int IdNhom = Common.Common.GetAccount(token).IdNhom;
+                int IdNhom = Common.Common.GetAccount().IdNhom;
                     
                 // Lấy các thông tin dùng để phân trang
                 listTruyen.Paging = new Paging(context.Truyens.Count(x =>
@@ -452,6 +453,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 //    context.SaveChanges();
                 //}
 
+
                 //xử lý file json
                 string[] lines = File.ReadAllLines(path);
                 string json = string.Join("", lines);
@@ -498,14 +500,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
 
                 //thêm thể loại cho truyện ----------------------------------------------------------------
 
-                foreach (string idTheLoai in Story.cate)
-                {
-                    context.LuuLoaiTruyens.Add(new TblLuuLoaiTruyen
-                    {
-                        IdTruyen = id_truyen,
-                        IdLoaiTruyen = Convert.ToInt32(idTheLoai)
-                    });
-                }
+                //foreach (string idTheLoai in Story.cate)
+                //{
+                //    context.LuuLoaiTruyens.Add(new TblLuuLoaiTruyen
+                //    {
+                //        IdTruyen = id_truyen,
+                //        IdLoaiTruyen = Convert.ToInt32(idTheLoai)
+                //    });
+                //}
 
                 context.SaveChanges();
                 response.ThongTinBoSung3 = "Thêm thể loại thành công";

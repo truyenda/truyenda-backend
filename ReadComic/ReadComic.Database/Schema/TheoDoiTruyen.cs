@@ -18,7 +18,7 @@ namespace ReadComic.DataBase.Schema
 
         public int Id_Truyen { get; set; }
 
-        public int Id_ChuongDanhDau { get; set; }
+        public int? Id_ChuongDanhDau { get; set; }
 
         [ForeignKey("Id_NguoiDoc")]
         public virtual TaiKhoan TaiKhoan { get; set; }

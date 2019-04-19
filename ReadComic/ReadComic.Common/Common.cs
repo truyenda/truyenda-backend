@@ -174,8 +174,9 @@ namespace ReadComic.Common
         /// <returns>
         /// Trả về tài khoản đang đăng nhập
         /// </returns>
-        public static GetAccount GetAccount(string token)
+        public static GetAccount GetAccount()
         {
+            string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
             DataContext context = new DataContext();
             string Token = BaoMat.Base64Decode(token);
             TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
@@ -187,7 +188,26 @@ namespace ReadComic.Common
                 TongQuyen = x.PhanQuyen.TongQuyen
             }).FirstOrDefault();
 
-            return new GetAccount();
+        }
+
+        /// <summary>
+        /// Lấy tổng quyền của tài khoản
+        /// Author       :   HoangNM - 17/04/2019 - create
+        /// </summary>
+        /// <param name="token">
+        /// token của tài khoản đang đăng nhập
+        /// </param>
+        /// <returns>
+        /// Trả về tài khoản đang đăng nhập
+        /// </returns>
+        public static decimal GetTongQuyen()
+        {
+            string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+            DataContext context = new DataContext();
+            string Token = BaoMat.Base64Decode(token);
+            TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
+            return context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).FirstOrDefault().PhanQuyen.TongQuyen;
+
         }
 
 

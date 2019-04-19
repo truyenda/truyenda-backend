@@ -217,5 +217,134 @@ namespace ReadComic.Areas.Home.Controllers
             return response;
         }
 
+        /// <summary>
+        /// Lấy danh sách truyện theo ngày
+        /// Author       :   HoangNM - 19/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách các truyện vừa cập nhật
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetComicOfDay()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new HomeModel().GetComicOfDay();
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Lấy danh sách truyện theo tuần
+        /// Author       :   HoangNM - 19/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách các truyện dựa vào lượng view theo tuần
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetComicOfWeek()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new HomeModel().GetComicOfWeek();
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Lấy danh sách truyện theo tháng
+        /// Author       :   HoangNM - 19/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách các truyện dựa vào lượng view theo tháng
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetComicOfMonth()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new HomeModel().GetComicOfMonth();
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+
+        /// <summary>
+        /// Người dùng đọc chương truyện
+        /// Author       :   HoangNM - 19/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Thông tin của chương
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: 
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo ReadComic(int Id_Chuong)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new HomeModel().ReadComic(Id_Chuong);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
     }
 }

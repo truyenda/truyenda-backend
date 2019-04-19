@@ -1,0 +1,190 @@
+[
+  {
+    "TongBit": 1,
+    "Name": "ACCOUNT_MAN"
+  },
+  {
+    "TongBit": 2,
+    "Name": "ACCOUNT_LIS"
+  },
+  {
+    "TongBit": 4,
+    "Name": "ACCOUNT_GET"
+  },
+  {
+    "TongBit": 8,
+    "Name": "ACCOUNT_UPD"
+  },
+  {
+    "TongBit": 16,
+    "Name": "ACCOUNT_DEL"
+  },
+  {
+    "TongBit": 32,
+    "Name": "ACCOUNT_PER"
+  },
+  {
+    "TongBit": 64,
+    "Name": "QuyenQuanLyChuong"
+  },
+  {
+    "TongBit": 128,
+    "Name": "CHAPTER_MAN"
+  },
+  {
+    "TongBit": 256,
+    "Name": "CHAPTER_CRE"
+  },
+  {
+    "TongBit": 512,
+    "Name": "CHAPTER_UPD"
+  },
+  {
+    "TongBit": 1024,
+    "Name": "CHAPTER_DEL"
+  },
+  {
+    "TongBit": 2048,
+    "Name": "QuyenQuanLyTruyen"
+  },
+  {
+    "TongBit": 4096,
+    "Name": "STORY_MAN"
+  },
+  {
+    "TongBit": 8192,
+    "Name": "STORY_CRE"
+  },
+  {
+    "TongBit": 16384,
+    "Name": "STORY_UPD"
+  },
+  {
+    "TongBit": 32768,
+    "Name": "STORY_DEL"
+  },
+  {
+    "TongBit": 65536,
+    "Name": "QuyenQuanLyTheLoai"
+  },
+  {
+    "TongBit": 131072,
+    "Name": "CATEGORY_MAN"
+  },
+  {
+    "TongBit": 262144,
+    "Name": "CATEGORY_CRE"
+  },
+  {
+    "TongBit": 524288,
+    "Name": "CATEGORY_UPD"
+  },
+  {
+    "TongBit": 1048576,
+    "Name": "CATEGORY_DEL"
+  },
+  {
+    "TongBit": 2097152,
+    "Name": "QuyenQuanTriTacGia"
+  },
+  {
+    "TongBit": 4194304,
+    "Name": "AUTHOR_MAN"
+  },
+  {
+    "TongBit": 8388608,
+    "Name": "AUTHOR_CRE"
+  },
+  {
+    "TongBit": 16777216,
+    "Name": "AUTHOR_UPD"
+  },
+  {
+    "TongBit": 33554432,
+    "Name": "AUTHOR_DEL"
+  },
+  {
+    "TongBit": 67108864,
+    "Name": "QuyenQuanLyChuKy"
+  },
+  {
+    "TongBit": 134217728,
+    "Name": "FREQUENCY_MAN"
+  },
+  {
+    "TongBit": 268435456,
+    "Name": "FREQUENCY_CRE"
+  },
+  {
+    "TongBit": 536870912,
+    "Name": "FREQUENCY_UPD"
+  },
+  {
+    "TongBit": 1073741824,
+    "Name": "FREQUENCY_DEL"
+  },
+  {
+    "TongBit": 2147483648,
+    "Name": "QuyenQuanTriTrangThaiTruyen"
+  },
+  {
+    "TongBit": 4294967296,
+    "Name": "SSTATUS_MAN"
+  },
+  {
+    "TongBit": 8589934592,
+    "Name": "SSTATUS_CRE"
+  },
+  {
+    "TongBit": 17179869184,
+    "Name": "SSTATUS_UPD"
+  },
+  {
+    "TongBit": 34359738368,
+    "Name": "SSTATUS_DEL"
+  },
+  {
+    "TongBit": 68719476736,
+    "Name": "QuyenQuanTriTeam"
+  },
+  {
+    "TongBit": 137438953472,
+    "Name": "TEAM_MAN"
+  },
+  {
+    "TongBit": 274877906944,
+    "Name": "TEAM_UPD"
+  },
+  {
+    "TongBit": 549755813888,
+    "Name": "TEAM_DEL"
+  },
+  {
+    "TongBit": 1099511627776,
+    "Name": "QuyenQuanTriTeamMember"
+  },
+  {
+    "TongBit": 2199023255552,
+    "Name": "TEAMMEM_MAN"
+  },
+  {
+    "TongBit": 4398046511104,
+    "Name": "TEAMMEM_LIS"
+  },
+  {
+    "TongBit": 8796093022208,
+    "Name": "TEAMMEM_ADD"
+  },
+  {
+    "TongBit": 17592186044416,
+    "Name": "TEAMMEM_GET"
+  },
+  {
+    "TongBit": 35184372088832,
+    "Name": "TEAMMEM_PER"
+  },
+  {
+    "TongBit": 70368744177664,
+    "Name": "TEAMMEM_DEL"
+  }
+]

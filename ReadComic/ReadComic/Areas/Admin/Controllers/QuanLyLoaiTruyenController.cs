@@ -3,6 +3,7 @@ using ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,20 +41,31 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DanhSachLoaiTruyen()
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                List<LoaiTruyen> listLoaiTruyen = new QuanLyLoaiTruyenModel().GetDanhSachLoaiTruyen();
-                response.IsSuccess = true;
-                response.Data = listLoaiTruyen;
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
+                {
+                    List<LoaiTruyen> listLoaiTruyen = new QuanLyLoaiTruyenModel().GetDanhSachLoaiTruyen();
+                    response.IsSuccess = true;
+                    response.Data = listLoaiTruyen;
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
+                }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 
@@ -91,31 +103,42 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DeleteLoaiTruyen(int id)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                bool deleted = new QuanLyLoaiTruyenModel().DeleteLoaiTruyen(id);
-                if (deleted)
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
                 {
-                    response.IsSuccess = true;
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                    bool deleted = new QuanLyLoaiTruyenModel().DeleteLoaiTruyen(id);
+                    if (deleted)
+                    {
+                        response.IsSuccess = true;
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                    else
+                    {
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
                     response.TypeMsgError = errorMsg.Type;
                     response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
                 }
-                else
-                {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 
@@ -133,18 +156,29 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo ThemLoaiTruyen(LoaiTruyen data)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyLoaiTruyenModel().ThemLoaiTruyen(data);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
+                {
+                    response = new QuanLyLoaiTruyenModel().ThemLoaiTruyen(data);
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
+                }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 
@@ -162,18 +196,29 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo UpdateLoaiTruyen(LoaiTruyen data,int id)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyLoaiTruyenModel().UpadateLoaiTruyen(data,id);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
+                {
+                    response = new QuanLyLoaiTruyenModel().UpadateLoaiTruyen(data, id);
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
+                }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
     }

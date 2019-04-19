@@ -100,6 +100,34 @@ namespace ReadComic.Areas.Home
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );
 
+            context.Routes.MapHttpRoute(
+               "ReadComic",
+               "chapters/{Id_Chuong}/read",
+               new { controller = "Home", action = "ReadComic", Id_Chuong = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "GetComicOfDay",
+               "story/day",
+               new { controller = "Home", action = "GetComicOfDay", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "GetComicOfWeek",
+               "story/week",
+               new { controller = "Home", action = "GetComicOfWeek", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "GetComicOfMonth",
+               "story/month",
+               new { controller = "Home", action = "GetComicOfMonth", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
             context.MapRoute(
                 "Home_default",
                 "Home/{controller}/{action}/{id}",

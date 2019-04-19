@@ -213,6 +213,8 @@
     <Compile Include="Areas\Home\Controllers\InformationController.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\Chuong.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\ChuongTruyen.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\getComic.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\GetOneChapter.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\QuanLyLoaiTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyLoaiTruyen\Schema\LoaiTruyen.cs" />
@@ -255,6 +257,7 @@
     <Content Include="Areas\Home\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="json.json" />
+    <Content Include="Permission.json" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml">
       <SubType>Designer</SubType>
     </None>

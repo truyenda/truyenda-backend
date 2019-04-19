@@ -3,6 +3,7 @@ using ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,33 +50,46 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DanhSachTaiKhoan(TaiKhoanConditionSearch condition)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                if(new QuanLyTaiKhoanModel().CheckQuyen(condition.Token)==1)
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_LIS")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
                 {
-                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition,1);
-                    response.IsSuccess = true;
-                }else if(new QuanLyTaiKhoanModel().CheckQuyen(condition.Token) == 2)
-                {
-                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition, 2);
-                    response.IsSuccess = true;
+                    if (new QuanLyTaiKhoanModel().CheckQuyen(condition.Token) == 1)
+                    {
+                        response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition, 1);
+                        response.IsSuccess = true;
+                    }
+                    else if (new QuanLyTaiKhoanModel().CheckQuyen(condition.Token) == 2)
+                    {
+                        response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition, 2);
+                        response.IsSuccess = true;
+                    }
+                    else
+                    {
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+
                 }
-                else
+                catch (Exception e)
                 {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
                     response.TypeMsgError = errorMsg.Type;
                     response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
                 }
-               
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+
+            
             return response;
         }
 
