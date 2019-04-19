@@ -101,7 +101,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             try
             {
                 QL_TaiKhoan taiKhoan = new QL_TaiKhoan();
-                if(Common.Common.GetAccount(token).IdQuyen == 1)
+                if(Common.Common.GetAccount().IdQuyen == 1)
                 {
                     TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     if (tblTaiKhoan != null)
@@ -115,7 +115,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                 }
                 else 
                 {
-                    TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id &&x.Id_NhomDich== Common.Common.GetAccount(token).IdNhom && !x.DelFlag);
+                    TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id &&x.Id_NhomDich== Common.Common.GetAccount().IdNhom && !x.DelFlag);
                     if (tblTaiKhoan != null)
                     {
                         taiKhoan.Id = tblTaiKhoan.Id;

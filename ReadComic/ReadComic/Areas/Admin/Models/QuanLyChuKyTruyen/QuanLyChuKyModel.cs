@@ -39,7 +39,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuKyTruyen.Schema
             try
             {
                 List<ChuKy> listChuKy = new List<ChuKy>();
-
                 listChuKy = context.ChuKyPhatHanhs.Where(x => !x.DelFlag)
                     .Select(x => new ChuKy
                     {

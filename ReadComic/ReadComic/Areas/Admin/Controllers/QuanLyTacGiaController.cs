@@ -3,6 +3,7 @@ using ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,19 +50,30 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DanhSachTacGia(int page = 1)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response.Data = new QuanLyTacGiaModel().GetListTacGia(page);
-                response.IsSuccess = true;
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("AUTHOR_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
+                {
+                    response.Data = new QuanLyTacGiaModel().GetListTacGia(page);
+                    response.IsSuccess = true;
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
+                }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 
@@ -99,31 +111,42 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DeleteTacGia(int id)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                bool deleted = new QuanLyTacGiaModel().DeleteTacGia(id);
-                if (deleted)
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("AUTHOR_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
                 {
-                    response.IsSuccess = true;
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                    bool deleted = new QuanLyTacGiaModel().DeleteTacGia(id);
+                    if (deleted)
+                    {
+                        response.IsSuccess = true;
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                    else
+                    {
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
                     response.TypeMsgError = errorMsg.Type;
                     response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
                 }
-                else
-                {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
-                }
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 
@@ -141,18 +164,29 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo ThemTacGia(TacGia data)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyTacGiaModel().ThemTacGia(data);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("AUTHOR_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
+                {
+                    response = new QuanLyTacGiaModel().ThemTacGia(data);
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
+                }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 
@@ -170,18 +204,29 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo UpdateTacGia(TacGia data,int id)
         {
             ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyTacGiaModel().UpadateTacGia(data,id);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
+            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("AUTHOR_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            //if (kt != 0)
+            //{
+                try
+                {
+                    response = new QuanLyTacGiaModel().UpadateTacGia(data, id);
+                }
+                catch (Exception e)
+                {
+                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    response.ThongTinBoSung1 = e.Message;
+                }
+            //}
+            //else
+            //{
+            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+            //    response.TypeMsgError = errorMsg.Type;
+            //    response.MsgError = errorMsg.Msg;
+            //}
+            
             return response;
         }
 

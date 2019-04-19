@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReadComic.Areas.Home.Models.Schema;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -28,6 +29,12 @@ namespace ReadComic.Areas.Home.Models.Information.Schema
         public DateTime? NgaySinh { get; set; }
 
         public bool GioiTinh { get; set; }
-        
+
+        public DateTime NgayHetHan { get; set; }
+
+        public QuyenProFile Permissions { get; set; }
+
+        public string Token { get; set; }
+
     }
 }

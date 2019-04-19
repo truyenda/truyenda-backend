@@ -193,7 +193,7 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APIUpdateTrangThai",
-                "account/status/{id}",
+                "account/sstatus/{id}",
                 new { controller = "QuanLyTaiKhoan", action = "UpdateTrangThaiTaiKhoan", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
@@ -214,35 +214,35 @@ namespace ReadComic.Areas.Admin
             //trạng thái truyện  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTrangThaiTruyen",
-                "status",
+                "sstatus",
                 new { controller = "QuanLyTrangThaiTruyen", action = "DanhSachTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APITrangThaiTruyen",
-                "status/{id}",
+                "sstatus/{id}",
                 new { controller = "QuanLyTrangThaiTruyen", action = "Get", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIDeleteTrangThaiTruyen",
-                "status/{id}",
+                "sstatus/{id}",
                 new { controller = "QuanLyTrangThaiTruyen", action = "DeleteTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
             );
 
             context.Routes.MapHttpRoute(
                 "APICreateTrangThaiTruyen",
-                "status",
+                "sstatus",
                 new { controller = "QuanLyTrangThaiTruyen", action = "ThemTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIUpdateTrangThaiTruyen",
-                "status/{id}",
+                "sstatus/{id}",
                 new { controller = "QuanLyTrangThaiTruyen", action = "UpdateTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
@@ -278,7 +278,7 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APIUpdate",
-                "stories/status/{id}",
+                "stories/sstatus/{id}",
                 new { controller = "QuanLyTruyen", action = "UpdateTrangThaiTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
@@ -427,6 +427,13 @@ namespace ReadComic.Areas.Admin
                 new { controller = "QuanLyQuyen", action = "ThemQuyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
+
+            context.Routes.MapHttpRoute(
+              "APIUpdateQuyen",
+              "permissions/{id}",
+              new { controller = "QuanLyQuyen", action = "UpdateQuyen", id = UrlParameter.Optional },
+              constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+          );
 
             //Phân Quyền-----------------------------------------------------------------------------------------------
 

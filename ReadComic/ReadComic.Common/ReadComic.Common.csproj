@@ -91,9 +91,11 @@
     <Compile Include="Common.cs" />
     <Compile Include="Enum\ConstantsEnum.cs" />
     <Compile Include="Enum\MessageEnum.cs" />
+    <Compile Include="Enum\PermissionEnum.cs" />
     <Compile Include="ErrorMsg\ErrorMsg.cs" />
     <Compile Include="ErrorMsg\GetErrorMsg.cs" />
     <Compile Include="Paging.cs" />
+    <Compile Include="Permission\GetPermission.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResponseInfo.cs" />
     <Compile Include="Schema\GetAccount.cs" />

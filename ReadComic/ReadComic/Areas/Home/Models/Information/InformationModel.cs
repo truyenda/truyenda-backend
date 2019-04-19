@@ -51,7 +51,9 @@ namespace ReadComic.Areas.Home.Models.Information
                 TenNhom = x.NhomDich.TenNhomDich,
                 Username = x.Username,
                 Ten = x.ThongTinNguoiDung.Ten,
-                NgaySinh = x.ThongTinNguoiDung.NgaySinh
+                NgaySinh = x.ThongTinNguoiDung.NgaySinh,
+                NgayHetHan= TblToken.ThoiGianHetHan,
+                Token= token
 
             }).FirstOrDefault();
             return getAccount;

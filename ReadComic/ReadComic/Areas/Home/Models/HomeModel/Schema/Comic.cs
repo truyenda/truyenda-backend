@@ -20,11 +20,9 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
     {
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(256)]
+        
         public string TenTruyen { get; set; }
 
-        [StringLength(256)]
         public string TenKhac { get; set; }
 
         public int NamPhatHanh { get; set; }

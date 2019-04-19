@@ -65,11 +65,24 @@ namespace ReadComic.Areas.Home.Models
                     {
                         Profile = new Profile()
                         {
-                            Id = taiKhoan.Id,
+                            Id_TrangThai = taiKhoan.Id_TrangThai,
+                            TenTrangThai=taiKhoan.TrangThaiTaiKhoan.TenTrangThai,
+                            Id_NhomDich=taiKhoan.Id_NhomDich,
+                            TenNhomDich=taiKhoan.NhomDich.TenNhomDich,
+                            Username=taiKhoan.Username,
                             Email = taiKhoan.Email,
+                            Id_Face=taiKhoan.Id_Face,
+                            Id_Google=taiKhoan.Id_Google,
                             GioiTinh = taiKhoan.ThongTinNguoiDung.GioiTinh,
                             Ten = taiKhoan.ThongTinNguoiDung.Ten,
                             NgaySinh = (DateTime)taiKhoan.ThongTinNguoiDung.NgaySinh,
+                            NgayHetHan= tokenLG.ThoiGianHetHan,
+                            Permissions=new QuyenProFile
+                            {
+                                TenQuyen=taiKhoan.PhanQuyen.TenVaiTro,
+                                Id_Quyen=taiKhoan.PhanQuyen.Id
+
+                            }
                         },
                         Token = BaoMat.Base64Encode(token)
                     };

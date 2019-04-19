@@ -6,25 +6,37 @@ using System.Web;
 
 namespace ReadComic.Areas.Home.Models.Schema
 {
+    public class QuyenProFile
+    {
+        public int Id_Quyen { get; set; }
+        public string TenQuyen { get; set; }
+    }
+
     public class Profile
     {
-        [Required(ErrorMessage = "1")]
-        public int Id { get; set; }
+        public int Id_TrangThai { get; set; }
+        public string TenTrangThai { get; set; }
 
-        [Required(ErrorMessage = "1")]
-        [MaxLength(50, ErrorMessage = "2")]
-        public string Ten { set; get; }
+        public int Id_NhomDich { get; set; }
+        public string TenNhomDich { get; set; }
 
-        
-
-        public bool GioiTinh { set; get; }
-
-        public DateTime NgaySinh { set; get; }
-
-        [Required(ErrorMessage = "1")]
-        [MaxLength(255, ErrorMessage = "2")]
-        [EmailAddress(ErrorMessage = "5")]
+        public string Username { get; set; }
         public string Email { set; get; }
+
+        public string Id_Face { get; set; }
+        public string Id_Google { get; set; }
+
+        public string Ten { set; get; }
+        public DateTime NgaySinh { set; get; }
+        public bool GioiTinh { set; get; }
+        public DateTime NgayHetHan { get; set; }
+
+        public QuyenProFile Permissions { get; set; }
+
+
+
+
+
 
     }
 }
