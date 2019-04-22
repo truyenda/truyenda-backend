@@ -41,9 +41,6 @@ namespace ReadComic.Areas.Admin.Controllers
         {
             ResponseInfo response = new ResponseInfo();
 
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
                 try
                 {
                     List<ChuKy> listLoaiTruyen = new QuanLyChuKyModel().GetDanhSachChuKyTruyen();
@@ -58,13 +55,6 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
             
             return response;
         }
@@ -103,9 +93,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DeleteChuKyTruyen(int id)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     bool deleted = new QuanLyChuKyModel().DeleteChuKyTruyen(id);
@@ -131,14 +121,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
 
@@ -156,9 +146,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo ThemChuKy(ChuKy data)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     response = new QuanLyChuKyModel().ThemChuKy(data);
@@ -171,14 +161,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
 
@@ -196,9 +186,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo UpdateChuKy(ChuKy data,int id)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("FREQUENCY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     response = new QuanLyChuKyModel().UpadateChuKy(data, id);
@@ -211,14 +201,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
     }

@@ -41,9 +41,7 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DanhSachLoaiTruyen()
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            
                 try
                 {
                     List<LoaiTruyen> listLoaiTruyen = new QuanLyLoaiTruyenModel().GetDanhSachLoaiTruyen();
@@ -58,13 +56,7 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
+            
             
             return response;
         }
@@ -103,9 +95,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DeleteLoaiTruyen(int id)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     bool deleted = new QuanLyLoaiTruyenModel().DeleteLoaiTruyen(id);
@@ -131,14 +123,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
 
@@ -156,9 +148,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo ThemLoaiTruyen(LoaiTruyen data)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     response = new QuanLyLoaiTruyenModel().ThemLoaiTruyen(data);
@@ -171,14 +163,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
 
@@ -196,9 +188,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo UpdateLoaiTruyen(LoaiTruyen data,int id)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("CATEGORY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     response = new QuanLyLoaiTruyenModel().UpadateLoaiTruyen(data, id);
@@ -211,14 +203,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
     }

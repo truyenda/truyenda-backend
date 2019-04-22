@@ -46,31 +46,17 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Method: Post
         /// RouterName: APIDanhSachTaiKhoan
         /// </remarks>
-        [HttpGet]
+        [HttpPost]
         public ResponseInfo DanhSachTaiKhoan(TaiKhoanConditionSearch condition)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_LIS")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_LIS")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
-                    if (new QuanLyTaiKhoanModel().CheckQuyen(condition.Token) == 1)
-                    {
-                        response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition, 1);
-                        response.IsSuccess = true;
-                    }
-                    else if (new QuanLyTaiKhoanModel().CheckQuyen(condition.Token) == 2)
-                    {
-                        response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition, 2);
-                        response.IsSuccess = true;
-                    }
-                    else
-                    {
-                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-                        response.TypeMsgError = errorMsg.Type;
-                        response.MsgError = errorMsg.Msg;
-                    }
+                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition);
+                    response.IsSuccess = true;
 
                 }
                 catch (Exception e)
@@ -81,27 +67,28 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
 
-            
+
             return response;
         }
 
         [HttpGet]
-        public ResponseInfo Get(int id,string token)
+        public ResponseInfo Get(int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                if (new QuanLyTaiKhoanModel().CheckQuyen(token) == 1 || new QuanLyTaiKhoanModel().CheckQuyen(token) == 2)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_GET")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
                 {
-                    response.Data = new QuanLyTaiKhoanModel().LoadTaiKhoan(id,token);
+                    response.Data = new QuanLyTaiKhoanModel().LoadTaiKhoan(id);
                     response.IsSuccess = true;
                 }
                 else
@@ -111,7 +98,8 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                 }
 
-               
+
+
             }
             catch (Exception e)
             {
@@ -140,20 +128,31 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                bool deleted = new QuanLyTaiKhoanModel().DeleteTaiKhoan(id);
-                if (deleted)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
                 {
-                    response.IsSuccess = true;
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
+                    bool deleted = new QuanLyTaiKhoanModel().DeleteTaiKhoan(id);
+                    if (deleted)
+                    {
+                        response.IsSuccess = true;
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                    else
+                    {
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
                 }
                 else
                 {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
                     response.TypeMsgError = errorMsg.Type;
                     response.MsgError = errorMsg.Msg;
                 }
+
             }
             catch (Exception e)
             {
@@ -185,7 +184,18 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+
             }
             catch (Exception e)
             {
@@ -215,7 +225,19 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyTaiKhoanModel().UpadateTrangThaiTaiKhoan(TrangThai);
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    response = new QuanLyTaiKhoanModel().UpadateTrangThaiTaiKhoan(TrangThai);
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+
+
             }
             catch (Exception e)
             {
@@ -245,7 +267,18 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyTaiKhoanModel().UpadateNhomTaiKhoan(nhom);
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    response = new QuanLyTaiKhoanModel().UpadateNhomTaiKhoan(nhom);
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+
             }
             catch (Exception e)
             {

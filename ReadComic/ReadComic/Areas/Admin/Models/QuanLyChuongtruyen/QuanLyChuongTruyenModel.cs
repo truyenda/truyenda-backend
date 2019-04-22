@@ -3,6 +3,7 @@ using ReadComic.Areas.Admin.Models.QuanLyChuongtruyen.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Permission;
 using ReadComic.DataBase;
 using System;
 using System.Collections.Generic;
@@ -122,16 +123,34 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
             try
             {
                 bool result = true;
-                if (context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
                 {
-                    TblChuongTruyen chuong = context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                    chuong.DelFlag = true;
-                    context.SaveChanges();
+                    if (context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                    {
+                        TblChuongTruyen chuong = context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                        chuong.DelFlag = true;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
                 else
                 {
-                    result = false;
+                    if (context.Chuongs.FirstOrDefault(x => x.Id == id && x.Truyen.Id_Nhom==Common.Common.GetAccount().IdNhom && !x.DelFlag) != null)
+                    {
+                        TblChuongTruyen chuong = context.Chuongs.FirstOrDefault(x => x.Id == id && x.Truyen.Id_Nhom == Common.Common.GetAccount().IdNhom && !x.DelFlag);
+                        chuong.DelFlag = true;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
+                
                 transaction.Commit();
                 return result;
             }
@@ -154,7 +173,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.Chuongs.Where(x => x.Id == id && !x.DelFlag)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    context.Chuongs.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblChuongTruyen
                     {
                         Id_Truyen = chuong.IdTruyen,
@@ -162,6 +184,19 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
                         SoThuTu = chuong.SoThuTu,
                         LinkAnh = chuong.LinkAnh
                     });
+                }
+                else
+                {
+                    context.Chuongs.Where(x => x.Id == id && x.Truyen.Id_Nhom==Common.Common.GetAccount().IdNhom && !x.DelFlag)
+                    .Update(x => new TblChuongTruyen
+                    {
+                        Id_Truyen = chuong.IdTruyen,
+                        TenChuong = chuong.TenChuong,
+                        SoThuTu = chuong.SoThuTu,
+                        LinkAnh = chuong.LinkAnh
+                    });
+                }
+                    
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();

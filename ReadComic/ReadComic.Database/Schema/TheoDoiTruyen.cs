@@ -1,11 +1,12 @@
-﻿using System;
+﻿using ReadComic.DataBase.Schema;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
-namespace ReadComic.DataBase.Schema
+namespace ReadComic.Database.Schema
 {
     [Table("TheoDoiTruyen")]
     public class TheoDoiTruyen : TableHaveIdInt

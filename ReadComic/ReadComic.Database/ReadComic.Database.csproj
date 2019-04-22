@@ -130,6 +130,18 @@
     <Compile Include="Migrations\201904161407111_Edit_TaiKhoan1.Designer.cs">
       <DependentUpon>201904161407111_Edit_TaiKhoan1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904191509501_edit_TheoDoiTruyen.cs" />
+    <Compile Include="Migrations\201904191509501_edit_TheoDoiTruyen.Designer.cs">
+      <DependentUpon>201904191509501_edit_TheoDoiTruyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904200516421_fixTheoDoiTruyen.cs" />
+    <Compile Include="Migrations\201904200516421_fixTheoDoiTruyen.Designer.cs">
+      <DependentUpon>201904200516421_fixTheoDoiTruyen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904200523117_fixTheoDoiTruyen_2.cs" />
+    <Compile Include="Migrations\201904200523117_fixTheoDoiTruyen_2.Designer.cs">
+      <DependentUpon>201904200523117_fixTheoDoiTruyen_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\BinhLuan.cs" />
@@ -138,7 +150,6 @@
     <Compile Include="Schema\LuotXemThang.cs" />
     <Compile Include="Schema\LuotXemTuan.cs" />
     <Compile Include="Schema\ResetPassWord.cs" />
-    <Compile Include="Schema\TheoDoiTruyen.cs" />
     <Compile Include="Schema\ChuKyPhatHanh.cs" />
     <Compile Include="Schema\Chuong.cs" />
     <Compile Include="Schema\DanhGiaTruyen.cs" />
@@ -152,6 +163,7 @@
     <Compile Include="Schema\TacGia.cs" />
     <Compile Include="Schema\TaiKhoan.cs" />
     <Compile Include="Schema\LoaiTruyen.cs" />
+    <Compile Include="Schema\TheoDoiTruyen.cs" />
     <Compile Include="Schema\ThongTinNguoiDung.cs" />
     <Compile Include="Schema\Token.cs" />
     <Compile Include="Schema\TrangThaiTaiKhoan.cs" />
@@ -203,6 +215,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904161407111_Edit_TaiKhoan1.resx">
       <DependentUpon>201904161407111_Edit_TaiKhoan1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904191509501_edit_TheoDoiTruyen.resx">
+      <DependentUpon>201904191509501_edit_TheoDoiTruyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904200516421_fixTheoDoiTruyen.resx">
+      <DependentUpon>201904200516421_fixTheoDoiTruyen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904200523117_fixTheoDoiTruyen_2.resx">
+      <DependentUpon>201904200523117_fixTheoDoiTruyen_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -135,16 +135,34 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             try
             {
                 bool result = true;
-                if (context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
                 {
-                    TblTruyen truyen = context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                    truyen.DelFlag = true;
-                    context.SaveChanges();
+                    if (context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                    {
+                        TblTruyen truyen = context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                        truyen.DelFlag = true;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
                 else
                 {
-                    result = false;
+                    if (context.Truyens.FirstOrDefault(x => x.Id == id && x.Id_Nhom==Common.Common.GetAccount().IdNhom && !x.DelFlag) != null)
+                    {
+                        TblTruyen truyen = context.Truyens.FirstOrDefault(x => x.Id == id && x.Id_Nhom == Common.Common.GetAccount().IdNhom && !x.DelFlag);
+                        truyen.DelFlag = true;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
+                    
                 transaction.Commit();
                 return result;
             }
@@ -167,20 +185,39 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.Truyens.Where(x => x.Id == truyen.Id && !x.DelFlag)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    context.Truyens.Where(x => x.Id == truyen.Id && !x.DelFlag)
                     .Update(x => new TblTruyen
                     {
-                       // Id_ChuKy = truyen.Id_ChuKy,
-                       // TenTruyen = truyen.TenTruyen,
-                        //TenKhac = truyen.TenKhac,
-                       // Id_TrangThai = truyen.Id_TrangThai,
-                       // NamPhatHanh = truyen.NamPhatHanh,
-                        // AnhBia = new Common.Common().SaveImage(truyen.AnhBia,truyen.Id,truyen.AnhBiaName),
+                        Id_ChuKy = truyen.Id_ChuKy,
+                        TenTruyen = truyen.TenTruyen,
+                        TenKhac = truyen.TenKhac,
+                        Id_TrangThai = truyen.Id_TrangThai,
+                        NamPhatHanh = truyen.NamPhatHanh,
                         AnhBia = truyen.AnhBia,
-                        //AnhDaiDien = new Common.Common().SaveImage(truyen.AnhDaiDien, truyen.Id,truyen.AnhDaiDienName),
                         AnhDaiDien = truyen.AnhDaiDien,
-                        //MoTa = truyen.MoTa
+                        MoTa = truyen.MoTa
                     });
+                }
+                else
+                {
+                    int Id_nhom = Common.Common.GetAccount().IdNhom;
+                    context.Truyens.Where(x => x.Id == truyen.Id && x.Id_Nhom==Id_nhom && !x.DelFlag)
+                    .Update(x => new TblTruyen
+                    {
+                        Id_ChuKy = truyen.Id_ChuKy,
+                        TenTruyen = truyen.TenTruyen,
+                        TenKhac = truyen.TenKhac,
+                        Id_TrangThai = truyen.Id_TrangThai,
+                        NamPhatHanh = truyen.NamPhatHanh,
+                        AnhBia = truyen.AnhBia,
+                        AnhDaiDien = truyen.AnhDaiDien,
+                        MoTa = truyen.MoTa
+                    });
+                }
+                
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
@@ -209,11 +246,25 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.Truyens.Where(x => x.Id == trangThaiTruyen.IdTruyen && !x.DelFlag)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    context.Truyens.Where(x => x.Id == trangThaiTruyen.IdTruyen && !x.DelFlag)
                     .Update(x => new TblTruyen
                     {
                         Id_TrangThai = trangThaiTruyen.IdTrangThai
                     });
+                }
+                else
+                {
+                    int Id_nhom = Common.Common.GetAccount().IdNhom;
+                    context.Truyens.Where(x => x.Id == trangThaiTruyen.IdTruyen&& x.Id_Nhom==Id_nhom && !x.DelFlag)
+                    .Update(x => new TblTruyen
+                    {
+                        Id_TrangThai = trangThaiTruyen.IdTrangThai
+                    });
+                }
+                    
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
@@ -239,11 +290,25 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.Truyens.Where(x => x.Id == chuky.IdTruyen && !x.DelFlag)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    context.Truyens.Where(x => x.Id == chuky.IdTruyen && !x.DelFlag)
                     .Update(x => new TblTruyen
                     {
                         Id_ChuKy = chuky.IdChuKy
                     });
+                }
+                else
+                {
+                    int Id_nhom = Common.Common.GetAccount().IdNhom;
+                    context.Truyens.Where(x => x.Id == chuky.IdTruyen&& x.Id_Nhom==Id_nhom && !x.DelFlag)
+                    .Update(x => new TblTruyen
+                    {
+                        Id_ChuKy = chuky.IdChuKy
+                    });
+                }
+                    
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();

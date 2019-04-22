@@ -128,6 +128,13 @@ namespace ReadComic.Areas.Home
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );
 
+            context.Routes.MapHttpRoute(
+               "TheoDoiTruyen",
+               "story/follow",
+               new { controller = "TheoDoiTruyen", action = "TheoDoiTruyen", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+           );
+
             context.MapRoute(
                 "Home_default",
                 "Home/{controller}/{action}/{id}",

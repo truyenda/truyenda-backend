@@ -3,6 +3,7 @@ using ReadComic.Areas.Admin.Models.QuanLyChuongtruyen.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
+using ReadComic.Common.Permission;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,20 +94,31 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                bool deleted = new QuanLyChuongTruyenModel().DeleteChuongTruyen(id);
-                if (deleted)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
                 {
-                    response.IsSuccess = true;
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
+                    bool deleted = new QuanLyChuongTruyenModel().DeleteChuongTruyen(id);
+                    if (deleted)
+                    {
+                        response.IsSuccess = true;
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                    else
+                    {
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
                 }
                 else
                 {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
                     response.TypeMsgError = errorMsg.Type;
                     response.MsgError = errorMsg.Msg;
                 }
+                    
             }
             catch (Exception e)
             {
@@ -138,7 +150,18 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyChuongTruyenModel().UpadateChuongTruyen(data,id);
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    response = new QuanLyChuongTruyenModel().UpadateChuongTruyen(data, id);
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+                    
             }
             catch (Exception e)
             {
@@ -167,7 +190,18 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new QuanLyChuongTruyenModel().ThemChuongTruyen(data);
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_CRE")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    response = new QuanLyChuongTruyenModel().ThemChuongTruyen(data);
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+                    
             }
             catch (Exception e)
             {
