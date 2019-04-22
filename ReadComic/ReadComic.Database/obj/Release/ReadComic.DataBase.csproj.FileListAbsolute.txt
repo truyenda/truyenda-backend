@@ -73,3 +73,6 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadCom
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.Edit_PhanQuyen.resources
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.Edit_PhanQuyen_2.resources
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.Edit_TaiKhoan1.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.edit_TheoDoiTruyen.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.fixTheoDoiTruyen.resources
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Database\obj\Release\ReadComic.Database.Migrations.fixTheoDoiTruyen_2.resources

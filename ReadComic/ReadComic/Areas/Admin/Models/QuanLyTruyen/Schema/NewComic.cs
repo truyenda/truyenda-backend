@@ -32,9 +32,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
 
         public string MoTa { get; set; }
 
-        public string AnhDaiDienName { get; set; }
-
-        public string AnhBiaName { get; set; }
 
     }
 }

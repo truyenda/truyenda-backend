@@ -31,7 +31,7 @@ namespace ReadComic.DataBase.Schema
 
         public int Id_PhanQuyen { get; set; }
 
-        public int? Id_NhomDich { get; set; }
+        public int Id_NhomDich { get; set; }
 
         [Required]
         [StringLength(24)]

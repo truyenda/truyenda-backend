@@ -12,6 +12,7 @@ using TblToken = ReadComic.DataBase.Schema.Token;
 using TblPhanQuyen = ReadComic.DataBase.Schema.PhanQuyen;
 using ReadComic.Common.ErrorMsg;
 using ReadComic.Common.Enum;
+using ReadComic.Common.Permission;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
 {
@@ -40,7 +41,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
         /// <param name="type">loại quyền của tài khoản</param>
         /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachTaiKhoan GetListTaiKhoan(TaiKhoanConditionSearch condition,int type)
+        public DanhSachTaiKhoan GetListTaiKhoan(TaiKhoanConditionSearch condition)
         {
             try
             {
@@ -50,7 +51,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                     condition = new TaiKhoanConditionSearch();
                 }
                 DanhSachTaiKhoan listTaiKhoan = new DanhSachTaiKhoan();
-                if (type == 2)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+
+                if (kt == 0)
                 {
                     string Token = BaoMat.Base64Decode(condition.Token);
                     TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
@@ -96,12 +99,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// Author       :   HoangNM - 18/03/2019 - create
         /// </summary>
         /// <returns>lấy ra tài khoản theo id. Exception nếu có lỗi</returns>
-        public QL_TaiKhoan LoadTaiKhoan(int id,string token)
+        public QL_TaiKhoan LoadTaiKhoan(int id)
         {
             try
             {
                 QL_TaiKhoan taiKhoan = new QL_TaiKhoan();
-                if(Common.Common.GetAccount().IdQuyen == 1)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt!=0)
                 {
                     TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     if (tblTaiKhoan != null)
@@ -145,17 +149,38 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             DbContextTransaction transaction = context.Database.BeginTransaction();
             try
             {
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
                 bool result = true;
-                if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                if (kt != 0)
                 {
-                    TblTaiKhoan taiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                    taiKhoan.DelFlag = true;
-                    context.SaveChanges();
+                    if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                    {
+                        TblTaiKhoan taiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                        taiKhoan.DelFlag = true;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
                 else
                 {
-                    result = false;
+                    int id_nhomDich = Common.Common.GetAccount().IdNhom;
+                    if (context.TaiKhoans.FirstOrDefault(x => x.Id == id &&x.Id_NhomDich==id_nhomDich && !x.DelFlag) != null)
+                    {
+                        TblTaiKhoan taiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && x.Id_NhomDich == id_nhomDich && !x.DelFlag);
+                        taiKhoan.DelFlag = true;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        result = false;
+                    }
                 }
+                    
+                
+                
                 transaction.Commit();
                 return result;
             }
@@ -178,14 +203,30 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             ResponseInfo response = new ResponseInfo();
             try
             {
-                context.TaiKhoans.Where(x => x.Id == taiKhoan.Id && !x.DelFlag)
+                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                if (kt != 0)
+                {
+                    context.TaiKhoans.Where(x => x.Id == taiKhoan.Id && !x.DelFlag)
                     .Update(x => new TblTaiKhoan
                     {
                         Username = taiKhoan.Username,
-                        Email=taiKhoan.Email,
-                        Id_NhomDich=taiKhoan.IdNhom,
-                        Id_TrangThai=taiKhoan.IdTrangThai
+                        Email = taiKhoan.Email,
+                        Id_NhomDich = taiKhoan.IdNhom,
+                        Id_TrangThai = taiKhoan.IdTrangThai
                     });
+                }
+                else
+                {
+                    int id_nhomDich = Common.Common.GetAccount().IdNhom;
+                    context.TaiKhoans.Where(x => x.Id == taiKhoan.Id &&x.Id_NhomDich==id_nhomDich && !x.DelFlag)
+                    .Update(x => new TblTaiKhoan
+                    {
+                        Username = taiKhoan.Username,
+                        Email = taiKhoan.Email,
+                        Id_TrangThai = taiKhoan.IdTrangThai
+                    });
+                }
+                
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
@@ -263,38 +304,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             }
         }
 
-        /// <summary>
-        /// Check quyền của tài khoản
-        /// Author       :   HoangNM - 29/03/2019 - create
-        /// </summary>
-        /// <param name="token">token của tài khoản</param>
-        /// <returns>Nếu trả về là 1 tức là admin, có quyền xem hết danh sách tài khoản</returns>
-        /// <returns>Nếu trả về là 2 tức là Team leader , có quyền xem hết danh sách tài khoản trong nhóm</returns>
-        public int CheckQuyen(string token)
-        {
-            
-            try
-            {
-                string Token = BaoMat.Base64Decode(token);
-                TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-                if (true)
-                {
-                    return 1;
-                }
-                else if (true)
-                {
-                    return 2;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-            catch (Exception e)
-            {
-                return 0;
-            }
-        }
+        
 
     }
 }

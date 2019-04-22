@@ -42,9 +42,6 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DanhSachNhomDich()
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
                 try
                 {
                     response.Data = new QuanLyNhomDichModel().GetDanhSachNhomDich();
@@ -59,13 +56,6 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
             
             return response;
         }
@@ -104,9 +94,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo DeleteNhomDich(int id)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     bool deleted = new QuanLyNhomDichModel().DeleteNhomDich(id);
@@ -132,14 +122,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
 
@@ -186,9 +176,9 @@ namespace ReadComic.Areas.Admin.Controllers
         public ResponseInfo UpdateNhomDich(NhomDich data,int id)
         {
             ResponseInfo response = new ResponseInfo();
-            //var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            //if (kt != 0)
-            //{
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
                 try
                 {
                     response = new QuanLyNhomDichModel().UpadateNhomDich(data, id);
@@ -201,14 +191,14 @@ namespace ReadComic.Areas.Admin.Controllers
                     response.MsgError = errorMsg.Msg;
                     response.ThongTinBoSung1 = e.Message;
                 }
-            //}
-            //else
-            //{
-            //    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-            //    response.TypeMsgError = errorMsg.Type;
-            //    response.MsgError = errorMsg.Msg;
-            //}
-            
+            }
+            else
+            {
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+            }
+
             return response;
         }
     }

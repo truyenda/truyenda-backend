@@ -211,6 +211,7 @@
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\T_TrangThaiTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\Truyen.cs" />
     <Compile Include="Areas\Home\Controllers\InformationController.cs" />
+    <Compile Include="Areas\Home\Controllers\TheoDoiTruyenController.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\Chuong.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\ChuongTruyen.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\getComic.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Areas\Home\Models\Schema\Profile.cs" />
     <Compile Include="Areas\Home\Models\Schema\SocialAccount.cs" />
     <Compile Include="Areas\Home\Models\Schema\TaiKhoan.cs" />
+    <Compile Include="Areas\Home\Models\TheoDoiTruyen\TheoDoiTruyenModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -274,6 +276,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Home\Models\TheoDoiTruyen\Schema\" />
     <Folder Include="Areas\Home\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

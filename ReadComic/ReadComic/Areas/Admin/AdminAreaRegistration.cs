@@ -173,8 +173,8 @@ namespace ReadComic.Areas.Admin
             context.Routes.MapHttpRoute(
                 "APIDanhSachTaiKhoan",
                 "account",
-                new { controller = "QuanLyTaiKhoan", action = "DanhSachTacGia", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+                new { controller = "QuanLyTaiKhoan", action = "DanhSachTaiKhoan", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
