@@ -47,13 +47,13 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIDanhSachTacGia
         /// </remarks>
         [HttpGet]
-        public ResponseInfo DanhSachTacGia(int page = 1)
+        public ResponseInfo DanhSachTacGia(int index = 1)
         {
             ResponseInfo response = new ResponseInfo();
            
                 try
                 {
-                    response.Data = new QuanLyTacGiaModel().GetListTacGia(page);
+                    response.Data = new QuanLyTacGiaModel().GetListTacGia(index);
                     response.IsSuccess = true;
                 }
                 catch (Exception e)
@@ -251,6 +251,38 @@ namespace ReadComic.Areas.Admin.Controllers
                 response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
             }
+            return response;
+        }
+
+        /// <summary>
+        /// Tìm kiếm tác giả theo tên
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 24/04/2019 - create
+        /// </summary>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APISearchDanhSachTacGia
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo SearchDanhSachTacGia(string query,int index)
+        {
+            ResponseInfo response = new ResponseInfo();
+
+            try
+            {
+                response.Data = new QuanLyTacGiaModel().GetListTacGiaSearch(query, index);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+
+
             return response;
         }
     }

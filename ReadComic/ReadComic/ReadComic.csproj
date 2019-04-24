@@ -247,6 +247,10 @@
     <Compile Include="Areas\Home\Models\Schema\Profile.cs" />
     <Compile Include="Areas\Home\Models\Schema\SocialAccount.cs" />
     <Compile Include="Areas\Home\Models\Schema\TaiKhoan.cs" />
+    <Compile Include="Areas\Home\Models\TheoDoiTruyen\Schema\AddBookMark.cs" />
+    <Compile Include="Areas\Home\Models\TheoDoiTruyen\Schema\BookMark.cs" />
+    <Compile Include="Areas\Home\Models\TheoDoiTruyen\Schema\TheoDoi.cs" />
+    <Compile Include="Areas\Home\Models\TheoDoiTruyen\Schema\UpdateTheoDoi.cs" />
     <Compile Include="Areas\Home\Models\TheoDoiTruyen\TheoDoiTruyenModel.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -276,7 +280,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Home\Models\TheoDoiTruyen\Schema\" />
     <Folder Include="Areas\Home\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

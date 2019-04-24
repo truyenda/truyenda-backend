@@ -19,12 +19,12 @@ namespace ReadComic.Areas.Home.Models.Schema
     public class NewAccount
     {
         [Required(ErrorMessage = "1")]
-        [MaxLength(50, ErrorMessage = "2")]
-        [RegularExpression("^[a-zA-Z0-9_.-]{6,50}$", ErrorMessage = "34")]
+        [MaxLength(34, ErrorMessage = "2")]
+        [RegularExpression("^[a-zA-Z0-9_.-]{8,24}$", ErrorMessage = "34")]
         public string Username { set; get; }
 
         [Required(ErrorMessage = "1")]
-        [MaxLength(50, ErrorMessage = "2")]
+        [MaxLength(32, ErrorMessage = "2")]
         public string Ten { set; get; }
 
         [Required(ErrorMessage = "1")]
@@ -40,7 +40,8 @@ namespace ReadComic.Areas.Home.Models.Schema
 
         [Required(ErrorMessage = "1")]
         [MaxLength(50, ErrorMessage = "2")]
-        [RegularExpression("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{8,50}$", ErrorMessage = "19")]
+        // [RegularExpression("^(?=.*\\d)(?=.*[a-zA-Z])[a-zA-Z0-9]{6,32}$", ErrorMessage = "19")]
+        [RegularExpression("^[a-zA-Z0-9_.-]{6,32}$", ErrorMessage = "34")]
         public string Password { set; get; }
 
         [Required(ErrorMessage = "1")]
@@ -48,7 +49,7 @@ namespace ReadComic.Areas.Home.Models.Schema
         [Compare("Password", ErrorMessage = "20")]
         public string ConfirmPassword { set; get; }
 
-        [AgreeValidate(ErrorMessage = "35")]
-        public bool Agree { set; get; }
+        //[AgreeValidate(ErrorMessage = "35")]
+        //public bool Agree { set; get; }
     }
 }

@@ -129,8 +129,15 @@ namespace ReadComic.Areas.Admin
             //tác giả  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTacGia",
-                "authors/{page}",
+                "authors/page/{index}",
                 new { controller = "QuanLyTacGia", action = "DanhSachTacGia", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APISearchDanhSachTacGia",
+                "authors/search/{query}/page/{index}",
+                new { controller = "QuanLyTacGia", action = "SearchDanhSachTacGia", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 

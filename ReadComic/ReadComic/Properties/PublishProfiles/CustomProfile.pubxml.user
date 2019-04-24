@@ -122,37 +122,37 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2018 18:01:18</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.dll">
-      <publishTime>04/21/2019 17:00:53</publishTime>
+      <publishTime>04/24/2019 19:37:27</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.dll.config">
-      <publishTime>04/21/2019 17:00:52</publishTime>
+      <publishTime>04/24/2019 19:37:27</publishTime>
     </File>
     <File Include="bin/ReadComic.Common.pdb">
-      <publishTime>04/21/2019 17:00:53</publishTime>
+      <publishTime>04/24/2019 19:37:27</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.dll">
-      <publishTime>04/21/2019 17:00:52</publishTime>
+      <publishTime>04/24/2019 19:37:26</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.dll.config">
       <publishTime>04/14/2019 16:51:25</publishTime>
     </File>
     <File Include="bin/ReadComic.Database.pdb">
-      <publishTime>04/21/2019 17:00:52</publishTime>
+      <publishTime>04/24/2019 19:37:26</publishTime>
     </File>
     <File Include="bin/ReadComic.dll">
-      <publishTime>04/21/2019 17:00:53</publishTime>
+      <publishTime>04/24/2019 19:37:28</publishTime>
     </File>
     <File Include="bin/ReadComic.pdb">
-      <publishTime>04/21/2019 17:00:53</publishTime>
+      <publishTime>04/24/2019 19:37:28</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.dll">
-      <publishTime>04/21/2019 17:00:52</publishTime>
+      <publishTime>04/24/2019 19:37:26</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.dll.config">
       <publishTime>04/14/2019 16:51:25</publishTime>
     </File>
     <File Include="bin/ReadComic.Validate.pdb">
-      <publishTime>04/21/2019 17:00:52</publishTime>
+      <publishTime>04/24/2019 19:37:26</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>04/14/2019 16:51:26</publishTime>
@@ -449,7 +449,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/23/2019 00:24:17</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/21/2019 17:00:55</publishTime>
+      <publishTime>04/24/2019 19:37:30</publishTime>
     </File>
   </ItemGroup>
 </Project>
