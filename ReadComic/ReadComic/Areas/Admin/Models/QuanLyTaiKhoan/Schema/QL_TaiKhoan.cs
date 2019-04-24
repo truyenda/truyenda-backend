@@ -18,20 +18,21 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
     public class QL_TaiKhoan
     {
         public int Id { get; set; }
-        [Required]
-        [StringLength(50)]
+        
         public string Username { get; set; }
 
-        [Required]
-        [StringLength(256)]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(50)]
         public int IdTrangThai { get; set; }
 
-        [StringLength(50)]
         public int IdNhom { get; set; }
+
+        public string TenNhom { get; set; }
+
+        public int IdQuyen { get; set; }
+
+        public string TenQuyen { get; set; }
+
 
     }
 
@@ -44,22 +45,22 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    public class TaiKhoanConditionSearch
-    {
-        public int IdNhom { get; set; }
-        public int IdTrangThai { get; set; }
-        public string Username { get; set; }
-        public string Email { get; set; }
-        public int CurrentPage { set; get; }
-        public string Token { get; set; }
+    //public class TaiKhoanConditionSearch
+    //{
+    //    public int IdNhom { get; set; }
+    //    public int IdTrangThai { get; set; }
+    //    public string Username { get; set; }
+    //    public string Email { get; set; }
+    //    public int CurrentPage { set; get; }
+    //    public string Token { get; set; }
 
-        public TaiKhoanConditionSearch()
-        {
-            this.IdNhom = 0;
-            this.IdTrangThai = 0;
-            this.Username = "";
-            this.Email = "";
-            this.CurrentPage = 1;
-        }
-    }
+    //    public TaiKhoanConditionSearch()
+    //    {
+    //        this.IdNhom = 0;
+    //        this.IdTrangThai = 0;
+    //        this.Username = "";
+    //        this.Email = "";
+    //        this.CurrentPage = 1;
+    //    }
+    //}
 }

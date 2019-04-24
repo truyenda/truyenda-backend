@@ -55,7 +55,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                         Id = x.Id,
                         TenTacGia = x.TenTacGia
                     }).ToList();
-                listTacGia.CurrentPage = page;
 
                 return listTacGia;
             }
@@ -237,7 +236,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                 DanhSachTacGia listTacGia = new DanhSachTacGia();
 
                 // Lấy các thông tin dùng để phân trang
-                listTacGia.Paging = new Paging(context.TacGias.Count(x => x.TenTacGia==query && !x.DelFlag), index);
+                listTacGia.Paging = new Paging(context.TacGias.Count(x => x.TenTacGia.Contains(query) && !x.DelFlag), index);
                 // Tìm kiếm và lấy dữ liệu theo trang
                 listTacGia.listTacGia = context.TacGias.Where(x =>x.TenTacGia.Contains(query) && !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTacGia.Paging.CurrentPage - 1) * listTacGia.Paging.NumberOfRecord)
@@ -246,7 +245,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                         Id = x.Id,
                         TenTacGia = x.TenTacGia
                     }).ToList();
-                listTacGia.CurrentPage = index;
 
                 return listTacGia;
             }

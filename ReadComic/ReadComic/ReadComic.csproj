@@ -200,6 +200,7 @@
     <Compile Include="Areas\Admin\Models\QuanLyQuyen\Schema\Quyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTruyenTheoTacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\Truyen_TacGia.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\NewTaiKhoan.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\QuanLyTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\Chapter.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ChuKyTruyen.cs" />

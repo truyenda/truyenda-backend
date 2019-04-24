@@ -46,31 +46,17 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
         /// </summary>
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
         /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachTruyen GetListTruyen(TruyenConditionSearch condition)
+        public DanhSachTruyen GetListTruyen(int index)
         {
             try
             {
-                // Nếu không tồn tại điều kiện tìm kiếm thì khởi tạo giá trị tìm kiếm ban đầu
-                if (condition == null)
-                {
-                    condition = new TruyenConditionSearch();
-                }
+                
                 DanhSachTruyen listTruyen = new DanhSachTruyen();
 
                 // Lấy các thông tin dùng để phân trang
-                listTruyen.Paging = new Paging(context.Truyens.Count(x =>
-                    (condition.TenTruyen == null || (condition.TenTruyen != null && (x.TenTruyen.Contains(condition.TenTruyen))))
-                    && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.Id_TrangThai == condition.IdTrangThai))
-                    && (condition.IdChuKy == 0 || (condition.IdChuKy != 0 && x.Id_ChuKy == condition.IdChuKy))
-                    && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.Id_Nhom == condition.IdNhom)))
-                    , condition.CurrentPage);
+                listTruyen.Paging = new Paging(context.Truyens.Count(x =>!x.DelFlag), index);
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listTruyen.listTruyen = context.Truyens.Where(x =>
-                (condition.TenTruyen == null || (condition.TenTruyen != null && (x.TenTruyen.Contains(condition.TenTruyen))))
-                    && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.Id_TrangThai == condition.IdTrangThai))
-                    && (condition.IdChuKy == 0 || (condition.IdChuKy != 0 && x.Id_ChuKy == condition.IdChuKy))
-                    && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.Id_Nhom == condition.IdNhom))
-                    && !x.DelFlag).OrderBy(x => x.Id)
+                listTruyen.listTruyen = context.Truyens.Where(x =>!x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
                     .Take(listTruyen.Paging.NumberOfRecord).Select(x => new Truyen
                     {
@@ -82,7 +68,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         AnhDaiDien = x.AnhDaiDien
 
                     }).ToList();
-                listTruyen.Condition = condition;
 
                 return listTruyen;
             }
@@ -373,34 +358,21 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
         /// </summary>
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
         /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachTruyen GetListTruyenNhom(TruyenConditionSearch condition)
+        public DanhSachTruyen GetListTruyenNhom(int index)
         {
             try
             {
                 // Nếu không tồn tại điều kiện tìm kiếm thì khởi tạo giá trị tìm kiếm ban đầu
-                if (condition == null)
-                {
-                    condition = new TruyenConditionSearch();
-                }
+                
                 DanhSachTruyen listTruyen = new DanhSachTruyen();
 
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
                 int IdNhom = Common.Common.GetAccount().IdNhom;
                     
                 // Lấy các thông tin dùng để phân trang
-                listTruyen.Paging = new Paging(context.Truyens.Count(x =>
-                    (condition.TenTruyen == null || (condition.TenTruyen != null && (x.TenTruyen.Contains(condition.TenTruyen))))
-                    && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.Id_TrangThai == condition.IdTrangThai))
-                    && (condition.IdChuKy == 0 || (condition.IdChuKy != 0 && x.Id_ChuKy == condition.IdChuKy))
-                    && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.Id_Nhom == condition.IdNhom))&& x.Id_Nhom == IdNhom)
-                    , condition.CurrentPage);
+                listTruyen.Paging = new Paging(context.Truyens.Count(x =>!x.DelFlag), index);
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listTruyen.listTruyen = context.Truyens.Where(x =>
-                (condition.TenTruyen == null || (condition.TenTruyen != null && (x.TenTruyen.Contains(condition.TenTruyen))))
-                    && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.Id_TrangThai == condition.IdTrangThai))
-                    && (condition.IdChuKy == 0 || (condition.IdChuKy != 0 && x.Id_ChuKy == condition.IdChuKy))
-                    && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.Id_Nhom == condition.IdNhom))
-                    && x.Id_Nhom==IdNhom && !x.DelFlag).OrderBy(x => x.Id)
+                listTruyen.listTruyen = context.Truyens.Where(x => x.Id_Nhom==IdNhom && !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
                     .Take(listTruyen.Paging.NumberOfRecord).Select(x => new Truyen
                     {
@@ -412,7 +384,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         AnhDaiDien = x.AnhDaiDien
 
                     }).ToList();
-                listTruyen.Condition = condition;
 
                 return listTruyen;
             }
