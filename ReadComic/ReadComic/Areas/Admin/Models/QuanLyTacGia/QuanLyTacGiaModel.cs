@@ -55,7 +55,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                         Id = x.Id,
                         TenTacGia = x.TenTacGia
                     }).ToList();
-                listTacGia.CurrentPage = page;
 
                 return listTacGia;
             }
@@ -222,5 +221,38 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Tìm kiếm các tác giả theo tên tác giả
+        /// Author       :   HoangNM - 24/04/2019 - create
+        /// </summary>
+        /// <param name="query">tên tác giả cần tìm kiếm</param>
+        /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachTacGia GetListTacGiaSearch(string query,int index)
+        {
+            try
+            {
+
+                DanhSachTacGia listTacGia = new DanhSachTacGia();
+
+                // Lấy các thông tin dùng để phân trang
+                listTacGia.Paging = new Paging(context.TacGias.Count(x => x.TenTacGia.Contains(query) && !x.DelFlag), index);
+                // Tìm kiếm và lấy dữ liệu theo trang
+                listTacGia.listTacGia = context.TacGias.Where(x =>x.TenTacGia.Contains(query) && !x.DelFlag).OrderBy(x => x.Id)
+                    .Skip((listTacGia.Paging.CurrentPage - 1) * listTacGia.Paging.NumberOfRecord)
+                    .Take(listTacGia.Paging.NumberOfRecord).Select(x => new Schema.TacGia
+                    {
+                        Id = x.Id,
+                        TenTacGia = x.TenTacGia
+                    }).ToList();
+
+                return listTacGia;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

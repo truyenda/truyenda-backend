@@ -36,13 +36,13 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Method: GET
         /// RouterName: APIDanhSachTruyen
         /// </remarks>
-        [HttpPost]
-        public ResponseInfo DanhSachTatCaTruyen(TruyenConditionSearch condition)
+        [HttpGet]
+        public ResponseInfo DanhSachTatCaTruyen(int index)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyTruyenModel().GetListTruyen(condition);
+                response.Data = new QuanLyTruyenModel().GetListTruyen(index);
                 response.IsSuccess = true;
             }
             catch (Exception e)
@@ -306,13 +306,13 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Method: GET
         /// RouterName: APIDanhSachTruyenNhom
         /// </remarks>
-        [HttpPost]
-        public ResponseInfo DanhSachTruyenTrongNhom(TruyenConditionSearch condition)
+        [HttpGet]
+        public ResponseInfo DanhSachTruyenTrongNhom(int index)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyTruyenModel().GetListTruyen(condition);
+                response.Data = new QuanLyTruyenModel().GetListTruyen(index);
                 response.IsSuccess = true;
             }
             catch (Exception e)

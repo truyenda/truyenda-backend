@@ -46,8 +46,8 @@ namespace ReadComic.Areas.Admin.Controllers
         /// Method: Post
         /// RouterName: APIDanhSachTaiKhoan
         /// </remarks>
-        [HttpPost]
-        public ResponseInfo DanhSachTaiKhoan(TaiKhoanConditionSearch condition)
+        [HttpGet]
+        public ResponseInfo DanhSachTaiKhoan(int index=1)
         {
             ResponseInfo response = new ResponseInfo();
             var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_LIS")) & Convert.ToInt64(Common.Common.GetTongQuyen());
@@ -55,7 +55,7 @@ namespace ReadComic.Areas.Admin.Controllers
             {
                 try
                 {
-                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(condition);
+                    response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoan(index);
                     response.IsSuccess = true;
 
                 }
@@ -179,7 +179,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </remarks>
 
         [HttpPut]
-        public ResponseInfo UpdateTaiKhoan(QL_TaiKhoan data)
+        public ResponseInfo UpdateTaiKhoan(NewTaiKhoan data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
@@ -187,7 +187,7 @@ namespace ReadComic.Areas.Admin.Controllers
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
                 if (kt != 0)
                 {
-                    response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data);
+                    response = new QuanLyTaiKhoanModel().UpadateTaiKhoan(data, id);
                 }
                 else
                 {

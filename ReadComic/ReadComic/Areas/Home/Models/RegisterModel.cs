@@ -59,8 +59,9 @@ namespace ReadComic.Areas.Home.Models
                             GioiTinh = newAccount.GioiTinh,
                             NgaySinh = newAccount.NgaySinh,
                         };
-                        
-                       
+                        context.ThongTinNguoiDungs.Add(user);
+                        context.SaveChanges();
+
 
 
                         string salt = BaoMat.GetSalt();
@@ -68,7 +69,7 @@ namespace ReadComic.Areas.Home.Models
                         //// Tạo tài khoản đăng nhập cho user
                         taiKhoan = new TblTaiKhoan
                         {
-                            //Id_User=user.Id,
+                            Id_User=user.Id,
                             Username = newAccount.Username,
                             salt_Pass = salt,
                             hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(newAccount.Password), salt),
@@ -77,7 +78,7 @@ namespace ReadComic.Areas.Home.Models
                             Id_NhomDich = 1,
                             Id_Face = "",
                             Id_Google = "",
-                            Id_PhanQuyen = 1
+                            Id_PhanQuyen = 5
                         };
 
 

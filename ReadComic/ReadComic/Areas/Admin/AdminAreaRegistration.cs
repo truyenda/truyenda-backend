@@ -129,8 +129,15 @@ namespace ReadComic.Areas.Admin
             //tác giả  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTacGia",
-                "authors/{page}",
+                "authors/page/{index}",
                 new { controller = "QuanLyTacGia", action = "DanhSachTacGia", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APISearchDanhSachTacGia",
+                "authors/search/{query}/page/{index}",
+                new { controller = "QuanLyTacGia", action = "SearchDanhSachTacGia", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
@@ -172,9 +179,9 @@ namespace ReadComic.Areas.Admin
             //tài khoản  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTaiKhoan",
-                "account",
+                "account/page/{index}",
                 new { controller = "QuanLyTaiKhoan", action = "DanhSachTaiKhoan", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
@@ -250,9 +257,9 @@ namespace ReadComic.Areas.Admin
             //truyện  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyen",
-                "stories",
+                "stories/page/{index}",
                 new { controller = "QuanLyTruyen", action = "DanhSachTatCaTruyen", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
@@ -299,9 +306,9 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyenNhom",
-                "stories/teams",
+                "stories/teams/page/{index}",
                 new { controller = "QuanLyTruyen", action = "DanhSachTruyenTrongNhom", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(

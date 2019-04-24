@@ -39,20 +39,20 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
     /// Copyright    :   Team Hoang_C#
     /// Version      :   1.0.0
     /// </remarks>
-    public class TruyenConditionSearch
-    {
-        public int CurrentPage { set; get; }
-        public int IdNhom { get; set; }
-        public int IdTrangThai { get; set; }
-        public int IdChuKy { get; set; }
-        public string TenTruyen { get; set; }
-        public TruyenConditionSearch()
-        {
-            this.CurrentPage = 1;
-            this.IdNhom = 0;
-            this.IdChuKy = 0;
-            this.IdTrangThai = 0;
-            this.TenTruyen = "";
-        }
-    }
+    //public class TruyenConditionSearch
+    //{
+    //    public int CurrentPage { set; get; }
+    //    public int IdNhom { get; set; }
+    //    public int IdTrangThai { get; set; }
+    //    public int IdChuKy { get; set; }
+    //    public string TenTruyen { get; set; }
+    //    public TruyenConditionSearch()
+    //    {
+    //        this.CurrentPage = 1;
+    //        this.IdNhom = 0;
+    //        this.IdChuKy = 0;
+    //        this.IdTrangThai = 0;
+    //        this.TenTruyen = "";
+    //    }
+    //}
 }

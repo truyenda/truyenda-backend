@@ -19,12 +19,12 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
     {
         public List<QL_TaiKhoan> listTaiKhoan { set; get; }
         public Paging Paging { set; get; }
-        public TaiKhoanConditionSearch Condition { set; get; }
+        public int CurrentPage { set; get; }
 
         public DanhSachTaiKhoan()
         {
             this.listTaiKhoan = new List<QL_TaiKhoan>();
-            this.Condition = new TaiKhoanConditionSearch();
+            this.CurrentPage = 1;
             this.Paging = new Paging();
         }
     }

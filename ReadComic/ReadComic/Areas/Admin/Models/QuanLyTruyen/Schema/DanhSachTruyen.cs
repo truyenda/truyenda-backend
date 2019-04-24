@@ -19,12 +19,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
     {
         public List<Truyen> listTruyen { set; get; }
         public Paging Paging { set; get; }
-        public TruyenConditionSearch Condition { set; get; }
 
         public DanhSachTruyen()
         {
             this.listTruyen = new List<Truyen>();
-            this.Condition = new TruyenConditionSearch();
             this.Paging = new Paging();
         }
     }

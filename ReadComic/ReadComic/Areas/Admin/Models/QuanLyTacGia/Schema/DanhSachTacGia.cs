@@ -19,12 +19,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia.Schema
     {
         public List<TacGia> listTacGia { set; get; }
         public Paging Paging { set; get; }
-        public int CurrentPage { set; get; }
 
         public DanhSachTacGia()
         {
             this.listTacGia = new List<TacGia>();
-            this.CurrentPage = 1;
             this.Paging = new Paging();
         }
     }

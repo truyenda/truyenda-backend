@@ -41,39 +41,29 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
         /// <param name="type">loại quyền của tài khoản</param>
         /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachTaiKhoan GetListTaiKhoan(TaiKhoanConditionSearch condition)
+        public DanhSachTaiKhoan GetListTaiKhoan(int page)
         {
             try
             {
                 // Nếu không tồn tại điều kiện tìm kiếm thì khởi tạo giá trị tìm kiếm ban đầu
-                if (condition == null)
-                {
-                    condition = new TaiKhoanConditionSearch();
-                }
+                //if (condition == null)
+                //{
+                //    condition = new TaiKhoanConditionSearch();
+                //}
                 DanhSachTaiKhoan listTaiKhoan = new DanhSachTaiKhoan();
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
 
                 if (kt == 0)
                 {
-                    string Token = BaoMat.Base64Decode(condition.Token);
+                    string Token = Common.Common.GetTokenTaiKhoan();
                     TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-                    condition.IdNhom = context.TaiKhoans.FirstOrDefault(x => x.Id == TblToken.Id_TaiKhoan).Id_NhomDich;
+                    int IdNhom = context.TaiKhoans.FirstOrDefault(x => x.Id == TblToken.Id_TaiKhoan).Id_NhomDich;
                 }
 
                 // Lấy các thông tin dùng để phân trang
-                listTaiKhoan.Paging = new Paging(context.TaiKhoans.Count(x =>
-                    (condition.Email == null || (condition.Email != null && (x.Email.Contains(condition.Email) )))
-                    && (condition.Username == null || (condition.Username != null &&  x.Username.Contains(condition.Username) ))
-                    && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.TrangThaiTaiKhoan.Id==condition.IdTrangThai))
-                    && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.NhomDich.Id==condition.IdNhom)))
-                    , condition.CurrentPage);
+                listTaiKhoan.Paging = new Paging(context.TaiKhoans.Count(x =>!x.DelFlag), page);
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listTaiKhoan.listTaiKhoan = context.TaiKhoans.Where(x =>
-                (condition.Email == null || (condition.Email != null && (x.Email.Contains(condition.Email))))
-                    && (condition.Username == null || (condition.Username != null && x.Username.Contains(condition.Username)))
-                    && (condition.IdTrangThai == 0 || (condition.IdTrangThai != 0 && x.Id_TrangThai == condition.IdTrangThai))
-                    && (condition.IdNhom == 0 || (condition.IdNhom != 0 && x.Id_NhomDich == condition.IdNhom))
-                    && !x.DelFlag).OrderBy(x => x.Id)
+                listTaiKhoan.listTaiKhoan = context.TaiKhoans.Where(x => !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTaiKhoan.Paging.CurrentPage - 1) * listTaiKhoan.Paging.NumberOfRecord)
                     .Take(listTaiKhoan.Paging.NumberOfRecord).Select(x => new QL_TaiKhoan
                     {
@@ -81,10 +71,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                         Username = x.Username,
                         Email=x.Email,
                         IdNhom=x.Id_NhomDich,
-                        IdTrangThai=x.Id_TrangThai
+                        IdTrangThai=x.Id_TrangThai,
+                        TenNhom=x.NhomDich.TenNhomDich,
+                        IdQuyen=x.Id_PhanQuyen,
+                        TenQuyen=x.PhanQuyen.TenVaiTro
 
                     }).ToList();
-                listTaiKhoan.Condition = condition;
+                listTaiKhoan.CurrentPage = page;
 
                 return listTaiKhoan;
             }
@@ -197,42 +190,70 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// </summary>
         /// <param name="taiKhoan">thông tin về tài khoản muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật tài khoản, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTaiKhoan(QL_TaiKhoan taiKhoan)
+        public ResponseInfo UpadateTaiKhoan(NewTaiKhoan taiKhoan,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
+                TblTaiKhoan TK = context.TaiKhoans.FirstOrDefault(x => x.Username == taiKhoan.Username && !x.DelFlag);
+                if (TK == null)
                 {
-                    context.TaiKhoans.Where(x => x.Id == taiKhoan.Id && !x.DelFlag)
-                    .Update(x => new TblTaiKhoan
+                    TK = context.TaiKhoans.FirstOrDefault(x => x.Email == taiKhoan.Email && !x.DelFlag);
+                    if (TK == null)
                     {
-                        Username = taiKhoan.Username,
-                        Email = taiKhoan.Email,
-                        Id_NhomDich = taiKhoan.IdNhom,
-                        Id_TrangThai = taiKhoan.IdTrangThai
-                    });
+                        var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                        if (kt != 0)
+                        {
+
+                            TblTaiKhoan updateTaiKhoan = context.TaiKhoans.Where(x => x.Id == id && !x.DelFlag).FirstOrDefault();
+                            updateTaiKhoan.Username = taiKhoan.Username;
+                            updateTaiKhoan.Email = taiKhoan.Email;
+                            updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
+                            updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
+                            updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
+                            updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
+                            updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
+                            updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
+                        }
+                        else
+                        {
+                            int id_nhomDich = Common.Common.GetAccount().IdNhom;
+
+                            TblTaiKhoan updateTaiKhoan = context.TaiKhoans.Where(x => x.Id == id && x.Id_NhomDich == id_nhomDich && !x.DelFlag).FirstOrDefault();
+                            updateTaiKhoan.Username = taiKhoan.Username;
+                            updateTaiKhoan.Email = taiKhoan.Email;
+                            updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
+                            updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
+                            updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
+                            updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
+                            updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
+                            updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
+
+                        }
+
+                        context.SaveChanges();
+                        response.IsSuccess = true;
+                        transaction.Commit();
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+                    else
+                    {
+                        var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.EmailDaTonTai);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
                 }
                 else
                 {
-                    int id_nhomDich = Common.Common.GetAccount().IdNhom;
-                    context.TaiKhoans.Where(x => x.Id == taiKhoan.Id &&x.Id_NhomDich==id_nhomDich && !x.DelFlag)
-                    .Update(x => new TblTaiKhoan
-                    {
-                        Username = taiKhoan.Username,
-                        Email = taiKhoan.Email,
-                        Id_TrangThai = taiKhoan.IdTrangThai
-                    });
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.UserNameDaDung);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
                 }
+
                 
-                context.SaveChanges();
-                response.IsSuccess = true;
-                transaction.Commit();
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
                 return response;
             }
             catch (Exception e)

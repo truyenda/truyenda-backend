@@ -191,6 +191,25 @@ namespace ReadComic.Common
         }
 
         /// <summary>
+        /// Lấy token của tài khoản
+        /// Author       :   HoangNM - 24/04/2019 - create
+        /// </summary>
+        /// <param name="token">
+        /// token của tài khoản đang đăng nhập
+        /// </param>
+        /// <returns>
+        /// Trả về tài khoản đang đăng nhập
+        /// </returns>
+        public static string GetTokenTaiKhoan()
+        {
+            string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+            DataContext context = new DataContext();
+            return  BaoMat.Base64Decode(token);
+            
+
+        }
+
+        /// <summary>
         /// Lấy tổng quyền của tài khoản
         /// Author       :   HoangNM - 17/04/2019 - create
         /// </summary>
