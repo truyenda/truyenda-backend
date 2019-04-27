@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ReadComic.Areas.Admin.Models.HomeModel.Schema;
+using ReadComic.Areas.Home.Models.HomeModel.Schema;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,13 +21,31 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
     {
         public int Id { get; set; }
 
+        public string TenTruyen { get; set; }
+
+        public string TenKhac { get; set; }
+
         public int Id_TrangThai { get; set; }
+
+        public string TrangThai { get; set; }
 
         public int Id_ChuKy { get; set; }
 
-        public string TenTruyen { get; set; }
+        public List<TacGia> DanhSachTacGia { get; set; }
+
+        public List<TheLoai> DanhSachTheLoai { get; set; }
 
         public string AnhDaiDien { get; set; }
+
+        public string AnhBia { get; set; }
+
+       
+
+        public int NamPhatHanh { get; set; }
+
+        public string MoTa { get; set; }
+
+        public int Id_Nhom { get; set; }
 
         public string TenNhom { get; set; }
     }

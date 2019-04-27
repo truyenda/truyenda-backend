@@ -278,31 +278,21 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                "APIUpdateTruyen",
-               "stories",
+               "stories/{id}",
                new { controller = "QuanLyTruyen", action = "UpdateTruyen", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
            );
 
-            context.Routes.MapHttpRoute(
-                "APIUpdate",
-                "stories/sstatus/{id}",
-                new { controller = "QuanLyTruyen", action = "UpdateTrangThaiTruyen", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
-            );
+           
 
             context.Routes.MapHttpRoute(
                 "APIAddTruyen",
-                "stories/add",
+                "stories",
                 new { controller = "QuanLyTruyen", action = "AddTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
-            context.Routes.MapHttpRoute(
-                "APIUpdateChuKy",
-                "stories/frequencies",
-                new { controller = "QuanLyTruyen", action = "UpdateChuKyTruyen", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
-            );
+            
 
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyenNhom",
@@ -311,19 +301,6 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
-            context.Routes.MapHttpRoute(
-                "APIAddTacGiaChoTruyen",
-                "stories/authors",
-                new { controller = "QuanLyTruyen", action = "AddTacGiaChoTruyen", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
-            );
-
-            context.Routes.MapHttpRoute(
-                "APIThemTheLoaiChoTruyen",
-                "stories/categories",
-                new { controller = "QuanLyTruyen", action = "AddTheLoaiChoTruyen", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
-            );
 
             context.Routes.MapHttpRoute(
                 "APIThemTruyenTuJson",

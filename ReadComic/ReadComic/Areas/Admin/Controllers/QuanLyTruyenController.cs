@@ -143,7 +143,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// </remarks>
 
         [HttpPut]
-        public ResponseInfo UpdateTruyen(NewComic data)
+        public ResponseInfo UpdateTruyen(NewComic data,int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
@@ -151,7 +151,7 @@ namespace ReadComic.Areas.Admin.Controllers
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
                 if (kt != 0)
                 {
-                    response = new QuanLyTruyenModel().UpadateTruyen(data);
+                    response = new QuanLyTruyenModel().UpadateTruyen(data,id);
                 }
                 else
                 {
@@ -172,87 +172,7 @@ namespace ReadComic.Areas.Admin.Controllers
             return response;
         }
 
-        /// <summary>
-        /// Dùng để cập nhật trạng thái cho truyện
-        /// Author       :   HoangNM - 01/04/2019 - create
-        /// </summary>
-        /// <param name="TrangThai">Là trạng thái truyện cần thay đổi</param>
-        /// <returns>Đối tượng chứa thông tin về quá trình thay đổi trạng thái tài khoản</returns>
-        /// <remarks>
-        /// Method: PUT
-        /// RouterName: APIUpdateTrangThaiTruyen
-        /// </remarks>
-
-        [HttpPut]
-        public ResponseInfo UpdateTrangThaiTruyen(T_TrangThaiTruyen TrangThai)
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
-                {
-                    response = new QuanLyTruyenModel().UpadateTrangThaiTruyen(TrangThai);
-                }
-                else
-                {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
-                }
-                    
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
-
-        /// <summary>
-        /// Dùng để cập nhật chu kỳ cho truyện
-        /// Author       :   HoangNM - 01/04/2019 - create
-        /// </summary>
-        /// <param name="chuky">Là chu kỳ truyện cần thay đổi</param>
-        /// <returns>Đối tượng chứa thông tin về quá trình thay đổi chu kỳ cho truyện</returns>
-        /// <remarks>
-        /// Method: PUT
-        /// RouterName: APIUpdateChuKyTruyen
-        /// </remarks>
-
-        [HttpPut]
-        public ResponseInfo UpdateChuKyTruyen(ChuKyTruyen chuky)
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_UPD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
-                {
-                    response = new QuanLyTruyenModel().UpadateChuKyTruyen(chuky);
-                }
-                else
-                {
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
-                }
-                    
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
+       
 
         /// <summary>
         /// Dùng để thêm truyện
@@ -326,65 +246,7 @@ namespace ReadComic.Areas.Admin.Controllers
             return response;
         }
 
-        /// <summary>
-        /// Dùng để thêm tác giả cho truyên
-        /// Author       :   HoangNM - 03/04/2019 - create
-        /// </summary>
-        /// <param name="data">Là thông tin chứa tác giả thêm</param>
-        /// <returns>Đối tượng chứa thông tin về quá trình thêm truyện</returns>
-        /// <remarks>
-        /// Method: POST
-        /// RouterName: APIAddTacGiaChoTruyen
-        /// </remarks>
-
-        [HttpPost]
-        public ResponseInfo AddTacGiaChoTruyen(ThemTacGiaChoTruyen data)
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyTruyenModel().AddTacGiaChoTruyen(data);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
-
-        /// <summary>
-        /// Dùng để thêm thể loại cho truyện
-        /// Author       :   HoangNM - 03/04/2019 - create
-        /// </summary>
-        /// <param name="data">Là thông tin thể loại cần thêm cho truyện</param>
-        /// <returns>Đối tượng chứa thông tin về quá trình thêm truyện</returns>
-        /// <remarks>
-        /// Method: PUT
-        /// RouterName: APIThemTheLoaiChoTruyen
-        /// </remarks>
-
-        [HttpPost]
-        public ResponseInfo AddTheLoaiChoTruyen(TheLoaiChoTruyen data)
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response = new QuanLyTruyenModel().AddTheLoaiChoTruyen(data);
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
+        
 
         /// <summary>
         /// Điều hướng đến trang hiển thị danh sách truyên
