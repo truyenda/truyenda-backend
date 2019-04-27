@@ -67,35 +67,35 @@ namespace ReadComic.Areas.Home
 
             context.Routes.MapHttpRoute(
                 "GetTruyen",
-                "storys",
+                "stories",
                 new { controller = "Home", action = "GetTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "GetALLComic",
-                "story/all",
+                "stories/all",
                 new { controller = "Home", action = "GetAllComicList", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "GetComicWithCategorys",
-                "story/categorys",
+                "stories/categorys",
                 new { controller = "Home", action = "GetComicListWithCategorys", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "GetComicWithRecommend",
-                "story/recommend",
+                "stories/recommend",
                 new { controller = "Home", action = "GetRandomComicList", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                "SearchComic",
-               "story/search",
+               "stories/search/{query}/page/{index}",
                new { controller = "Home", action = "SearchComic", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );
@@ -109,21 +109,21 @@ namespace ReadComic.Areas.Home
 
             context.Routes.MapHttpRoute(
                "GetComicOfDay",
-               "story/day",
+               "stories/day",
                new { controller = "Home", action = "GetComicOfDay", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );
 
             context.Routes.MapHttpRoute(
                "GetComicOfWeek",
-               "story/week",
+               "stories/week",
                new { controller = "Home", action = "GetComicOfWeek", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );
 
             context.Routes.MapHttpRoute(
                "GetComicOfMonth",
-               "story/month",
+               "stories/month",
                new { controller = "Home", action = "GetComicOfMonth", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );

@@ -205,8 +205,11 @@
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\Chapter.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ChuKyTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\DanhSachTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\DanhSachTruyenTimKiem.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\DataSearch.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\JsonTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\NewComic.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\SearchTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\TheLoaiChoTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ThemTacGiaChoTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\T_TrangThaiTruyen.cs" />
@@ -215,6 +218,7 @@
     <Compile Include="Areas\Home\Controllers\TheoDoiTruyenController.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\Chuong.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\ChuongTruyen.cs" />
+    <Compile Include="Areas\Home\Models\HomeModel\Schema\DanhSachTruyenSearch.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\getComic.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\GetOneChapter.cs" />
     <Compile Include="Areas\Home\Models\HomeModel\Schema\TacGia.cs" />

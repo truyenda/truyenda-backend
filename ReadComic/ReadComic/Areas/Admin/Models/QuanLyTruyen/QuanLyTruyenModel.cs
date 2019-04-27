@@ -19,6 +19,8 @@ using System.Web.Script.Serialization;
 using ReadComic.Common.ErrorMsg;
 using ReadComic.Common.Enum;
 using ReadComic.Common.Permission;
+using ReadComic.Areas.Admin.Models.HomeModel.Schema;
+using ReadComic.Areas.Home.Models.HomeModel.Schema;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
 {
@@ -62,10 +64,27 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     {
                         Id = x.Id,
                         TenTruyen = x.TenTruyen,
+                        TenKhac=x.TenKhac,
                         Id_ChuKy = x.Id_ChuKy,
                         Id_TrangThai = x.Id_TrangThai,
+                        TrangThai=x.TrangThaiTruyen.TenTrangThai,
+                        Id_Nhom=x.Id_Nhom,
                         TenNhom = x.NhomDich.TenNhomDich,
-                        AnhDaiDien = x.AnhDaiDien
+                        AnhDaiDien = x.AnhDaiDien,
+                        AnhBia=x.AnhBia,
+                        NamPhatHanh=x.NamPhatHanh,
+                        MoTa=x.MoTa,
+                        DanhSachTacGia= x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                        {
+                            Id = y.TacGia.Id,
+                            TenTacGia = y.TacGia.TenTacGia
+                        }).ToList(),
+                        DanhSachTheLoai= x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                        {
+                            Id = y.LoaiTruyen.Id,
+                            TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                            MoTa = y.LoaiTruyen.Mota
+                        }).ToList()
 
                     }).ToList();
 
@@ -127,6 +146,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     {
                         TblTruyen truyen = context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                         truyen.DelFlag = true;
+                        context.Chuongs.Where(x => x.Id_Truyen == id && !x.DelFlag).Update(x => new TblChuongTruyen
+                        {
+                            DelFlag=true
+                        });
                         context.SaveChanges();
                     }
                     else
@@ -164,7 +187,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
         /// </summary>
         /// <param name="truyen">thông tin về truyện muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTruyen(NewComic truyen)
+        public ResponseInfo UpadateTruyen(NewComic truyen,int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
@@ -173,34 +196,24 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
                 if (kt != 0)
                 {
-                    context.Truyens.Where(x => x.Id == truyen.Id && !x.DelFlag)
-                    .Update(x => new TblTruyen
-                    {
-                        Id_ChuKy = truyen.Id_ChuKy,
-                        TenTruyen = truyen.TenTruyen,
-                        TenKhac = truyen.TenKhac,
-                        Id_TrangThai = truyen.Id_TrangThai,
-                        NamPhatHanh = truyen.NamPhatHanh,
-                        AnhBia = truyen.AnhBia,
-                        AnhDaiDien = truyen.AnhDaiDien,
-                        MoTa = truyen.MoTa
-                    });
+                    XuLyUpDateTruyen(truyen, id);
                 }
                 else
                 {
                     int Id_nhom = Common.Common.GetAccount().IdNhom;
-                    context.Truyens.Where(x => x.Id == truyen.Id && x.Id_Nhom==Id_nhom && !x.DelFlag)
-                    .Update(x => new TblTruyen
+                    TblTruyen tblTruyen = context.Truyens.FirstOrDefault(x => x.Id == id && x.Id_Nhom == Id_nhom && !x.DelFlag);
+                    if (tblTruyen != null)
                     {
-                        Id_ChuKy = truyen.Id_ChuKy,
-                        TenTruyen = truyen.TenTruyen,
-                        TenKhac = truyen.TenKhac,
-                        Id_TrangThai = truyen.Id_TrangThai,
-                        NamPhatHanh = truyen.NamPhatHanh,
-                        AnhBia = truyen.AnhBia,
-                        AnhDaiDien = truyen.AnhDaiDien,
-                        MoTa = truyen.MoTa
-                    });
+                        XuLyUpDateTruyen(truyen, id);
+                    }
+                    else
+                    {
+                        var errorMsg1 = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatThongTinThanhCong);
+                        response.TypeMsgError = errorMsg1.Type;
+                        response.MsgError = errorMsg1.Msg;
+                        return response;
+                    }
+                    
                 }
                 
                 context.SaveChanges();
@@ -209,94 +222,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
                 response.TypeMsgError = errorMsg.Type;
                 response.MsgError = errorMsg.Msg;
-                return response;
-            }
-            catch (Exception e)
-            {
-                response.IsSuccess = false;
-                transaction.Rollback();
-                throw e;
-            }
-        }
-
-        /// <summary>
-        /// Cập nhật trạng thái truyen
-        /// Author       :   HoangNM - 01/04/2019 - create
-        /// </summary>
-        /// <param name="trangThaiTruyen">trạng thái truyện muốn thay đổi</param>
-        /// <returns>Trả về các thông tin khi cập nhật trạng thái truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTrangThaiTruyen(T_TrangThaiTruyen trangThaiTruyen)
-        {
-            DbContextTransaction transaction = context.Database.BeginTransaction();
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
-                {
-                    context.Truyens.Where(x => x.Id == trangThaiTruyen.IdTruyen && !x.DelFlag)
-                    .Update(x => new TblTruyen
-                    {
-                        Id_TrangThai = trangThaiTruyen.IdTrangThai
-                    });
-                }
-                else
-                {
-                    int Id_nhom = Common.Common.GetAccount().IdNhom;
-                    context.Truyens.Where(x => x.Id == trangThaiTruyen.IdTruyen&& x.Id_Nhom==Id_nhom && !x.DelFlag)
-                    .Update(x => new TblTruyen
-                    {
-                        Id_TrangThai = trangThaiTruyen.IdTrangThai
-                    });
-                }
-                    
-                context.SaveChanges();
-                response.IsSuccess = true;
-                transaction.Commit();
-                return response;
-            }
-            catch (Exception e)
-            {
-                response.IsSuccess = false;
-                transaction.Rollback();
-                throw e;
-            }
-        }
-
-        /// <summary>
-        /// Cập nhật chu kỳ cho truyện
-        /// Author       :   HoangNM - 01/04/2019 - create
-        /// </summary>
-        /// <param name="chuky">thông tin về chu kỳ mà truyện muốn thay đổi</param>
-        /// <returns>Trả về các thông tin khi cập nhật chu kỳ, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateChuKyTruyen(ChuKyTruyen chuky)
-        {
-            DbContextTransaction transaction = context.Database.BeginTransaction();
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
-                {
-                    context.Truyens.Where(x => x.Id == chuky.IdTruyen && !x.DelFlag)
-                    .Update(x => new TblTruyen
-                    {
-                        Id_ChuKy = chuky.IdChuKy
-                    });
-                }
-                else
-                {
-                    int Id_nhom = Common.Common.GetAccount().IdNhom;
-                    context.Truyens.Where(x => x.Id == chuky.IdTruyen&& x.Id_Nhom==Id_nhom && !x.DelFlag)
-                    .Update(x => new TblTruyen
-                    {
-                        Id_ChuKy = chuky.IdChuKy
-                    });
-                }
-                    
-                context.SaveChanges();
-                response.IsSuccess = true;
-                transaction.Commit();
                 return response;
             }
             catch (Exception e)
@@ -321,13 +246,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             {
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
                 int IdNhom = Common.Common.GetAccount().IdNhom;
-                truyen.Id = context.Truyens.Count() == 0 ? 1 : context.Truyens.Max(x => x.Id) + 1;
-                context.Truyens.Add(new TblTruyen
+
+                TblTruyen tblTruyen=context.Truyens.Add(new TblTruyen
                 {
-                    Id_Nhom = IdNhom,
-                    Id_ChuKy = truyen.Id_ChuKy,
                     TenTruyen = truyen.TenTruyen,
                     TenKhac = truyen.TenKhac,
+                    Id_Nhom = IdNhom,
+                    Id_ChuKy = truyen.Id_ChuKy,
                     Id_TrangThai = truyen.Id_TrangThai,
                     NamPhatHanh = truyen.NamPhatHanh,
                     AnhBia = truyen.AnhBia,
@@ -336,7 +261,50 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     NgayTao=DateTime.Now
                 });
                 context.SaveChanges();
-                response.ThongTinBoSung1 = truyen.Id + "";
+
+                //Thêm thể loại truyên
+
+                foreach (int idTheLoai in truyen.TheLoai)
+                {
+                    context.LuuLoaiTruyens.Add(new TblLuuLoaiTruyen
+                    {
+                        IdTruyen = tblTruyen.Id,
+                        IdLoaiTruyen = idTheLoai
+                    });
+                }
+
+                context.SaveChanges();
+
+                //Thêm tác giả
+
+                string[] tacGia = truyen.TacGia.Split(',');
+                foreach (string tacgia in tacGia)
+                {
+                    TblTacGia tblTacGia = context.TacGias.FirstOrDefault(x => string.Compare(x.TenTacGia, tacgia) == 0 && !x.DelFlag);
+                    int Id_TacGia = 0;
+                    if (tblTacGia != null)
+                    {
+                        Id_TacGia = tblTacGia.Id;
+                    }
+                    else
+                    {
+                        tblTacGia = context.TacGias.Add(new TblTacGia
+                        {
+                            TenTacGia = tacgia
+                        });
+                        context.SaveChanges();
+                        Id_TacGia = tblTacGia.Id;
+                    }
+                    context.LuuTacGias.Add(new TblLuuTacGia
+                    {
+                        Id_Truyen = tblTruyen.Id,
+                        Id_TacGia = Id_TacGia
+                    });
+                    context.SaveChanges();
+
+                }
+
+                response.ThongTinBoSung1 = tblTruyen.Id + "";
                 response.IsSuccess = true;
                 transaction.Commit();
                 var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
@@ -393,81 +361,69 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             }
         }
 
-        /// <summary>
-        /// Thêm tác giả cho truyện
-        /// Author       :   HoangNM - 03/04/2019 - create
-        /// </summary>
-        /// <param name="data">dữ liệu chứa thông tin tác giả</param>
-        /// <returns>Trả về các thông tin khi cập nhật truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo AddTacGiaChoTruyen(ThemTacGiaChoTruyen data)
+        public void XuLyUpDateTruyen(NewComic truyen,int id)
         {
-            DbContextTransaction transaction = context.Database.BeginTransaction();
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                foreach(int idTacGia in data.listIdTacGia)
-                {
-                    context.LuuTacGias.Add(new TblLuuTacGia
+            //cập nhật các thông tin cơ bản cho truyện
+            context.Truyens.Where(x => x.Id == id && !x.DelFlag)
+                    .Update(x => new TblTruyen
                     {
-                        Id_Truyen = data.IdTruyen,
-                        Id_TacGia=idTacGia
+                        Id_ChuKy = truyen.Id_ChuKy,
+                        TenTruyen = truyen.TenTruyen,
+                        TenKhac = truyen.TenKhac,
+                        Id_TrangThai = truyen.Id_TrangThai,
+                        NamPhatHanh = truyen.NamPhatHanh,
+                        AnhBia = truyen.AnhBia,
+                        AnhDaiDien = truyen.AnhDaiDien,
+                        MoTa = truyen.MoTa
                     });
-                }
-                
-                context.SaveChanges();
-                response.ThongTinBoSung1 = data.IdTruyen + "";
-                response.IsSuccess = true;
-                transaction.Commit();
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                return response;
-            }
-            catch (Exception e)
+            context.SaveChanges();
+            //Xóa các thể loại trước đó lưu trong bảng lưu thể loại
+            context.LuuLoaiTruyens.Where(x => x.IdTruyen == id).Delete();
+            context.SaveChanges();
+
+            //Cập nhật lưu thể loại
+            foreach (int idTheLoai in truyen.TheLoai)
             {
-                response.IsSuccess = false;
-                transaction.Rollback();
-                throw e;
+                context.LuuLoaiTruyens.Add(new TblLuuLoaiTruyen
+                {
+                    IdTruyen = id,
+                    IdLoaiTruyen = idTheLoai
+                });
+            }
+            context.SaveChanges();
+            //xóa các tác giả của truyện trước đó
+            context.LuuTacGias.Where(x => x.Id_Truyen == id).Delete();
+            context.SaveChanges();
+            //Cập nhật tác giả
+            string[] tacGia = truyen.TacGia.Split(',');
+            foreach (string tacgia in tacGia)
+            {
+                TblTacGia tblTacGia = context.TacGias.FirstOrDefault(x => string.Compare(x.TenTacGia, tacgia) == 0 && !x.DelFlag);
+                int Id_TacGia = 0;
+                if (tblTacGia != null)
+                {
+                    Id_TacGia = tblTacGia.Id;
+                }
+                else
+                {
+                    tblTacGia = context.TacGias.Add(new TblTacGia
+                    {
+                        TenTacGia = tacgia
+                    });
+                    context.SaveChanges();
+                    Id_TacGia = tblTacGia.Id;
+                }
+                context.LuuTacGias.Add(new TblLuuTacGia
+                {
+                    Id_Truyen = id,
+                    Id_TacGia = Id_TacGia
+                });
+                context.SaveChanges();
+
             }
         }
 
-        /// <summary>
-        /// Thêm thể loại cho truyện
-        /// Author       :   HoangNM - 03/04/2019 - create
-        /// </summary>
-        /// <param name="data">dữ liệu chứa thể loại truyện</param>
-        /// <returns>Trả về các thông tin khi cập nhật truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo AddTheLoaiChoTruyen(TheLoaiChoTruyen data)
-        {
-            DbContextTransaction transaction = context.Database.BeginTransaction();
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                foreach (int idTheLoai in data.listTheLoai)
-                {
-                    context.LuuLoaiTruyens.Add(new TblLuuLoaiTruyen
-                    {
-                        IdTruyen = data.IdTruyen,
-                        IdLoaiTruyen = idTheLoai
-                    });
-                }
-
-                context.SaveChanges();
-                response.ThongTinBoSung1 = data.IdTruyen + "";
-                response.IsSuccess = true;
-                transaction.Commit();
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemDuLieuThanhCong);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                return response;
-            }
-            catch (Exception e)
-            {
-                response.IsSuccess = false;
-                transaction.Rollback();
-                throw e;
-            }
-        }
+        
 
         /// <summary>
         /// Dùng để xử lý file json
@@ -585,6 +541,61 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             {
                 response.IsSuccess = false;
                 transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Tìm kiếm các truyện phân trang theo yêu cầu tìm kiếm của người dung phân trang và tìm kiếm
+        /// Author       :   HoangNM - 01/04/2019 - create
+        /// </summary>
+        /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
+        /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachTruyenTimKiem GetListTruyenSearch(int index,DataSearch data)
+        {
+            try
+            {
+                //sắp xếp mảng thể loại
+                data.Category.Sort();
+
+
+                DanhSachTruyenTimKiem listTruyen = new DanhSachTruyenTimKiem();
+
+                // Lấy các thông tin dùng để phân trang
+                listTruyen.Paging = new Paging(context.Truyens.Count(x => !x.DelFlag), index);
+                // Tìm kiếm và lấy dữ liệu theo trang
+                listTruyen.listTruyen = context.Truyens.Where(x =>
+                (data.Status == 0 ||(data.Status != 0 && x.Id_TrangThai == data.Status))
+                &&(data.Rank==0||
+                                (data.Rank !=0 && data.Rank <3
+                                && x.Chuongs.Sum(y=>y.LuotXem)>((data.Rank-1)*1000) 
+                                && x.Chuongs.Sum(y=>y.LuotXem)<(data.Rank*1000))) ||
+                                (data.Rank >2 
+                                && x.Chuongs.Sum(y=>y.LuotXem)>((data.Rank - 1) * 1000))
+                &&(data.Category==null||
+                                        (data.Category!=null 
+                                        && string.Join("", x.LuuLoaiTruyens.Select(y=>y.IdLoaiTruyen).ToList()).Contains(string.Join("",data.Category))))
+
+                &&  !x.DelFlag ).OrderBy(x => x.Id)
+                    .Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
+                    .Take(listTruyen.Paging.NumberOfRecord).Select(x => new SearchTruyen
+                    {
+                        Id = x.Id,
+                        TenTruyen = x.TenTruyen,
+                        Id_ChuKy = x.Id_ChuKy,
+                        Id_TrangThai = x.Id_TrangThai,
+                        TenNhom = x.NhomDich.TenNhomDich,
+                        AnhDaiDien = x.AnhDaiDien,
+                        AnhBia=x.AnhBia,
+                        NgayTao=x.NgayTao,
+                        View=1
+
+                    }).ToList();
+
+                return listTruyen;
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }

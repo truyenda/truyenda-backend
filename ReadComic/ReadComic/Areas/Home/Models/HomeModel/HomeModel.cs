@@ -11,6 +11,7 @@ using TblLuotXemTuan = ReadComic.Database.Schema.LuotXemTuan;
 using TblLuotXemThang = ReadComic.Database.Schema.LuotXemThang;
 using EntityFramework.Extensions;
 using System.Globalization;
+using ReadComic.Common;
 
 namespace ReadComic.Areas.Home.Models.HomeModel
 {
@@ -211,12 +212,16 @@ namespace ReadComic.Areas.Home.Models.HomeModel
         /// Author       :   HoangNM - 13/04/2019 - create
         /// </summary>
         /// <returns>Danh sách truyện Mới. Exception nếu có lỗi</returns>
-        public List<Comic> SearchComic(string search)
+        public DanhSachTruyenSearch SearchComic(string query, int index)
         {
             try
             {
-                List<Comic> NewComicList = new List<Comic>();
-                NewComicList = context.Truyens.Where(x => !x.DelFlag && x.TenTruyen.Contains(search))
+                DanhSachTruyenSearch listComicSearch = new DanhSachTruyenSearch();
+                // Lấy các thông tin dùng để phân trang
+                listComicSearch.Paging = new Paging(context.Truyens.Count(x => x.TenTruyen.Contains(query) && !x.DelFlag), index);
+
+
+                listComicSearch.listComic = context.Truyens.Where(x => !x.DelFlag && x.TenTruyen.Contains(query))
                     .Select(x => new Comic
                     {
                         Id = x.Id,
@@ -242,7 +247,7 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                         }).ToList()
 
                     }).OrderByDescending(x => x.NgayTao).Take(5).ToList();
-                return NewComicList;
+                return listComicSearch;
             }
             catch (Exception e)
             {

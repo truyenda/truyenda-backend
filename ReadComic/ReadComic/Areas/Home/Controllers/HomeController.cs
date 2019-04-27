@@ -164,13 +164,13 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: 
         /// </remarks>
         [HttpGet]
-        public ResponseInfo SearchComic(string search)
+        public ResponseInfo SearchComic(string query, int index)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
 
-                response.Data = new HomeModel().SearchComic(search);
+                response.Data = new HomeModel().SearchComic(query, index);
                 response.IsSuccess = true;
             }
             catch (Exception e)
