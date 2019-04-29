@@ -88,21 +88,34 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                 ChuongTruyen chuongTruyen = new ChuongTruyen();
                 chuongTruyen = context.Truyens.Where(x => x.Id == IdTruyen && !x.DelFlag).Select(x => new ChuongTruyen
                 {
-                    IdTruyen = x.Id,
+                    Id = x.Id,
                     TenTruyen = x.TenTruyen,
+                    TenKhac=x.TenKhac,
+                    Id_TrangThai=x.Id_TrangThai,
+                    TrangThai=x.TrangThaiTruyen.TenTrangThai,
+                    Id_ChuKy=x.Id_ChuKy,
+                    DanhSachTacGia=x.LuuTacGias.Where(y=>!y.DelFlag).Select(y=>new TacGia
+                    {
+                        Id=y.Id_TacGia,
+                        TenTacGia=y.TacGia.TenTacGia
+                    }).ToList(),
                     AnhBia = x.AnhBia,
-                    listTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                    AnhDaiDien=x.AnhDaiDien,
+                    DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
                     {
                         Id = y.LoaiTruyen.Id,
                         TenTheLoai = y.LoaiTruyen.TenTheLoai,
                         MoTa = y.LoaiTruyen.Mota
                     }).ToList(),
+                    NamPhatHanh=x.NamPhatHanh,
+                    MoTa=x.MoTa,
+                    Id_Nhom=x.Id_Nhom,
+                    TenNhom=x.NhomDich.TenNhomDich,
                     listChuong = x.Chuongs.Select(y => new Chuong
                     {
                         IdChuong = y.Id,
                         TenChuong = y.TenChuong,
                         soThuTu = y.SoThuTu,
-                        linkAnh = y.LinkAnh,
                         luotXem = y.LuotXem,
                         ngayTao = y.NgayTao
 

@@ -227,12 +227,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIDanhSachTruyenNhom
         /// </remarks>
         [HttpGet]
-        public ResponseInfo DanhSachTruyenTrongNhom(int index)
+        public ResponseInfo DanhSachTruyenTrongNhomCuaTaiKhoan(int index)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyTruyenModel().GetListTruyen(index);
+                response.Data = new QuanLyTruyenModel().GetListTruyenNhomCuaTaiKhoan(index);
                 response.IsSuccess = true;
             }
             catch (Exception e)
@@ -246,7 +246,39 @@ namespace ReadComic.Areas.Admin.Controllers
             return response;
         }
 
-        
+        /// <summary>
+        /// Điều hướng đến trang hiển thị danh sách truyện của nhóm
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 27/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Trang danh sách truyện trong nhóm
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachTruyenNhom
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo DanhSachTruyenTrongNhom(int idNhom,int index)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.Data = new QuanLyTruyenModel().GetListTruyenNhom(idNhom,index);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+
 
         /// <summary>
         /// Điều hướng đến trang hiển thị danh sách truyên
@@ -267,6 +299,36 @@ namespace ReadComic.Areas.Admin.Controllers
             try
             {
                 response.Data = new QuanLyTruyenModel().XulyJson(test);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Lấy danh sách truyện sử dụng bộ lọc
+        /// Author       :   HoangNM - 27/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachTruyenFilter
+        /// </remarks>
+        [HttpPost]
+        public ResponseInfo DanhSachTruyenFilter(int index, DataSearch data)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.Data = new QuanLyTruyenModel().GetListTruyenSearch(index,data);
                 response.IsSuccess = true;
             }
             catch (Exception e)

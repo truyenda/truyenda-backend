@@ -12,6 +12,5 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
         public float soThuTu { get; set; }
         public long luotXem { get; set; }
         public DateTime ngayTao { get; set; }
-        public string linkAnh { get; set; }
     }
 }

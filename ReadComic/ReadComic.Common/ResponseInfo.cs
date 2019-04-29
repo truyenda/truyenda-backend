@@ -18,6 +18,8 @@ namespace ReadComic.Common
         // 405: Phương thức không được phép
         // 406: Không được chấp nhận
         // 409: Xung đột
+        // 400: Bad Request
+
         public int Code { set; get; }
 
         public int TypeMsgError { set; get; }

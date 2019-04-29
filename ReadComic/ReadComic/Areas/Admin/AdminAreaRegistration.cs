@@ -93,8 +93,15 @@ namespace ReadComic.Areas.Admin
             //nhóm dịch----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachNhomDich",
-                "teams",
+                "teams/page/{index}",
                 new { controller = "QuanLyNhomDich", action = "DanhSachNhomDich", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APISearchNhomDich",
+                "teams/search/{query}/page/{index}",
+                new { controller = "QuanLyNhomDich", action = "SearchDanhSachNhomDicn", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
@@ -292,13 +299,25 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
-            
+            context.Routes.MapHttpRoute(
+                "APIDanhSachTruyenNhomCuaTaiKhoan",
+                "stories/teams/page/{index}",
+                new { controller = "QuanLyTruyen", action = "DanhSachTruyenTrongNhomCuaTaiKhoan", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
 
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyenNhom",
-                "stories/teams/page/{index}",
+                "stories/team/{idNhom}/page/{index}",
                 new { controller = "QuanLyTruyen", action = "DanhSachTruyenTrongNhom", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachTruyenFilter",
+                "stories/filter/page/{index}",
+                new { controller = "QuanLyTruyen", action = "DanhSachTruyenFilter", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
 
@@ -313,7 +332,7 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APIDanhSachChuongTruyen",
-                "chapers",
+                "stories/{Id_Truyen}/chapters",
                 new { controller = "QuanLyChuongTruyen", action = "DanhSachTatCaTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
@@ -321,28 +340,28 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APIDeleteChuong",
-                "chapers/{id}",
+                "chapters/{id}",
                 new { controller = "QuanLyChuongTruyen", action = "DeleteChuongTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
             );
 
             context.Routes.MapHttpRoute(
                 "APChuongTruyen",
-                "chapers/{id}",
+                "chapters/{id}",
                 new { controller = "QuanLyChuongTruyen", action = "Get", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             context.Routes.MapHttpRoute(
                 "APIAddChuongTruyen",
-                "chapers",
+                "chapters",
                 new { controller = "QuanLyChuongTruyen", action = "ThemChuongTruyen", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
 
             context.Routes.MapHttpRoute(
               "APIUpdateChuongTruyen",
-              "chapers/{id}",
+              "chapters/{id}",
               new { controller = "QuanLyChuongTruyen", action = "UpdateChuongTruyen", id = UrlParameter.Optional },
               constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
           );

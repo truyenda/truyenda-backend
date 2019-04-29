@@ -37,12 +37,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIDanhSachChuongTruyen
         /// </remarks>
         [HttpGet]
-        public ResponseInfo DanhSachTatCaTruyen(int CurrentPage=1, float SoThuTu=0, string TenChuong="")
+        public ResponseInfo DanhSachTatCaTruyen(int Id_Truyen)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response.Data = new QuanLyChuongTruyenModel().GetListChuongTruyen(new ChuongConditionSearch { CurrentPage=CurrentPage,SoThuTu=SoThuTu,TenChuong=TenChuong});
+                response.Data = new QuanLyChuongTruyenModel().GetListChuongTruyen(Id_Truyen);
                 response.IsSuccess = true;
             }
             catch (Exception e)

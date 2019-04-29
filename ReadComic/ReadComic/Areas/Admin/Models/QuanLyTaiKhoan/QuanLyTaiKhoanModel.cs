@@ -211,6 +211,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                             updateTaiKhoan.Email = taiKhoan.Email;
                             updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
                             updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
+                            updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
                             updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
                             updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
                             updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
@@ -225,6 +226,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                             updateTaiKhoan.Email = taiKhoan.Email;
                             updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
                             updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
+                            updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
                             updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
                             updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
                             updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;

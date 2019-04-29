@@ -35,13 +35,16 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
         /// Author       :   HoangNM - 18/03/2019 - create
         /// </summary>
         /// <returns>Danh sách nhóm dịch. Exception nếu có lỗi</returns>
-        public List<NhomDich> GetDanhSachNhomDich()
+        public DanhSachNhom GetDanhSachNhomDich(int index)
         {
             try
             {
-                List<NhomDich> lishNhomDich = new List<NhomDich>();
+                DanhSachNhom danhSachNhom = new DanhSachNhom();
+                danhSachNhom.Paging= new Paging(context.NhomDiches.Count(x => !x.DelFlag), index);
 
-                lishNhomDich = context.NhomDiches.Where(x => !x.DelFlag)
+                danhSachNhom.listNhomDich = context.NhomDiches.Where(x => !x.DelFlag).OrderBy(x => x.Id)
+                    .Skip((danhSachNhom.Paging.CurrentPage - 1) * danhSachNhom.Paging.NumberOfRecord)
+                    .Take(danhSachNhom.Paging.NumberOfRecord)
                     .Select(x => new NhomDich
                     {
                         Id = x.Id,
@@ -50,7 +53,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                         Logo=x.Logo
                     }).ToList();
 
-                return lishNhomDich;
+                return danhSachNhom;
             }
             catch (Exception e)
             {
@@ -182,6 +185,40 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
             catch (Exception e)
             {
                 transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Tìm kiếm nhóm dịch theo tên
+        /// Author       :   HoangNM - 27/04/2019 - create
+        /// </summary>
+        /// <param name="query">tên nhóm dịch cần tìm kiếm</param>
+        /// <returns>Danh sách các nhóm dịch đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachNhom GetListNhomSearch(string query, int index)
+        {
+            try
+            {
+
+                DanhSachNhom listNhomDich = new DanhSachNhom();
+
+                // Lấy các thông tin dùng để phân trang
+                listNhomDich.Paging = new Paging(context.NhomDiches.Count(x => x.TenNhomDich.Contains(query) && !x.DelFlag), index);
+                // Tìm kiếm và lấy dữ liệu theo trang
+                listNhomDich.listNhomDich = context.NhomDiches.Where(x => x.TenNhomDich.Contains(query) && !x.DelFlag).OrderBy(x => x.Id)
+                    .Skip((listNhomDich.Paging.CurrentPage - 1) * listNhomDich.Paging.NumberOfRecord)
+                    .Take(listNhomDich.Paging.NumberOfRecord).Select(x => new Schema.NhomDich
+                    {
+                        Id = x.Id,
+                        TenNhomDich = x.TenNhomDich,
+                        MoTa = x.MoTa,
+                        Logo = x.Logo
+                    }).ToList();
+
+                return listNhomDich;
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }
