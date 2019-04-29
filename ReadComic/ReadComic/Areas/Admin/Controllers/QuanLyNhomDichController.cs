@@ -39,12 +39,12 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIDanhSachNhomDich
         /// </remarks>
         [HttpGet]
-        public ResponseInfo DanhSachNhomDich()
+        public ResponseInfo DanhSachNhomDich(int index = 1)
         {
             ResponseInfo response = new ResponseInfo();
                 try
                 {
-                    response.Data = new QuanLyNhomDichModel().GetDanhSachNhomDich();
+                    response.Data = new QuanLyNhomDichModel().GetDanhSachNhomDich(index);
                     response.IsSuccess = true;
 
                 }
@@ -198,6 +198,38 @@ namespace ReadComic.Areas.Admin.Controllers
                 response.TypeMsgError = errorMsg.Type;
                 response.MsgError = errorMsg.Msg;
             }
+
+            return response;
+        }
+
+        /// <summary>
+        /// Tìm kiếm nhóm dịch theo tên
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 27/04/2019 - create
+        /// </summary>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APISearchNhomDich
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo SearchDanhSachNhomDicn(string query, int index)
+        {
+            ResponseInfo response = new ResponseInfo();
+
+            try
+            {
+                response.Data = new QuanLyNhomDichModel().GetListNhomSearch(query, index);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+
 
             return response;
         }

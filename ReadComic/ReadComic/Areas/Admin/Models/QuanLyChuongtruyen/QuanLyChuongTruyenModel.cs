@@ -37,39 +37,27 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
         /// </summary>
         /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
         /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public DanhSachChuongTruyen GetListChuongTruyen(ChuongConditionSearch condition)
+        public List<GetChuong> GetListChuongTruyen(int Id_Truyen)
         {
             try
             {
-                // Nếu không tồn tại điều kiện tìm kiếm thì khởi tạo giá trị tìm kiếm ban đầu
-                if (condition == null)
-                {
-                    condition = new ChuongConditionSearch();
-                }
-                if (condition.CurrentPage < 1)
-                    condition.CurrentPage = 1;
 
-                DanhSachChuongTruyen listChuongTruyen = new DanhSachChuongTruyen();
+
+                List<GetChuong> listChuongTruyen = new List<GetChuong>();
 
                 // Lấy các thông tin dùng để phân trang
-                listChuongTruyen.Paging = new Paging(context.Chuongs.Count(x =>
-                    (condition.TenChuong == null || (condition.TenChuong != null && (x.TenChuong.Contains(condition.TenChuong))))
-                    && (condition.SoThuTu == 0 || (condition.SoThuTu != 0 && x.SoThuTu == condition.SoThuTu)))
-                    , condition.CurrentPage);
+                
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listChuongTruyen.listChuongTruyen = context.Chuongs.Where(x =>
-                (condition.TenChuong == null || (condition.TenChuong != null && (x.TenChuong.Contains(condition.TenChuong))))
-                    && (condition.SoThuTu == 0 || (condition.SoThuTu != 0 && x.SoThuTu == condition.SoThuTu))
-                    && !x.DelFlag).OrderBy(x => x.SoThuTu)
-                    .Skip((listChuongTruyen.Paging.CurrentPage - 1) * listChuongTruyen.Paging.NumberOfRecord)
-                    .Take(listChuongTruyen.Paging.NumberOfRecord).Select(x => new GetChuongTruyen
+                listChuongTruyen = context.Chuongs.Where(x => x.Id_Truyen==Id_Truyen && !x.DelFlag).OrderBy(x => x.SoThuTu)
+                    .Select(x => new GetChuong
                     {
                         Id = x.Id,
                         TenChuong = x.TenChuong,
-                        SoThuTu = x.SoThuTu
-
+                        SoThuTu = x.SoThuTu,
+                        LinkAnh = x.LinkAnh,
+                        LuotXem =x.LuotXem,
+                        NgayTao=x.NgayTao
                     }).ToList();
-                listChuongTruyen.Condition = condition;
 
                 return listChuongTruyen;
             }

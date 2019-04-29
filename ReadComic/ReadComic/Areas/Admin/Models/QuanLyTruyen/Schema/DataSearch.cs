@@ -10,6 +10,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
         public int Status { get; set; }
         public int Sort { get; set; }
         public int Rank { get; set; }
-        public List<int> Category { get; set; }
+        public int[] Category { get; set; }
     }
 }

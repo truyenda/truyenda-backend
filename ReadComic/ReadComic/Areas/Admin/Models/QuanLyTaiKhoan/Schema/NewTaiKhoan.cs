@@ -28,5 +28,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
 
         public string pass { get; set; }
 
+        public int IdQuyen { get; set; }
+
     }
 }

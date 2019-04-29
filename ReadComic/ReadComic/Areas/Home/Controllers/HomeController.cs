@@ -68,13 +68,13 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: GetTruyen
         /// </remarks>
         [HttpGet]
-        public ResponseInfo GetTruyen(int IdTruyen)
+        public ResponseInfo GetTruyen(int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
 
-                response.Data = new HomeModel().GetThongTinTruyen(IdTruyen);
+                response.Data = new HomeModel().GetThongTinTruyen(id);
                 response.IsSuccess = true;
             }
             catch (Exception e)
