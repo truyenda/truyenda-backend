@@ -114,8 +114,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     truyen.TenTruyen = tblTruyen.TenTruyen;
                     truyen.AnhDaiDien = tblTruyen.AnhDaiDien;
                     truyen.Id_TrangThai = tblTruyen.Id_TrangThai;
+                    truyen.Id_Nhom = tblTruyen.Id_Nhom;
                     truyen.TenNhom = tblTruyen.NhomDich.TenNhomDich;
                     truyen.Id_ChuKy = tblTruyen.Id_ChuKy;
+                    truyen.MoTa = tblTruyen.MoTa;
                 }
 
 

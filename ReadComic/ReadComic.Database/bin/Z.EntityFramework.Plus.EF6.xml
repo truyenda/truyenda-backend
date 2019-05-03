@@ -24,23 +24,12 @@
             <param name="query">The query to get the ObjectQuery from.</param>
             <returns>The ObjectQuery from the query.</returns>
         </member>
-        <member name="M:Z.EntityFramework.Plus.InternalExtensions.GetObjectQuery(System.Linq.IQueryable)">
-            <summary>An IQueryable&lt;TEntity&gt; extension method that get the ObjectQuery from the query.</summary>
-            <param name="query">The query to get the ObjectQuery from.</param>
-            <returns>The ObjectQuery from the query.</returns>
-        </member>
         <member name="M:Z.EntityFramework.Plus.InternalExtensions.SelectByName``1(System.Linq.IQueryable{``0},System.Collections.Generic.List{System.String})">
             <summary>Select from the query all names.</summary>
             <typeparam name="T">Generic type parameter.</typeparam>
             <param name="query">The query to select name from.</param>
             <param name="names">The name to select.</param>
             <returns>An IQueryable with the name selected.</returns>
-        </member>
-        <member name="M:Z.EntityFramework.Plus.InternalExtensions.GetObjectQuery``1(System.Linq.IQueryable{``0})">
-            <summary>An IQueryable&lt;TEntity&gt; extension method that get the ObjectQuery from the query.</summary>
-            <typeparam name="T">The type of elements of the query.</typeparam>
-            <param name="query">The query to get the ObjectQuery from.</param>
-            <returns>The ObjectQuery from the query.</returns>
         </member>
         <member name="M:Z.EntityFramework.Plus.InternalExtensions.CreateStoreCommand(System.Data.Entity.Core.Objects.ObjectContext)">
             <summary>An ObjectContext extension method that creates store command .</summary>
@@ -118,6 +107,17 @@
             <typeparam name="T">Generic type parameter.</typeparam>
             <param name="this">The @this to act on.</param>
             <returns>A T.</returns>
+        </member>
+        <member name="M:Z.EntityFramework.Plus.PublicInternalExtensions.GetObjectQuery(System.Linq.IQueryable)">
+            <summary>An IQueryable&lt;TEntity&gt; extension method that get the ObjectQuery from the query.</summary>
+            <param name="query">The query to get the ObjectQuery from.</param>
+            <returns>The ObjectQuery from the query.</returns>
+        </member>
+        <member name="M:Z.EntityFramework.Plus.PublicInternalExtensions.GetObjectQuery``1(System.Linq.IQueryable{``0})">
+            <summary>An IQueryable&lt;TEntity&gt; extension method that get the ObjectQuery from the query.</summary>
+            <typeparam name="T">The type of elements of the query.</typeparam>
+            <param name="query">The query to get the ObjectQuery from.</param>
+            <returns>The ObjectQuery from the query.</returns>
         </member>
         <member name="M:Z.EntityFramework.Plus.PropertyOrFieldAccessor.#ctor(System.Collections.ObjectModel.ReadOnlyCollection{System.Reflection.MemberInfo})">
             <summary>Constructor.</summary>

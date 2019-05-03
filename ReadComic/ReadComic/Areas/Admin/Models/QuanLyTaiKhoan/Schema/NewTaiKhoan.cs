@@ -20,13 +20,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan.Schema
 
         public int IdNhom { get; set; }
 
-        public string HoTen { get; set; }
+        //public string HoTen { get; set; }
 
-        public DateTime NgaySinh { get; set; }
+        //public DateTime NgaySinh { get; set; }
 
-        public bool GioiTinh { get; set; }
+        //public bool GioiTinh { get; set; }
 
-        public string pass { get; set; }
+        //public string pass { get; set; }
 
         public int IdQuyen { get; set; }
 

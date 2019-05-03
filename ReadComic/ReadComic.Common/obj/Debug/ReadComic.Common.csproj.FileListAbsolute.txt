@@ -70,3 +70,8 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.P
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\Newtonsoft.Json.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.Extensions.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.Primitives.xml
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Http.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.Algorithms.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.Encoding.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.Primitives.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.X509Certificates.dll

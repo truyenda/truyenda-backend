@@ -43,5 +43,18 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
 
         public List<TheLoai> DanhSachTheLoai { get; set; }
 
+        public int IdChuKy { get; set; }
+
+        public string TenChuKy { get; set; }
+
+        public int IdNhom { get; set; }
+
+        public string TenNhom { get; set; }
+
+        public int IdTrangThai { get; set; }
+
+        public string TenTrangThai { get; set; }
+        
+
     }
 }

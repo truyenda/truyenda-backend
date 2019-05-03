@@ -57,9 +57,10 @@ namespace ReadComic.Areas.Home.Models
                     {
                         Id_TaiKhoan = taiKhoan.Id,
                         TokenTaiKhoan = token,
-                        ThoiGianHetHan = DateTime.Now.AddHours(12)
+                        ThoiGianHetHan = DateTime.Now.AddHours(24)
                     };
                     context.Tokens.Add(tokenLG);
+                    context.SaveChanges();
                     result.IsSuccess = true;
                     result.Data = new
                     {
@@ -87,7 +88,7 @@ namespace ReadComic.Areas.Home.Models
                         Token = BaoMat.Base64Encode(token)
                     };
                     result.ThongTinBoSung1 = BaoMat.Base64Encode(token);
-                    context.SaveChanges();
+                    
 
                     var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangNhapThanhCong);
                     result.TypeMsgError = errorMsg.Type;
@@ -182,7 +183,7 @@ namespace ReadComic.Areas.Home.Models
 
         /// <summary>
         /// So khớp thông tin đăng nhập có thừ FB hoặc GG với thông tin tài khoản của hệ thống.
-        /// Author       :   QuyPN - 30/05/2018 - create
+        /// Author       :   Hoang - 30/04/2019 - create
         /// </summary>
         /// <param name="socialAccount">Thông tin cá nhân lấy được từ FB </param>
         /// <returns>Đối tượng chứ token login của tài khoản trong hệ thống</returns>
@@ -254,6 +255,22 @@ namespace ReadComic.Areas.Home.Models
             }
         }
 
-       
+        // Lấy lại mật khẩu
+        //public ResponseInfo ForgotPassword(string email)
+        //{
+        //    ResponseInfo result = new ResponseInfo();
+        //    try
+        //    {
+        //        //Common.Common.sen
+
+        //        return result;
+        //    }catch(Exception e)
+        //    {
+        //        throw e;
+        //    }
+        //}
+
+
+
     }
 }

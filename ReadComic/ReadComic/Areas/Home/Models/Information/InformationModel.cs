@@ -78,6 +78,7 @@ namespace ReadComic.Areas.Home.Models.Information
             try
             {
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+                token = BaoMat.Base64Decode(token);
                 TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == token);
                 
                 if (account.New_Passord != "" && string.Compare(account.New_Passord, account.Confirm_Password) == 0)
