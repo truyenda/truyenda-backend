@@ -41,7 +41,7 @@ namespace ReadComic.Common
         /// <returns>
         /// Chuỗi token.
         /// </returns>
-        public static string GetToken(int id, int length = 49)
+        public static string GetToken(int id, int length = 40)
         {
             string token = "";
             Random ran = new Random();

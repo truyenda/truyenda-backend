@@ -8,11 +8,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
 {
     public class NewComic
     {
-        [Required]
-        [StringLength(256)]
+     
         public string TenTruyen { get; set; }
 
-        [StringLength(256)]
         public string TenKhac { get; set; }
 
         public List<int> TheLoai { get; set; }

@@ -100,7 +100,7 @@ namespace ReadComic.Areas.Home.Models
                     }
                     else
                     {
-                        result.Code = 203;
+                        result.Code = 400;
                         var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.EmailDaTonTai);
                         result.TypeMsgError = errorMsg.Type;
                         result.MsgError = errorMsg.Msg;
@@ -108,7 +108,7 @@ namespace ReadComic.Areas.Home.Models
                 }
                 else
                 {
-                    result.Code = 203;
+                    result.Code = 400;
                     var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.UserNameDaDung);
                     result.TypeMsgError = errorMsg.Type;
                     result.MsgError = errorMsg.Msg;

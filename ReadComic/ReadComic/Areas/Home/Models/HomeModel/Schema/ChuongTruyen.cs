@@ -33,6 +33,10 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
 
         public string MoTa { get; set; }
 
+        public int IdChuKy { get; set; }
+
+        public string TenChuKy { get; set; }
+
         public int Id_Nhom { get; set; }
 
         public string TenNhom { get; set; }

@@ -196,10 +196,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             ResponseInfo response = new ResponseInfo();
             try
             {
-                TblTaiKhoan TK = context.TaiKhoans.FirstOrDefault(x => x.Username == taiKhoan.Username && !x.DelFlag);
+                TblTaiKhoan TK = context.TaiKhoans.FirstOrDefault(x => x.Username == taiKhoan.Username && x.Id!=id && !x.DelFlag);
                 if (TK == null)
                 {
-                    TK = context.TaiKhoans.FirstOrDefault(x => x.Email == taiKhoan.Email && !x.DelFlag);
+                    TK = context.TaiKhoans.FirstOrDefault(x => x.Email == taiKhoan.Email &&x.Id!=id && !x.DelFlag);
                     if (TK == null)
                     {
                         var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
@@ -212,10 +212,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                             updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
                             updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
                             updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
-                            updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
-                            updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
-                            updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
-                            updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
+                            //updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
+                            //updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
+                            //updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
+                            //updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
                         }
                         else
                         {
@@ -227,10 +227,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                             updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
                             updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
                             updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
-                            updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
-                            updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
-                            updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
-                            updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
+                            //updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
+                            //updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
+                            //updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
+                            //updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
 
                         }
 
