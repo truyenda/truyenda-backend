@@ -298,3 +298,6 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\Swashbuckle.AspNetCore.S
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Buffers.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\System.Text.Encodings.Web.xml
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\SendGrid.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\SendGrid.pdb
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic\bin\SendGrid.xml

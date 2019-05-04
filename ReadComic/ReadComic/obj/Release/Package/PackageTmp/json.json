@@ -120,6 +120,41 @@
     }
   },
   {
+    "key": 18,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Đăng xuất tài khoản thành công"
+    }
+  },
+  {
+    "key": 19,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Gửi mail thành công, bạn vui lòng vào email của mình để kiểm tra lại"
+    }
+  },
+  {
+    "key": 20,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Thay đổi mật khẩu thành công"
+    }
+  },
+  {
+    "key": 21,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Đã quá thời gian để thay đổi mật khẩu, bạn vui lòng thực hiện lại"
+    }
+  },
+  {
+    "key": 22,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Thay đổi mật khẩu thất bại"
+    }
+  },
+  {
     "key": 500,
     "ErrorMsg": {
       "Type": 6,

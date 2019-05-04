@@ -3,6 +3,8 @@ using ReadComic.Areas.Home.Models.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -98,6 +101,66 @@ namespace ReadComic.Areas.Home.Controllers
             try
             {
                 response = new LoginModel().RemoveToken(token);
+                response.IsSuccess = true;
+                response.IsValid = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Xử lý việc quên mật khẩu.
+        /// Author       :   HoangNM - 03/05/2019 - create
+        /// </summary>
+        /// <remarks>
+        /// Method: POST
+        /// RouterName: home/api/forgot
+        /// </remarks>
+        [HttpPost]
+        public ResponseInfo Forgot(string email)
+        {
+            ResponseInfo response = new ResponseInfo();
+
+            try
+            {
+                response = new LoginModel().ForgotPassword(email);
+                response.IsSuccess = true;
+                response.IsValid = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Thay đổi mật khẩu cho tài khoản
+        /// Author       :   HoangNM - 04/05/2019 - create
+        /// </summary>
+        /// <remarks>
+        /// Method: POST
+        /// RouterName: home/api/forgot
+        /// </remarks>
+        [HttpPut]
+        public ResponseInfo ChangePass(ChangePass data)
+        {
+            ResponseInfo response = new ResponseInfo();
+
+            try
+            {
+                response = new LoginModel().ChangePassword(data);
                 response.IsSuccess = true;
                 response.IsValid = true;
             }

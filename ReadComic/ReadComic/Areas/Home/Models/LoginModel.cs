@@ -5,6 +5,7 @@ using System.Linq;
 using System.Data.Entity;
 using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
 using TblToken = ReadComic.DataBase.Schema.Token;
+using TblTokenResset = ReadComic.Database.Schema.ResetPassWord;
 using TblUser = ReadComic.DataBase.Schema.ThongTinNguoiDung;
 using ReadComic.Areas.Home.Models.Schema;
 using ReadComic.Common.Enum;
@@ -119,7 +120,7 @@ namespace ReadComic.Areas.Home.Models
                 context.Tokens.Where(x => x.ThoiGianHetHan < DateTime.Now).Delete();
                 
                 
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangNhapThanhCong);
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangXuatThanhCong);
                 result.TypeMsgError = errorMsg.Type;
                 result.MsgError = errorMsg.Msg;
 
@@ -255,22 +256,81 @@ namespace ReadComic.Areas.Home.Models
             }
         }
 
-        // Lấy lại mật khẩu
-        //public ResponseInfo ForgotPassword(string email)
-        //{
-        //    ResponseInfo result = new ResponseInfo();
-        //    try
-        //    {
-        //        //Common.Common.sen
+        //Lấy lại mật khẩu
+        public ResponseInfo ForgotPassword(string email)
+        {
+            ResponseInfo result = new ResponseInfo();
+            try
+            {
+                var taikhoan = Common.Common.GetAccount();
+                string Username = context.TaiKhoans.FirstOrDefault(x => x.Id == taikhoan.Id && !x.DelFlag).Username;
+                string token = Common.Common.GetToken(taikhoan.Id);
+                TblTokenResset tokenLG = new TblTokenResset
+                {
+                    Id_TaiKhoan = taikhoan.Id,
+                    TokenReset = token,
+                    ThoiGianHetHan = DateTime.Now.AddHours(12)
+                };
+                context.ResetPassWords.Add(tokenLG);
+                token = BaoMat.Base64Encode(token);
+                string t = "Password Reset Confirmation for "+ Username;
+                string body = "<p>There was recently a request to change the password for your account. </p>" +
+                    "<p>If you requested this password change, please reset your password here: </p><br><a href=\"Truyenda.tk/forgot?token=" + token+ "\">Tại đây</a>" +
+                    "<p>If you did not make this request, you can ignore this message and your password will remain the same.</p>";
+                Common.SendMail.Send(email,body);
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangXuatThanhCong);
+                result.TypeMsgError = errorMsg.Type;
+                result.MsgError = errorMsg.Msg;
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
-        //        return result;
-        //    }catch(Exception e)
-        //    {
-        //        throw e;
-        //    }
-        //}
+        //Lấy lại mật khẩu
+        public ResponseInfo ChangePassword(ChangePass data)
+        {
+            ResponseInfo result = new ResponseInfo();
+            try
+            {
+                var taikhoan = Common.Common.GetAccount();
+                TblTokenResset resetPassWord = context.ResetPassWords.FirstOrDefault(x => x.TokenReset == data.tokenReset && x.Id_TaiKhoan==taikhoan.Id && !x.DelFlag);
+                if (resetPassWord == null)
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThayDoiMatKhauThatBai);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
+                }
+                else if (resetPassWord.ThoiGianHetHan < DateTime.Now)
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.TokenResetHetHan);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
+                }
+                else
+                {
+                    string Hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(data.NewPass), context.TaiKhoans.Where(x => x.Id == taikhoan.Id && !x.DelFlag).FirstOrDefault().salt_Pass);
+                    //cập nhật mật khẩu
+                    context.TaiKhoans.Where(x => x.Id == taikhoan.Id && !x.DelFlag).Update(y => new TblTaiKhoan
+                    {
+                        hash_Pass = Hash_Pass
 
-
+                    });
+                    context.SaveChanges();
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThayDoiMatKhauThanhCong);
+                    result.TypeMsgError = errorMsg.Type;
+                    result.MsgError = errorMsg.Msg;
+                    return result;
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
     }
 }

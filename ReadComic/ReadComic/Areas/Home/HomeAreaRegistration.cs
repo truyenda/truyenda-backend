@@ -156,6 +156,20 @@ namespace ReadComic.Areas.Home
                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
            );
 
+            context.Routes.MapHttpRoute(
+                "Forgot",
+                "forgot",
+                new { controller = "Login", action = "Forgot", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "ChangePass",
+                "forgot",
+                new { controller = "Login", action = "ChangePass", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+            );
+
             context.MapRoute(
                 "Home_default",
                 "Home/{controller}/{action}/{id}",

@@ -35,15 +35,11 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
 
         public DateTime NgayTao { get; set; }
 
-        public string TrangThai { get; set; }
-
-        public string ChuKyPhatHanh { get; set; }
-
         public List<TacGia> DanhSachTacGia { get; set; }
 
         public List<TheLoai> DanhSachTheLoai { get; set; }
 
-        public int IdChuKy { get; set; }
+        public int Id_ChuKy { get; set; }
 
         public string TenChuKy { get; set; }
 
@@ -51,9 +47,9 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
 
         public string TenNhom { get; set; }
 
-        public int IdTrangThai { get; set; }
+        public int Id_TrangThai { get; set; }
 
-        public string TenTrangThai { get; set; }
+        public string TrangThai { get; set; }
         
 
     }
