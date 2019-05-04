@@ -20,6 +20,8 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
 
         public int Id_ChuKy { get; set; }
 
+        public string TenChuKy { get; set; }
+
         public List<TacGia> DanhSachTacGia { get; set; }
 
         public List<TheLoai> DanhSachTheLoai { get; set; }
@@ -32,10 +34,6 @@ namespace ReadComic.Areas.Home.Models.HomeModel.Schema
         public int NamPhatHanh { get; set; }
 
         public string MoTa { get; set; }
-
-        public int IdChuKy { get; set; }
-
-        public string TenChuKy { get; set; }
 
         public int Id_Nhom { get; set; }
 

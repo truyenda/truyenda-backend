@@ -26,6 +26,11 @@ namespace ReadComic.Common.Enum
             XoaDuLieuThatBai = 15,
             CapNhatDuLieuThanhCong = 16,
             ThemDuLieuThanhCong = 17,
+            DangXuatThanhCong=18,
+            GuiEmailThanhCong=19,
+            ThayDoiMatKhauThanhCong=20,
+            TokenResetHetHan=21,
+            ThayDoiMatKhauThatBai = 22,
 
 
 

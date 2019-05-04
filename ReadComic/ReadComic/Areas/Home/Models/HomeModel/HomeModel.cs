@@ -54,7 +54,7 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                         MoTa = x.MoTa,
                         NgayTao = x.NgayTao,
                         TrangThai = x.TrangThaiTruyen.TenTrangThai,
-                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy,
+                        TenChuKy = x.ChuKyPhatHanh.TenChuKy,
                         DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
                         {
                             Id = y.TacGia.Id,
@@ -109,7 +109,6 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                     }).ToList(),
                     NamPhatHanh=x.NamPhatHanh,
                     MoTa=x.MoTa,
-                    IdChuKy=x.Id_ChuKy,
                     TenChuKy=x.ChuKyPhatHanh.TenChuKy,
                     Id_Nhom=x.Id_Nhom,
                     TenNhom=x.NhomDich.TenNhomDich,
@@ -156,7 +155,7 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                         MoTa = x.MoTa,
                         NgayTao = x.NgayTao,
                         TrangThai = x.TrangThaiTruyen.TenTrangThai,
-                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy,
+                        TenChuKy = x.ChuKyPhatHanh.TenChuKy,
                         DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
                         {
                             Id = y.TacGia.Id,
@@ -200,7 +199,7 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                         MoTa = x.Truyen.MoTa,
                         NgayTao = x.Truyen.NgayTao,
                         TrangThai = x.Truyen.TrangThaiTruyen.TenTrangThai,
-                        ChuKyPhatHanh = x.Truyen.ChuKyPhatHanh.TenChuKy,
+                        TenChuKy = x.Truyen.ChuKyPhatHanh.TenChuKy,
                         DanhSachTacGia = x.Truyen.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
                         {
                             Id = y.TacGia.Id,
@@ -247,14 +246,12 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                         AnhDaiDien = x.AnhDaiDien,
                         MoTa = x.MoTa,
                         NgayTao = x.NgayTao,
-                        TrangThai = x.TrangThaiTruyen.TenTrangThai,
-                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy,
-                        IdChuKy=x.Id_ChuKy,
+                        Id_ChuKy=x.Id_ChuKy,
                         TenChuKy=x.ChuKyPhatHanh.TenChuKy,
                         IdNhom=x.Id_Nhom,
                         TenNhom=x.NhomDich.TenNhomDich,
-                        IdTrangThai=x.Id_TrangThai,
-                        TenTrangThai=x.TrangThaiTruyen.TenTrangThai,
+                        Id_TrangThai=x.Id_TrangThai,
+                        TrangThai=x.TrangThaiTruyen.TenTrangThai,
                         
                         
                         DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
@@ -301,7 +298,7 @@ namespace ReadComic.Areas.Home.Models.HomeModel
                         MoTa = x.MoTa,
                         NgayTao = x.NgayTao,
                         TrangThai = x.TrangThaiTruyen.TenTrangThai,
-                        ChuKyPhatHanh = x.ChuKyPhatHanh.TenChuKy
+                        TenChuKy = x.ChuKyPhatHanh.TenChuKy
 
                     }).OrderBy(x => Guid.NewGuid()).Take(5).ToList();
                 return NewComicList;

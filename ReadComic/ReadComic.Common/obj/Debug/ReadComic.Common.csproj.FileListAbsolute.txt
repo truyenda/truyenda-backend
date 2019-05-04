@@ -75,3 +75,7 @@ C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.C
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.Encoding.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.Primitives.dll
 C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\SendGrid.dll
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\SendGrid.pdb
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\SendGrid.xml
+C:\Users\Admin\Desktop\DoAnCNPM\ReadComic\ReadComic.Common\bin\System.Net.Mail.Abstractions.dll
