@@ -196,13 +196,16 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             try
             {
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+                int Id_nhom = Common.Common.GetAccount().IdNhom;
+                truyen.Id_NhomDich = truyen.Id_NhomDich == 0 ? Id_nhom : truyen.Id_NhomDich;
                 if (kt != 0)
                 {
                     XuLyUpDateTruyen(truyen, id);
                 }
                 else
                 {
-                    int Id_nhom = Common.Common.GetAccount().IdNhom;
+                    
+
                     TblTruyen tblTruyen = context.Truyens.FirstOrDefault(x => x.Id == id && x.Id_Nhom == Id_nhom && !x.DelFlag);
                     if (tblTruyen != null)
                     {
@@ -248,12 +251,13 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             {
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
                 int IdNhom = Common.Common.GetAccount().IdNhom;
+                truyen.Id_NhomDich = truyen.Id_NhomDich == 0 ? IdNhom:truyen.Id_NhomDich ;
 
                 TblTruyen tblTruyen = context.Truyens.Add(new TblTruyen
                 {
                     TenTruyen = truyen.TenTruyen,
                     TenKhac = truyen.TenKhac,
-                    Id_Nhom = IdNhom,
+                    Id_Nhom = truyen.Id_NhomDich,
                     Id_ChuKy = truyen.Id_ChuKy,
                     Id_TrangThai = truyen.Id_TrangThai,
                     NamPhatHanh = truyen.NamPhatHanh,
@@ -388,6 +392,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
         public void XuLyUpDateTruyen(NewComic truyen, int id)
         {
             //cập nhật các thông tin cơ bản cho truyện
+            
             context.Truyens.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblTruyen
                     {
@@ -398,7 +403,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         NamPhatHanh = truyen.NamPhatHanh,
                         AnhBia = truyen.AnhBia,
                         AnhDaiDien = truyen.AnhDaiDien,
-                        MoTa = truyen.MoTa
+                        MoTa = truyen.MoTa,
+                        Id_Nhom=truyen.Id_NhomDich
                     });
             context.SaveChanges();
             //Xóa các thể loại trước đó lưu trong bảng lưu thể loại

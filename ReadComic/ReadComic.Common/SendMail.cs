@@ -12,7 +12,7 @@ namespace ReadComic.Common
     {
         
 
-        public static bool Send(string toEmail,string body)
+        public static bool Send(string toEmail,string body,string Subject)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace ReadComic.Common
                     BodyEncoding = Encoding.UTF8,
                     From = new MailAddress(
                         heThong.email),
-                    Subject = "[Truyenda.tk] Đổi mật khẩu cho tài khoản",
+                    Subject = Subject,
                     Body = body,
                     Priority = MailPriority.Normal,
                 };
@@ -43,6 +43,19 @@ namespace ReadComic.Common
             {
                 return false;
             }
+        }
+
+        public static async Task SendGird(string toEmail, string body,string Subject)
+        {
+            var apiKey = "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";
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("truyendatk@gmail.com", "Truyen da");
+            var subject = Subject;
+            var to = new EmailAddress(toEmail);
+            var plainTextContent = "and easy to do anywhere, even with C#";
+            var htmlContent = body;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
         }
 
     }

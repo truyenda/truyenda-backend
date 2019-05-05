@@ -263,22 +263,24 @@ namespace ReadComic.Areas.Home.Models
             try
             {
                 var taikhoan = Common.Common.GetAccount();
-                string Username = context.TaiKhoans.FirstOrDefault(x => x.Id == taikhoan.Id && !x.DelFlag).Username;
+                string Username = "Hoang";
+                //string token = Common.Common.GetToken(1);
+                //string Username = context.TaiKhoans.FirstOrDefault(x => x.Id == taikhoan.Id && !x.DelFlag).Username;
                 string token = Common.Common.GetToken(taikhoan.Id);
-                TblTokenResset tokenLG = new TblTokenResset
-                {
-                    Id_TaiKhoan = taikhoan.Id,
-                    TokenReset = token,
-                    ThoiGianHetHan = DateTime.Now.AddHours(12)
-                };
-                context.ResetPassWords.Add(tokenLG);
+                //TblTokenResset tokenLG = new TblTokenResset
+                //{
+                //    Id_TaiKhoan = taikhoan.Id,
+                //    TokenReset = token,
+                //    ThoiGianHetHan = DateTime.Now.AddHours(12)
+                //};
+                //context.ResetPassWords.Add(tokenLG);
                 token = BaoMat.Base64Encode(token);
-                string t = "Password Reset Confirmation for "+ Username;
+                string Subject = "Password Reset Confirmation for "+ Username;
                 string body = "<p>There was recently a request to change the password for your account. </p>" +
-                    "<p>If you requested this password change, please reset your password here: </p><br><a href=\"Truyenda.tk/forgot?token=" + token+ "\">Tại đây</a>" +
+                    "<p>If you requested this password change, please reset your password here: </p><a href=\"Truyenda.tk/forgot?token=" + token+ "\">Link</a>" +
                     "<p>If you did not make this request, you can ignore this message and your password will remain the same.</p>";
-                Common.SendMail.Send(email,body);
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.DangXuatThanhCong);
+                SendMail.Send(email,body, Subject);
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.GuiEmailThanhCong);
                 result.TypeMsgError = errorMsg.Type;
                 result.MsgError = errorMsg.Msg;
                 return result;

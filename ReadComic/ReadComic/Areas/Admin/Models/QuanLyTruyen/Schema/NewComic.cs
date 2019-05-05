@@ -31,6 +31,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen.Schema
 
         public string MoTa { get; set; }
 
+        public int Id_NhomDich { get; set; }
+
 
     }
 }
