@@ -279,7 +279,7 @@ namespace ReadComic.Areas.Home.Models
                 string body = "<p>There was recently a request to change the password for your account. </p>" +
                     "<p>If you requested this password change, please reset your password here: </p><a href=\"Truyenda.tk/forgot?token=" + token+ "\">Link</a>" +
                     "<p>If you did not make this request, you can ignore this message and your password will remain the same.</p>";
-                SendMail.Send(email,body, Subject);
+                SendMail.SendGird(email,body, Subject).Wait();
                 var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.GuiEmailThanhCong);
                 result.TypeMsgError = errorMsg.Type;
                 result.MsgError = errorMsg.Msg;

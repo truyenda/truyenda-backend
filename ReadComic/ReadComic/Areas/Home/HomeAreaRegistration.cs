@@ -81,7 +81,7 @@ namespace ReadComic.Areas.Home
 
             context.Routes.MapHttpRoute(
                 "GetComicWithCategorys",
-                "stories/categorys",
+                "stories/categorys/{id}",
                 new { controller = "Home", action = "GetComicListWithCategorys", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
