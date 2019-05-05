@@ -81,8 +81,8 @@ namespace ReadComic.Areas.Home.Models
                             NgayHetHan= tokenLG.ThoiGianHetHan,
                             Permissions=new QuyenProFile
                             {
-                                TenQuyen=taiKhoan.PhanQuyen.TenVaiTro,
-                                Id_Quyen=taiKhoan.PhanQuyen.Id
+                                TenvaiTro=taiKhoan.PhanQuyen.TenVaiTro,
+                                Id_VaiTro=taiKhoan.PhanQuyen.Id
 
                             }
                         },

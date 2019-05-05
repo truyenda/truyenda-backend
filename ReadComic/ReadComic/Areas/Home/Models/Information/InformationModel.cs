@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Extensions;
 using ReadComic.Areas.Home.Models.Information.Schema;
+using ReadComic.Areas.Home.Models.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
@@ -53,9 +54,16 @@ namespace ReadComic.Areas.Home.Models.Information
                 Ten = x.ThongTinNguoiDung.Ten,
                 NgaySinh = x.ThongTinNguoiDung.NgaySinh,
                 NgayHetHan= TblToken.ThoiGianHetHan,
-                Token= token
-
+                Token= token,
+                VaiTro = new QuyenProFile {Id_VaiTro=x.Id_PhanQuyen,TenvaiTro=x.PhanQuyen.TenVaiTro }
             }).FirstOrDefault();
+            long TongQuyen = (long)context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).FirstOrDefault().PhanQuyen.TongQuyen;
+            getAccount.Permissions = context.Quyens.Where(x => !x.DelFlag && ( (long)x.BitQuyen & TongQuyen)!=0).Select(x => new AllPermission
+            {
+                TenQuyen=x.TenQuyen,
+                Id_Quyen=x.Id
+            }).ToList();
+
             return getAccount;
         }
 
