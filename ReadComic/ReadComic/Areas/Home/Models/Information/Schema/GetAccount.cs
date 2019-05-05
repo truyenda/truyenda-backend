@@ -32,9 +32,11 @@ namespace ReadComic.Areas.Home.Models.Information.Schema
 
         public DateTime NgayHetHan { get; set; }
 
-        public QuyenProFile Permissions { get; set; }
+        public QuyenProFile VaiTro { get; set; }
 
         public string Token { get; set; }
+
+        public List<AllPermission> Permissions { get; set; }
 
     }
 }

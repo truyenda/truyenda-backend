@@ -8,6 +8,12 @@ namespace ReadComic.Areas.Home.Models.Schema
 {
     public class QuyenProFile
     {
+        public int Id_VaiTro { get; set; }
+        public string TenvaiTro { get; set; }
+    }
+
+    public class AllPermission
+    {
         public int Id_Quyen { get; set; }
         public string TenQuyen { get; set; }
     }
