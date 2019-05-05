@@ -132,13 +132,13 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: 
         /// </remarks>
         [HttpGet]
-        public ResponseInfo GetComicListWithCategorys(int IdTheLoai)
+        public ResponseInfo GetComicListWithCategorys(int id)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
 
-                response.Data = new HomeModel().GetDanhSachTruyenTheoTheLoai(IdTheLoai);
+                response.Data = new HomeModel().GetDanhSachTruyenTheoTheLoai(id);
                 response.IsSuccess = true;
             }
             catch (Exception e)

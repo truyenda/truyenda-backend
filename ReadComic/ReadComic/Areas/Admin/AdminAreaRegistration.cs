@@ -192,6 +192,13 @@ namespace ReadComic.Areas.Admin
             );
 
             context.Routes.MapHttpRoute(
+                "APISearchDanhSachTaiKhoan",
+                "account/search/{query}/page/{index}",
+                new { controller = "QuanLyTaiKhoan", action = "SearchDanhSachTaiKhoan", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
                 "APITaiKhoan",
                 "account/{id}",
                 new { controller = "QuanLyTaiKhoan", action = "Get", id = UrlParameter.Optional },

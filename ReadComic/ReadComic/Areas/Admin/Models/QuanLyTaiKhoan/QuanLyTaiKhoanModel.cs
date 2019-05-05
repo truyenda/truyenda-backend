@@ -327,7 +327,44 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             }
         }
 
-        
+        /// <summary>
+        /// Tìm kiếm tài khoản theo email
+        /// Author       :   HoangNM - 05/05/2019 - create
+        /// </summary>
+        /// <param name="query">email của tài khoản cần tìm kiếm</param>
+        /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachTaiKhoan GetListTaiKhoanSearch(string query, int index)
+        {
+            try
+            {
+
+                DanhSachTaiKhoan listTaiKhoan = new DanhSachTaiKhoan();
+
+                // Lấy các thông tin dùng để phân trang
+                listTaiKhoan.Paging = new Paging(context.TaiKhoans.Count(x => x.Email.Contains(query) && !x.DelFlag), index);
+                // Tìm kiếm và lấy dữ liệu theo trang
+                listTaiKhoan.listTaiKhoan = context.TaiKhoans.Where(x => x.Email.Contains(query) && !x.DelFlag).OrderBy(x => x.Id)
+                    .Skip((listTaiKhoan.Paging.CurrentPage - 1) * listTaiKhoan.Paging.NumberOfRecord)
+                    .Take(listTaiKhoan.Paging.NumberOfRecord).Select(x => new QL_TaiKhoan
+                    {
+                        Id = x.Id,
+                        Username = x.Username,
+                        Email = x.Email,
+                        IdNhom = x.Id_NhomDich,
+                        IdTrangThai = x.Id_TrangThai,
+                        TenNhom = x.NhomDich.TenNhomDich,
+                        IdQuyen = x.Id_PhanQuyen,
+                        TenQuyen = x.PhanQuyen.TenVaiTro
+
+                    }).ToList();
+
+                return listTaiKhoan;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
     }
 }

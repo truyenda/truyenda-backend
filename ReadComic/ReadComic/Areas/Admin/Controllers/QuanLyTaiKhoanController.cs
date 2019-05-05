@@ -290,5 +290,37 @@ namespace ReadComic.Areas.Admin.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Tìm kiếm tài khoản theo email
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 05/05/2019 - create
+        /// </summary>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APISearchDanhSachTaiKhoan
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo SearchDanhSachTaiKhoan(string query, int index)
+        {
+            ResponseInfo response = new ResponseInfo();
+
+            try
+            {
+                response.Data = new QuanLyTaiKhoanModel().GetListTaiKhoanSearch(query, index);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+
+
+            return response;
+        }
     }
 }
