@@ -341,5 +341,36 @@ namespace ReadComic.Areas.Admin.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Trả về 4 truyện có lượt view cao nhất
+        /// Author       :   HoangNM - 06/05/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Danh sách 4 truyện có lượt view cao nhất
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachTruyenTheoLuotView
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo GetTruyenWithViewTrending()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.Data = new QuanLyTruyenModel().GetTruyenWithView();
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }

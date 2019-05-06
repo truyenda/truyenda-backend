@@ -45,8 +45,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen
                     .Select(x => new PhanQuyen
                     {
                         Id = x.Id,
-                        TenVaiTro = x.TenVaiTro,
-                        TongQuyen = x.TongQuyen
+                        TenVaiTro = x.TenVaiTro
                     }).OrderBy(x => x.Id).ToList();
 
                 return listPhanQuyen;
@@ -72,7 +71,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen
                 {
                     phanQuyen.Id = tblPhanQuyen.Id;
                     phanQuyen.TenVaiTro = tblPhanQuyen.TenVaiTro;
-                    phanQuyen.TongQuyen = tblPhanQuyen.TongQuyen;
                 }
                 return phanQuyen;
             }

@@ -54,8 +54,7 @@ namespace ReadComic.Areas.Home.Models.Information
                 Ten = x.ThongTinNguoiDung.Ten,
                 NgaySinh = x.ThongTinNguoiDung.NgaySinh,
                 NgayHetHan= TblToken.ThoiGianHetHan,
-                Token= token,
-                VaiTro = new QuyenProFile {Id_VaiTro=x.Id_PhanQuyen,TenvaiTro=x.PhanQuyen.TenVaiTro }
+                Token= token
             }).FirstOrDefault();
             long TongQuyen = (long)context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).FirstOrDefault().PhanQuyen.TongQuyen;
             getAccount.Permissions = context.Quyens.Where(x => !x.DelFlag && ( (long)x.BitQuyen & TongQuyen)!=0).Select(x => new AllPermission

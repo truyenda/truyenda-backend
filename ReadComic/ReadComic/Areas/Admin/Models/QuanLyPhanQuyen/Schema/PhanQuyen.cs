@@ -9,6 +9,5 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen.Schema
     {
         public int Id { get; set; }
         public string TenVaiTro { get; set; }
-        public decimal TongQuyen { get; set; }
     }
 }

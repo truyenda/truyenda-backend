@@ -174,5 +174,69 @@ namespace ReadComic.Areas.Admin.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Điều hướng đến trang hiển thị danh sách quyền của hệ thống
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 05/05/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Trang danh sách quyền
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachQuyenHeThong
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo DanhSachQuyenHeThong()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.IsSuccess = true;
+                response.Data = new QuanLyQuyenModel().GetDanhSachQuyenHeThong();
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        /// <summary>
+        /// Điều hướng đến trang hiển thị danh sách quyền của nhóm
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 05/05/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Trang danh sách quyền
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachQuyenNhom
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo DanhSachQuyenNhom()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.IsSuccess = true;
+                response.Data = new QuanLyQuyenModel().GetDanhSachQuyenNhom();
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }

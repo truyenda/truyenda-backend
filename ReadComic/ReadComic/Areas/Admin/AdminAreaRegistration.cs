@@ -284,6 +284,13 @@ namespace ReadComic.Areas.Admin
             );
 
             context.Routes.MapHttpRoute(
+                "APTruyenWithViewTrending",
+                "stories/trending",
+                new { controller = "QuanLyTruyen", action = "GetTruyenWithViewTrending", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
                 "APIDeleteTruyen",
                 "stories/{id}",
                 new { controller = "QuanLyTruyen", action = "DeleteTruyen", id = UrlParameter.Optional },
@@ -413,6 +420,20 @@ namespace ReadComic.Areas.Admin
                 "APIDanhSachQuyen",
                 "permissions",
                 new { controller = "QuanLyQuyen", action = "DanhSachQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachQuyenHeThong",
+                "permissions/system",
+                new { controller = "QuanLyQuyen", action = "DanhSachQuyenHeThong", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachQuyenTeam",
+                "permissions/team",
+                new { controller = "QuanLyQuyen", action = "DanhSachQuyenNhom", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
