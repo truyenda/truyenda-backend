@@ -1,2 +1,3 @@
+*.cs
 SendMail.cs
 Connection.cs
