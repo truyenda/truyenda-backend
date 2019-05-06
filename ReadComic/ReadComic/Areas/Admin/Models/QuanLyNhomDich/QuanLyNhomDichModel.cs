@@ -10,6 +10,9 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TblNhomDich = ReadComic.DataBase.Schema.NhomDich;
+using TblTruyen = ReadComic.DataBase.Schema.Truyen;
+using TblChuong = ReadComic.DataBase.Schema.Chuong;
+using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
 {
@@ -103,6 +106,18 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                 {
                     TblNhomDich nhomDich = context.NhomDiches.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     nhomDich.DelFlag = true;
+                    context.Truyens.Where(x => x.Id_Nhom == id && !x.DelFlag).Update(x => new TblTruyen
+                    {
+                        DelFlag = true
+                    });
+                    context.Chuongs.Where(x => x.Truyen.Id_Nhom == id && !x.DelFlag).Update(x => new TblChuong
+                    {
+                        DelFlag = true
+                    });
+                    context.TaiKhoans.Where(x=>x.Id_NhomDich==id && !x.DelFlag).Update(x => new TblTaiKhoan
+                    {
+                        Id_NhomDich = 1
+                    });
                     context.SaveChanges();
                 }
                 else

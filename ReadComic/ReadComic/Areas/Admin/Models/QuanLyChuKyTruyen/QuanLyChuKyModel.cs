@@ -9,6 +9,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TblChuKy = ReadComic.DataBase.Schema.ChuKyPhatHanh;
+using TblTruyen = ReadComic.DataBase.Schema.Truyen;
+using TblChuong = ReadComic.DataBase.Schema.Chuong;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyChuKyTruyen.Schema
 {
@@ -94,6 +96,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuKyTruyen.Schema
                 {
                     TblChuKy chuKy = context.ChuKyPhatHanhs.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     chuKy.DelFlag = true;
+                    context.Truyens.Where(x => x.Id_ChuKy == id && !x.DelFlag).Update(x => new TblTruyen
+                    {
+                        DelFlag = true
+                    });
+                    context.Chuongs.Where(x => x.Truyen.Id_ChuKy == id && !x.DelFlag).Update(x => new TblChuong
+                    {
+                        DelFlag = true
+                    });
                     context.SaveChanges();
                 }
                 else

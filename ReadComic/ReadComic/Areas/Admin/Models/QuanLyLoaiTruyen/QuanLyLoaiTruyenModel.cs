@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using TbLoaiTruyen = ReadComic.DataBase.Schema.LoaiTruyen;
+using TbluuLoaiTruyen = ReadComic.DataBase.Schema.LuuLoaiTruyen;
 namespace ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen
 {
     /// <summary>
@@ -96,6 +97,11 @@ namespace ReadComic.Areas.Admin.Models.QuanLyLoaiTruyen
                 {
                     TbLoaiTruyen loaiTruyen = context.LoaiTruyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     loaiTruyen.DelFlag = true;
+                    context.LuuLoaiTruyens.Where(x => x.IdLoaiTruyen == id && !x.DelFlag).Update(x => new TbluuLoaiTruyen
+                    {
+                        DelFlag = true
+                    });
+                    
                     context.SaveChanges();
                 }
                 else

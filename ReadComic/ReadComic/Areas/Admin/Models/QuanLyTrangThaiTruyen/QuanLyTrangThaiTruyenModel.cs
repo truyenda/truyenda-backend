@@ -10,6 +10,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TblTrangThaiTruyen = ReadComic.DataBase.Schema.TrangThaiTruyen;
+using TblTruyen = ReadComic.DataBase.Schema.Truyen;
+using TblChuong = ReadComic.DataBase.Schema.Chuong;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTrangThaiTruyen
 {
@@ -96,6 +98,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTrangThaiTruyen
                 {
                     TblTrangThaiTruyen tblTrangThaiTruyen = context.ThaiTruyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     tblTrangThaiTruyen.DelFlag = true;
+                    context.Truyens.Where(x => x.Id_TrangThai == id && !x.DelFlag).Update(x => new TblTruyen
+                    {
+                        DelFlag = true
+                    });
+                    context.Chuongs.Where(x => x.Truyen.Id_TrangThai == id && !x.DelFlag).Update(x => new TblChuong
+                    {
+                        DelFlag = true
+                    });
                     context.SaveChanges();
                 }
                 else

@@ -127,10 +127,12 @@ namespace ReadComic.Areas.Home.Models.TheoDoiTruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
+                int idTaiKhoan = Common.Common.GetAccount().Id;
                 context.TheoDoiTruyens.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblTheoDoiTruyen
                     {
                         Id_ChuongDanhDau = data.IdChuongTheoDoi,
+                        Id_NguoiDoc=idTaiKhoan
                     });
                 context.SaveChanges();
                 response.IsSuccess = true;

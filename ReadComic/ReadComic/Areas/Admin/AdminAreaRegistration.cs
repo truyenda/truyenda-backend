@@ -270,6 +270,13 @@ namespace ReadComic.Areas.Admin
 
             //truyện  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
+               "APITruyenWithViewTrending",
+               "stories/trending",
+               new { controller = "QuanLyTruyen", action = "GetTruyenWithViewTrending", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
                 "APIDanhSachTruyen",
                 "stories/page/{index}",
                 new { controller = "QuanLyTruyen", action = "DanhSachTatCaTruyen", id = UrlParameter.Optional },
@@ -283,12 +290,7 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
-            context.Routes.MapHttpRoute(
-                "APTruyenWithViewTrending",
-                "stories/trending",
-                new { controller = "QuanLyTruyen", action = "GetTruyenWithViewTrending", id = UrlParameter.Optional },
-                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
-            );
+           
 
             context.Routes.MapHttpRoute(
                 "APIDeleteTruyen",
