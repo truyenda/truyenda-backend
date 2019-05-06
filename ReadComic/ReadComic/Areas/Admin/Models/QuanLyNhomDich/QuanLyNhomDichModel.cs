@@ -166,14 +166,20 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
             try
             {
                 ResponseInfo response = new ResponseInfo();
-
+                int Id = Common.Common.GetAccount().Id;
+                var TaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == Id && !x.DelFlag);
+                if(TaiKhoan.Id_PhanQuyen == 5 || TaiKhoan.Id_PhanQuyen == 4)
+                {
+                    TaiKhoan.Id_PhanQuyen = 3;
+                }
                 int id = context.NhomDiches.Count() == 0 ? 1 : context.NhomDiches.Max(x => x.Id) + 1;
-                context.NhomDiches.Add(new TblNhomDich
+                var nhom=context.NhomDiches.Add(new TblNhomDich
                 {
                     TenNhomDich = nhomDich.TenNhomDich,
                     MoTa=nhomDich.MoTa,
                     Logo=nhomDich.Logo
                 });
+                TaiKhoan.Id_NhomDich = nhom.Id;
                 context.SaveChanges();
                 response.ThongTinBoSung1 = id + "";
                 transaction.Commit();

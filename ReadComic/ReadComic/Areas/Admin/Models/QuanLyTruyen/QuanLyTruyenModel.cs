@@ -101,27 +101,51 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
         /// Author       :   HoangNM - 01/04/2019 - create
         /// </summary>
         /// <returns>lấy ra truyện theo id. Exception nếu có lỗi</returns>
-        public Truyen LoadTruyen(int id)
+        public ChuongTruyen LoadTruyen(int id)
         {
             try
             {
-                Truyen truyen = new Truyen();
-
-                TblTruyen tblTruyen = context.Truyens.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                if (tblTruyen != null)
+                ChuongTruyen chuongTruyen = new ChuongTruyen();
+                chuongTruyen = context.Truyens.Where(x => x.Id == id && !x.DelFlag).Select(x => new ChuongTruyen
                 {
-                    truyen.Id = tblTruyen.Id;
-                    truyen.TenTruyen = tblTruyen.TenTruyen;
-                    truyen.AnhDaiDien = tblTruyen.AnhDaiDien;
-                    truyen.Id_TrangThai = tblTruyen.Id_TrangThai;
-                    truyen.Id_Nhom = tblTruyen.Id_Nhom;
-                    truyen.TenNhom = tblTruyen.NhomDich.TenNhomDich;
-                    truyen.Id_ChuKy = tblTruyen.Id_ChuKy;
-                    truyen.MoTa = tblTruyen.MoTa;
-                }
+                    Id = x.Id,
+                    TenTruyen = x.TenTruyen,
+                    TenKhac = x.TenKhac,
+                    Id_TrangThai = x.Id_TrangThai,
+                    TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                    Id_ChuKy = x.Id_ChuKy,
+                    DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                    {
+                        Id = y.Id_TacGia,
+                        TenTacGia = y.TacGia.TenTacGia
+                    }).ToList(),
+                    AnhBia = x.AnhBia,
+                    AnhDaiDien = x.AnhDaiDien,
+                    DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                    {
+                        Id = y.LoaiTruyen.Id,
+                        TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                        MoTa = y.LoaiTruyen.Mota
+                    }).ToList(),
+                    NamPhatHanh = x.NamPhatHanh,
+                    MoTa = x.MoTa,
+                    TenChuKy = x.ChuKyPhatHanh.TenChuKy,
+                    Id_Nhom = x.Id_Nhom,
+                    TenNhom = x.NhomDich.TenNhomDich,
+                    listChuong = x.Chuongs.Select(y => new Chuong
+                    {
+                        IdChuong = y.Id,
+                        TenChuong = y.TenChuong,
+                        soThuTu = y.SoThuTu,
+                        luotXem = y.LuotXem,
+                        ngayTao = y.NgayTao
+
+                    }).ToList()
+
+                }).FirstOrDefault();
 
 
-                return truyen;
+                return chuongTruyen;
             }
             catch (Exception e)
             {
@@ -618,13 +642,29 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 {
                     Id = x.Id,
                     TenTruyen = x.TenTruyen,
+                    TenKhac = x.TenKhac,
                     Id_ChuKy = x.Id_ChuKy,
                     Id_TrangThai = x.Id_TrangThai,
+                    TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                    Id_Nhom = x.Id_Nhom,
                     TenNhom = x.NhomDich.TenNhomDich,
                     AnhDaiDien = x.AnhDaiDien,
                     AnhBia = x.AnhBia,
+                    NamPhatHanh = x.NamPhatHanh,
+                    MoTa = x.MoTa,
+                    DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                    {
+                        Id = y.TacGia.Id,
+                        TenTacGia = y.TacGia.TenTacGia
+                    }).ToList(),
+                    DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                    {
+                        Id = y.LoaiTruyen.Id,
+                        TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                        MoTa = y.LoaiTruyen.Mota
+                    }).ToList(),
                     NgayTao = x.NgayTao,
-                    View =x.Chuongs.Any()? x.Chuongs.Sum(y => y.LuotXem):0
+                    View = x.Chuongs.Any() ? x.Chuongs.Sum(y => y.LuotXem) : 0
 
                 }).ToList();
 
@@ -658,6 +698,57 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             }
         }
 
+        /// <summary>
+        /// Lấy ra 4 truyện có lượt xem nhiều nhất
+        /// Author       :   HoangNM - 06/05/2019 - create
+        /// </summary>
+        /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
+        /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public List<SearchTruyen> GetTruyenWithView()
+        {
+            try
+            {
+
+                List<SearchTruyen> listTruyen = new List<SearchTruyen>();
+
+                
+                // Tìm kiếm và lấy dữ liệu theo trang
+                listTruyen = context.Truyens.Where(x => !x.DelFlag).Select(x => new SearchTruyen
+                {
+                        Id = x.Id,
+                        TenTruyen = x.TenTruyen,
+                        TenKhac = x.TenKhac,
+                        Id_ChuKy = x.Id_ChuKy,
+                        Id_TrangThai = x.Id_TrangThai,
+                        TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                        Id_Nhom = x.Id_Nhom,
+                        TenNhom = x.NhomDich.TenNhomDich,
+                        AnhDaiDien = x.AnhDaiDien,
+                        AnhBia = x.AnhBia,
+                        NamPhatHanh = x.NamPhatHanh,
+                        MoTa = x.MoTa,
+                        DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                        {
+                            Id = y.TacGia.Id,
+                            TenTacGia = y.TacGia.TenTacGia
+                        }).ToList(),
+                        DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                        {
+                            Id = y.LoaiTruyen.Id,
+                            TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                            MoTa = y.LoaiTruyen.Mota
+                        }).ToList(),
+                        View= x.Chuongs.Any() ? x.Chuongs.Sum(y => y.LuotXem) : 0
+
+                }).OrderByDescending(x=>x.View).Take(4).ToList();
+
+                return listTruyen;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
 
     }

@@ -182,5 +182,60 @@ namespace ReadComic.Areas.Admin.Models.QuanLyQuyen
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Lấy danh sách quyền ra
+        /// Author       :   HoangNM - 05/05/2019 - create
+        /// </summary>
+        /// <returns>Danh sách quyền. Exception nếu có lỗi</returns>
+        public List<Quyen> GetDanhSachQuyenHeThong()
+        {
+            try
+            {
+                List<Quyen> listQuyen = new List<Quyen>();
+                decimal tongquyen = (decimal)Math.Pow(2, 31);
+
+                listQuyen = context.Quyens.Where(x => !x.DelFlag && x.BitQuyen<tongquyen)
+                    .Select(x => new Quyen
+                    {
+                        Id = x.Id,
+                        TenQuyen = x.TenQuyen,
+                        BitQuyen = x.BitQuyen
+                    }).OrderBy(x => x.BitQuyen).ToList();
+
+                return listQuyen;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Lấy danh sách quyền ra
+        /// Author       :   HoangNM - 05/05/2019 - create
+        /// </summary>
+        /// <returns>Danh sách quyền. Exception nếu có lỗi</returns>
+        public List<Quyen> GetDanhSachQuyenNhom()
+        {
+            try
+            {
+                List<Quyen> listQuyen = new List<Quyen>();
+                decimal tongquyen = (decimal)Math.Pow(2, 31);
+                listQuyen = context.Quyens.Where(x => !x.DelFlag && x.BitQuyen > tongquyen)
+                    .Select(x => new Quyen
+                    {
+                        Id = x.Id,
+                        TenQuyen = x.TenQuyen,
+                        BitQuyen = x.BitQuyen
+                    }).OrderBy(x => x.BitQuyen).ToList();
+
+                return listQuyen;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

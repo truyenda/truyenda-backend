@@ -54,7 +54,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
                         Id = x.Id,
                         TenChuong = x.TenChuong,
                         SoThuTu = x.SoThuTu,
-                        LinkAnh = x.LinkAnh,
                         LuotXem =x.LuotXem,
                         NgayTao=x.NgayTao
                     }).ToList();
