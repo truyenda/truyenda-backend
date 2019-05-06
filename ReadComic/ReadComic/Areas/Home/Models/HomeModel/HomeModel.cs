@@ -132,7 +132,7 @@ namespace ReadComic.Areas.Home.Models.HomeModel
             try
             {
                 List<Comic> NewComicList = new List<Comic>();
-                NewComicList = context.LuuLoaiTruyens.Where(x => x.IdLoaiTruyen == IdTheLoai && !x.DelFlag)
+                NewComicList = context.LuuLoaiTruyens.Where(x => x.IdLoaiTruyen == IdTheLoai && !x.DelFlag && !x.Truyen.DelFlag)
                     .Select(x => new Comic
                     {
                         Id = x.Truyen.Id,

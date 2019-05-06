@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TblTacGia = ReadComic.DataBase.Schema.TacGia;
+using TblLuuTacGia = ReadComic.DataBase.Schema.LuuTacGia;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
 {
@@ -104,6 +105,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                 {
                     TblTacGia tacGia = context.TacGias.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     tacGia.DelFlag = true;
+                    context.LuuTacGias.Where(x => x.Id_TacGia == id && !x.DelFlag).Update(x => new TblLuuTacGia
+                    {
+                        DelFlag = true
+                    });
                     context.SaveChanges();
                 }
                 else

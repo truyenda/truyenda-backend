@@ -176,6 +176,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         {
                             DelFlag = true
                         });
+                        context.LuuTacGias.Where(x => x.Id_Truyen == id && !x.DelFlag).Update(x => new TblLuuTacGia
+                        {
+                            DelFlag = true
+                        });
+                        context.LuuLoaiTruyens.Where(x => x.IdTruyen == id && !x.DelFlag).Update(x => new TblLuuLoaiTruyen
+                        {
+                            DelFlag = true
+                        });
                         context.SaveChanges();
                     }
                     else
