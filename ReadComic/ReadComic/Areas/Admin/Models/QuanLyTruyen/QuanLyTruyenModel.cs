@@ -758,6 +758,57 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
             }
         }
 
+        /// <summary>
+        /// lấy tất cả truyện của nhóm mà tài khoản tham gia
+        /// Author       :   HoangNM - 05/06/2019 - create
+        /// </summary>
+        /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public List<Truyen> GetListTruyenTrongNhom()
+        {
+            try
+            {
+
+                List<Truyen> listTruyen = new List<Truyen>();
+                var taiKhoan = Common.Common.GetAccount();
+                
+                // Tìm kiếm và lấy dữ liệu theo trang
+                listTruyen = context.Truyens.Where(x =>x.Id_Nhom== taiKhoan.IdNhom && !x.DelFlag).OrderBy(x => x.Id)
+                    .Select(x => new Truyen
+                    {
+                        Id = x.Id,
+                        TenTruyen = x.TenTruyen,
+                        TenKhac = x.TenKhac,
+                        Id_ChuKy = x.Id_ChuKy,
+                        Id_TrangThai = x.Id_TrangThai,
+                        TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                        Id_Nhom = x.Id_Nhom,
+                        TenNhom = x.NhomDich.TenNhomDich,
+                        AnhDaiDien = x.AnhDaiDien,
+                        AnhBia = x.AnhBia,
+                        NamPhatHanh = x.NamPhatHanh,
+                        MoTa = x.MoTa,
+                        DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                        {
+                            Id = y.TacGia.Id,
+                            TenTacGia = y.TacGia.TenTacGia
+                        }).ToList(),
+                        DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                        {
+                            Id = y.LoaiTruyen.Id,
+                            TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                            MoTa = y.LoaiTruyen.Mota
+                        }).ToList()
+
+                    }).ToList();
+
+                return listTruyen;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
 
     }
 }

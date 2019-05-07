@@ -340,6 +340,7 @@
     <Compile Include="Areas\Admin\Controllers\QuanLyQuyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTacGiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTaiKhoanController.cs" />
+    <Compile Include="Areas\Admin\Controllers\QuanLyThanhVienTrongNhomController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTrangThaiTruyenController.cs" />
     <Compile Include="Areas\Admin\Controllers\QuanLyTruyenController.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuKyTruyen\Schema\ChuKy.cs" />
@@ -361,6 +362,11 @@
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\DanhSachTruyenTheoTacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTacGia\Schema\Truyen_TacGia.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTaiKhoan\Schema\NewTaiKhoan.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyThanhVienTrongNhom\QuanLyThanhVienTrongNhomModel.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyThanhVienTrongNhom\Schema\AddThanhVien.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyThanhVienTrongNhom\Schema\DanhSachThanhVien.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyThanhVienTrongNhom\Schema\ThanhVien.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyThanhVienTrongNhom\Schema\UpdateThanhVien.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\QuanLyTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\Chapter.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyTruyen\Schema\ChuKyTruyen.cs" />

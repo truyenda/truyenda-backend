@@ -10,4 +10,8 @@ namespace ReadComic.Areas.Home.Models.Schema
         public string tokenReset { get; set; }
         public string NewPass { get; set; }
     }
+    public class SendEMail
+    {
+        public string email { get; set; }
+    }
 }
