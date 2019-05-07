@@ -38,15 +38,25 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: home/api/create-account
         /// </remarks>
         [HttpPost]
-        public ResponseInfo CreateAccount(NewAccount account)
+        public HttpResponseMessage CreateAccount(NewAccount account)
         {
             ResponseInfo response = new ResponseInfo();
+            var resp = Request.CreateResponse(HttpStatusCode.InternalServerError, response);
             try
             {
                 if (ModelState.IsValid)
                 {
                     response = new RegisterModel().TaoAccount(account);
                     response.IsValid = true;
+                    if (response.Code == 200)
+                    {
+                        resp = Request.CreateResponse(HttpStatusCode.OK, response);
+                    }
+                    else
+                    {
+                        resp = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                        Request.CreateResponse(response);
+                    }
                 }
                 else
                 {
@@ -63,8 +73,10 @@ namespace ReadComic.Areas.Home.Controllers
                 response.TypeMsgError = errorMsg.Type;
                 response.MsgError = errorMsg.Msg;
                 response.ThongTinBoSung1 = e.Message;
+                resp = Request.CreateResponse(HttpStatusCode.InternalServerError, response);
+                Request.CreateResponse(response);
             }
-            return response;
+            return resp;
         }
 
         /// <summary>

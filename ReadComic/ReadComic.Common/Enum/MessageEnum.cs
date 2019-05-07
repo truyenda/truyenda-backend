@@ -31,6 +31,8 @@ namespace ReadComic.Common.Enum
             ThayDoiMatKhauThanhCong=20,
             TokenResetHetHan=21,
             ThayDoiMatKhauThatBai = 22,
+            UserNameKhongTonTai = 23,
+            ThemThanhvienThanhCong = 24,
 
 
 

@@ -1,5 +1,6 @@
 ﻿using EntityFramework.Extensions;
 using ReadComic.Areas.Admin.Models.QuanLyPhanQuyen.Schema;
+using ReadComic.Areas.Home.Models.Schema;
 using ReadComic.Common;
 using ReadComic.Common.Enum;
 using ReadComic.Common.ErrorMsg;
@@ -71,6 +72,11 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen
                 {
                     phanQuyen.Id = tblPhanQuyen.Id;
                     phanQuyen.TenVaiTro = tblPhanQuyen.TenVaiTro;
+                    phanQuyen.Permissions= context.Quyens.Where(x => !x.DelFlag && ((long)x.BitQuyen & (long)tblPhanQuyen.TongQuyen) != 0).Select(x => new AllPermission
+                    {
+                        TenQuyen = x.TenQuyen,
+                        Id_Quyen = x.Id
+                    }).ToList();
                 }
                 return phanQuyen;
             }
@@ -125,11 +131,16 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen
             ResponseInfo response = new ResponseInfo();
             try
             {
+                decimal TongQuyen = 0;
+                foreach (int i in phanQuyen.Id_QuyenList)
+                {
+                    TongQuyen += context.Quyens.FirstOrDefault(x => x.Id == i && !x.DelFlag).BitQuyen;
+                }
                 context.PhanQuyens.Where(x => x.Id == id && !x.DelFlag)
                     .Update(x => new TblPhanQuyen
                     {
                         TenVaiTro = phanQuyen.TenVaiTro,
-                        TongQuyen = phanQuyen.TongQuyen
+                        TongQuyen = TongQuyen
                     });
                 context.SaveChanges();
                 response.IsSuccess = true;
@@ -161,10 +172,15 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen
                 ResponseInfo response = new ResponseInfo();
 
                 int id = context.PhanQuyens.Count() == 0 ? 1 : context.PhanQuyens.Max(x => x.Id) + 1;
+                decimal TongQuyen=0;
+                foreach(int i in phanQuyen.Id_QuyenList)
+                {
+                    TongQuyen += context.Quyens.FirstOrDefault(x => x.Id == i && !x.DelFlag).BitQuyen;
+                }
                 context.PhanQuyens.Add(new TblPhanQuyen
                 {
                     TenVaiTro = phanQuyen.TenVaiTro,
-                    TongQuyen = phanQuyen.TongQuyen
+                    TongQuyen = TongQuyen
                 });
                 context.SaveChanges();
                 response.ThongTinBoSung1 = id + "";

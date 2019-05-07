@@ -44,14 +44,33 @@ namespace ReadComic.Areas.Home.Controllers
         [HttpPost]
         public HttpResponseMessage CheckLogin(TaiKhoan account)
         {
-            
+
             ResponseInfo response = new ResponseInfo();
+            var resp = Request.CreateResponse(HttpStatusCode.InternalServerError, response);
             try
             {
                 if (ModelState.IsValid)
                 {
                     response = new LoginModel().CheckAccount(account);
                     response.IsValid = true;
+                    if (response.Code == 200)
+                    {
+                        resp = Request.CreateResponse(HttpStatusCode.OK, response);
+                        var cookie = new CookieHeaderValue("ToKen", response.ThongTinBoSung1);
+                        response.ThongTinBoSung1 = null;
+                        cookie.Expires = DateTimeOffset.Now.AddDays(1);
+                        cookie.Domain = "truyenda.tk";
+                        //cookie.Domain = Request.RequestUri.Host;
+                        cookie.Path = "/";
+
+                        resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+
+                    }
+                    else
+                    {
+                        resp = Request.CreateResponse(HttpStatusCode.BadRequest, response);
+                        Request.CreateResponse(response);
+                    }
                 }
                 else
                 {
@@ -70,16 +89,10 @@ namespace ReadComic.Areas.Home.Controllers
                 response.ThongTinBoSung1 = e.Message;
             }
 
-            var cookie = new CookieHeaderValue("ToKen", response.ThongTinBoSung1);
-            response.ThongTinBoSung1 = null;
-            cookie.Expires = DateTimeOffset.Now.AddDays(1);
-            cookie.Domain = "truyenda.tk";
-            //cookie.Domain = Request.RequestUri.Host;
-            cookie.Path = "/";
-            var resp = Request.CreateResponse(HttpStatusCode.OK, response);
-            resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
-            Request.CreateResponse(response);
+
+
             return resp;
+
         }
 
         /// <summary>
@@ -96,8 +109,8 @@ namespace ReadComic.Areas.Home.Controllers
         public ResponseInfo Logout()
         {
             ResponseInfo response = new ResponseInfo();
-            string token= HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d","=");
-            
+            string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
+
             try
             {
                 response = new LoginModel().RemoveToken(token);
@@ -124,7 +137,7 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: home/api/forgot
         /// </remarks>
         [HttpPost]
-        public ResponseInfo Forgot(string email)
+        public ResponseInfo Forgot(SendEMail email)
         {
             ResponseInfo response = new ResponseInfo();
 

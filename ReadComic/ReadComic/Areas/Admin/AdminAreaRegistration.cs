@@ -133,6 +133,34 @@ namespace ReadComic.Areas.Admin
                 constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
             );
 
+            //thành viên trong nhóm  ----------------------------------------------------------------------------------------
+
+            context.Routes.MapHttpRoute(
+               "APIDanhSachNhomDichCuaTaiKhoan",
+               "teams/my/members",
+               new { controller = "QuanLyThanhVienTrongNhom", action = "DanhSachNhomDichCuaTaiKhoan", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "APIThemThanhVien",
+               "teams/my/members",
+               new { controller = "QuanLyThanhVienTrongNhom", action = "ThemThanhVienVaoNhom", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("POST") }
+           );
+            context.Routes.MapHttpRoute(
+               "APIUpdateThanhVien",
+               "teams/my/members/{Id_TaiKhoan}/permissions",
+               new { controller = "QuanLyThanhVienTrongNhom", action = "UpadateThanhVienRole", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+           );
+            context.Routes.MapHttpRoute(
+               "APIDeleteThanhVien",
+               "teams/my/members/{Id_TaiKhoan}",
+               new { controller = "QuanLyThanhVienTrongNhom", action = "DeleteThanhVien", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
+           );
+
             //tác giả  ----------------------------------------------------------------------------------------
             context.Routes.MapHttpRoute(
                 "APIDanhSachTacGia",
@@ -343,6 +371,13 @@ namespace ReadComic.Areas.Admin
                 new { controller = "QuanLyTruyen", action = "GetJson", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
+
+            //context.Routes.MapHttpRoute(
+            //    "APTruyenTrongNhom",
+            //    "stories/my",
+            //    new { controller = "QuanLyTruyen", action = "DanhSachTatCaTruyenTrongNhom", id = UrlParameter.Optional },
+            //    constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            //);
 
             //Chương truyện ---------------------------------------------------------------------------------------
 

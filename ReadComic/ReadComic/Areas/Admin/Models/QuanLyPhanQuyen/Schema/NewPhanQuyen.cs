@@ -8,6 +8,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen.Schema
     public class NewPhanQuyen
     {
         public string TenVaiTro { get; set; }
-        public decimal TongQuyen { get; set; }
+        public List<int> Id_QuyenList { get; set; }
     }
 }

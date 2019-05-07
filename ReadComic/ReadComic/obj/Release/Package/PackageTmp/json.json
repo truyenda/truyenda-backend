@@ -155,6 +155,20 @@
     }
   },
   {
+    "key": 23,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Username không tồn tại, bạn vui lòng kiểm tra lại"
+    }
+  },
+  {
+    "key": 24,
+    "ErrorMsg": {
+      "Type": 2,
+      "Msg": "Thêm thành viên thành công"
+    }
+  },
+  {
     "key": 500,
     "ErrorMsg": {
       "Type": 6,
