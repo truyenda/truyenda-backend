@@ -196,5 +196,31 @@ namespace ReadComic.Areas.Admin.Models.QuanLyPhanQuyen
                 throw e;
             }
         }
+
+        /// <summary>
+        /// Lấy danh sách phân quyền ra có chứa chữ Team đầu
+        /// Author       :   HoangNM - 16/04/2019 - create
+        /// </summary>
+        /// <returns>Danh sách quyền. Exception nếu có lỗi</returns>
+        public List<PhanQuyen> DanhSachPhanQuyenTheoTeam()
+        {
+            try
+            {
+                List<PhanQuyen> listPhanQuyen = new List<PhanQuyen>();
+
+                listPhanQuyen = context.PhanQuyens.Where(x => !x.DelFlag && x.TenVaiTro.StartsWith("Team"))
+                    .Select(x => new PhanQuyen
+                    {
+                        Id = x.Id,
+                        TenVaiTro = x.TenVaiTro
+                    }).OrderBy(x => x.Id).ToList();
+
+                return listPhanQuyen;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

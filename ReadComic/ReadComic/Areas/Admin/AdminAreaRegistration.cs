@@ -136,9 +136,16 @@ namespace ReadComic.Areas.Admin
             //thành viên trong nhóm  ----------------------------------------------------------------------------------------
 
             context.Routes.MapHttpRoute(
-               "APIDanhSachNhomDichCuaTaiKhoan",
+               "APIDanhSachThanhVienCuaTaiKhoan",
                "teams/my/members",
                new { controller = "QuanLyThanhVienTrongNhom", action = "DanhSachNhomDichCuaTaiKhoan", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "APIThanhVienTrongNHom",
+               "teams/my/members/{id}",
+               new { controller = "QuanLyThanhVienTrongNhom", action = "Get", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
            );
 
@@ -345,7 +352,7 @@ namespace ReadComic.Areas.Admin
 
             context.Routes.MapHttpRoute(
                 "APIDanhSachTruyenNhomCuaTaiKhoan",
-                "stories/teams/page/{index}",
+                "stories/my/page/{index}",
                 new { controller = "QuanLyTruyen", action = "DanhSachTruyenTrongNhomCuaTaiKhoan", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
@@ -509,6 +516,13 @@ namespace ReadComic.Areas.Admin
                 "APIDanhSachPhanQuyen",
                 "role",
                 new { controller = "QuanLyPhanQuyen", action = "DanhSachPhanQuyen", id = UrlParameter.Optional },
+                constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            context.Routes.MapHttpRoute(
+                "APIDanhSachPhanQuyenTheoTeam",
+                "role/team",
+                new { controller = "QuanLyPhanQuyen", action = "DanhSachPhanQuyenTheoTeam", id = UrlParameter.Optional },
                 constraints: new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
