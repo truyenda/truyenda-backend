@@ -174,5 +174,37 @@ namespace ReadComic.Areas.Admin.Controllers
             }
             return response;
         }
+
+        /// <summary>
+        /// Điều hướng đến trang hiển thị danh sách phân quyền
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 16/04/2019 - create
+        /// </summary>
+        /// <returns>
+        /// Trang danh sách phân quyền
+        /// </returns>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APIDanhSachPhanQuyen
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo DanhSachPhanQuyenTheoTeam()
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response.IsSuccess = true;
+                response.Data = new QuanLyPhanQuyenModel().DanhSachPhanQuyenTheoTeam();
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }
