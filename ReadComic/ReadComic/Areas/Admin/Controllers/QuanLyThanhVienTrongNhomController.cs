@@ -27,7 +27,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIDanhSachNhomDichCuaTaiKhoan
         /// </remarks>
         [HttpGet]
-        public ResponseInfo DanhSachNhomDichCuaTaiKhoan()
+        public ResponseInfo DanhSachNhomDichCuaTaiKhoan(int IdNhom)
         {
             ResponseInfo response = new ResponseInfo();
             var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAMMEM_LIS")) & Convert.ToInt64(Common.Common.GetTongQuyen());
@@ -35,7 +35,7 @@ namespace ReadComic.Areas.Admin.Controllers
             {
                 try
                 {
-                    response.Data = new QuanLyThanhVienTrongNhomModel().GetDanhSachNhomDichCuaTaiKhoan();
+                    response.Data = new QuanLyThanhVienTrongNhomModel().GetDanhSachNhomDichCuaTaiKhoan(IdNhom);
                     response.IsSuccess = true;
 
                 }
@@ -54,39 +54,28 @@ namespace ReadComic.Areas.Admin.Controllers
                 response.TypeMsgError = errorMsg.Type;
                 response.MsgError = errorMsg.Msg;
             }
-                
+
 
             return response;
         }
 
         [HttpGet]
-        public ResponseInfo Get(int id)
+        public ResponseInfo Get(int id, int IdNhom)
         {
             ResponseInfo response = new ResponseInfo();
-            var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAMMEM_GET")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-            if (kt != 0)
+            try
             {
-                try
-                {
-                    response.Data = new QuanLyThanhVienTrongNhomModel().LoadThanhVien(id);
-                    response.IsSuccess = true;
-                }
-                catch (Exception e)
-                {
-                    response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                    response.TypeMsgError = errorMsg.Type;
-                    response.MsgError = errorMsg.Msg;
-                    response.ThongTinBoSung1 = e.Message;
-                }
+                response.Data = new QuanLyThanhVienTrongNhomModel().LoadThanhVien(id, IdNhom);
+                response.IsSuccess = true;
             }
-            else
+            catch (Exception e)
             {
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
                 response.TypeMsgError = errorMsg.Type;
                 response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
             }
-               
             return response;
         }
 
@@ -101,7 +90,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APICreateNhomDich
         /// </remarks>
         [HttpPost]
-        public ResponseInfo ThemThanhVienVaoNhom(AddThanhVien data)
+        public ResponseInfo ThemThanhVienVaoNhom(int IdNhom, AddThanhVien data)
         {
             ResponseInfo response = new ResponseInfo();
             var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAMMEM_ADD")) & Convert.ToInt64(Common.Common.GetTongQuyen());
@@ -109,7 +98,7 @@ namespace ReadComic.Areas.Admin.Controllers
             {
                 try
                 {
-                    response = new QuanLyThanhVienTrongNhomModel().ThemThanhVienVaoNhom(data);
+                    response = new QuanLyThanhVienTrongNhomModel().ThemThanhVienVaoNhom(IdNhom, data);
                 }
                 catch (Exception e)
                 {
@@ -142,7 +131,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIUpdateNhomDich
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpadateThanhVienRole(UpdateThanhVien data, int Id_TaiKhoan)
+        public ResponseInfo UpadateThanhVienRole(int IdNhom, UpdateThanhVien data, int Id_TaiKhoan)
         {
             ResponseInfo response = new ResponseInfo();
             var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAMMEM_PER")) & Convert.ToInt64(Common.Common.GetTongQuyen());
@@ -150,7 +139,7 @@ namespace ReadComic.Areas.Admin.Controllers
             {
                 try
                 {
-                    response = new QuanLyThanhVienTrongNhomModel().UpadateThanhVienRole(data, Id_TaiKhoan);
+                    response = new QuanLyThanhVienTrongNhomModel().UpadateThanhVienRole(IdNhom, data, Id_TaiKhoan);
                 }
                 catch (Exception e)
                 {
@@ -182,7 +171,7 @@ namespace ReadComic.Areas.Admin.Controllers
         /// RouterName: APIDeleteNhomDich
         /// </remarks>
         [HttpDelete]
-        public ResponseInfo DeleteThanhVien(int Id_TaiKhoan)
+        public ResponseInfo DeleteThanhVien(int IdNhom, int Id_TaiKhoan)
         {
             ResponseInfo response = new ResponseInfo();
             var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAMMEM_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
@@ -190,7 +179,7 @@ namespace ReadComic.Areas.Admin.Controllers
             {
                 try
                 {
-                    bool deleted = new QuanLyThanhVienTrongNhomModel().DeleteThanhVien(Id_TaiKhoan);
+                    bool deleted = new QuanLyThanhVienTrongNhomModel().DeleteThanhVien(IdNhom, Id_TaiKhoan);
                     if (deleted)
                     {
                         response.IsSuccess = true;

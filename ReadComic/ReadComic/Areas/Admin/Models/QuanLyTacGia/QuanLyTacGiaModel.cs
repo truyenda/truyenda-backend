@@ -215,7 +215,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTacGia
                     {
                         Id_Truyen = x.Id_Truyen,
                         TenTruyen = x.Truyen.TenTruyen,
-                        AnhDaiDien = x.Truyen.AnhDaiDien,
+                        AnhDaiDien = x.Truyen.anhDaiDien,
                         MoTa = x.Truyen.MoTa
                     }).ToList();
 

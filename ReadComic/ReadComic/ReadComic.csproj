@@ -348,8 +348,10 @@
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\QuanLyChuongTruyenModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\ChuongCuaTruyen.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\DanhSachChuongTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\DanhSachNewChuong.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\GetChuong.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\GetChuongTruyen.cs" />
+    <Compile Include="Areas\Admin\Models\QuanLyChuongtruyen\Schema\NewChuong.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyErrorMgs\QuanLyErrorMsgModel.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyErrorMgs\Schema\ErrorMgs.cs" />
     <Compile Include="Areas\Admin\Models\QuanLyNhomDich\Schema\DanhSachNhom.cs" />

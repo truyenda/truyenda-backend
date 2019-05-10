@@ -13,6 +13,7 @@ using TblNhomDich = ReadComic.DataBase.Schema.NhomDich;
 using TblTruyen = ReadComic.DataBase.Schema.Truyen;
 using TblChuong = ReadComic.DataBase.Schema.Chuong;
 using TblTaiKhoan = ReadComic.DataBase.Schema.TaiKhoan;
+using ReadComic.Common.Permission;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
 {
@@ -43,7 +44,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
             try
             {
                 DanhSachNhom danhSachNhom = new DanhSachNhom();
-                danhSachNhom.Paging= new Paging(context.NhomDiches.Count(x => !x.DelFlag), index);
+                danhSachNhom.Paging = new Paging(context.NhomDiches.Count(x => !x.DelFlag), index);
 
                 danhSachNhom.listNhomDich = context.NhomDiches.Where(x => !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((danhSachNhom.Paging.CurrentPage - 1) * danhSachNhom.Paging.NumberOfRecord)
@@ -52,8 +53,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                     {
                         Id = x.Id,
                         TenNhomDich = x.TenNhomDich,
-                        MoTa= x.MoTa,
-                        Logo=x.Logo
+                        MoTa = x.MoTa,
+                        Logo = x.Logo
                     }).ToList();
 
                 return danhSachNhom;
@@ -98,6 +99,29 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
         /// <returns>True nếu xóa thành công, False nếu không còn nhóm dịch được hiển thị trên trang chủ, Excetion nếu có lỗi</returns>
         public bool DeleteNhomDich(int id)
         {
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_ALL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
+                return XuLyXoaTruyen(id);
+            }
+            else
+            {
+                int IdNhom = Common.Common.GetAccount().IdNhom;
+                TblNhomDich nhomDich = context.NhomDiches.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                if (nhomDich.Id == IdNhom)
+                {
+                    return XuLyXoaTruyen(id);
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+        //Xử lý xóa truyên
+        public bool XuLyXoaTruyen(int id)
+        {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             try
             {
@@ -114,7 +138,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                     {
                         DelFlag = true
                     });
-                    context.TaiKhoans.Where(x=>x.Id_NhomDich==id && !x.DelFlag).Update(x => new TblTaiKhoan
+                    context.TaiKhoans.Where(x => x.Id_NhomDich == id && !x.DelFlag).Update(x => new TblTaiKhoan
                     {
                         Id_NhomDich = 1
                     });
@@ -132,6 +156,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                 transaction.Rollback();
                 throw e;
             }
+
         }
 
         /// <summary>
@@ -140,7 +165,37 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
         /// </summary>
         /// <param name="nhomDich">thông tin về nhóm dịch muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật nhóm dịch, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateNhomDich(NhomDich nhomDich,int id)
+        public ResponseInfo UpadateNhomDich(NhomDich NhomDich, int id)
+        {
+            var kt = Convert.ToInt64(new GetPermission().GetQuyen("TEAM_ALL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
+            if (kt != 0)
+            {
+                return XuLyUpDateNhom(NhomDich,id);
+            }
+            else
+            {
+                int IdNhom = Common.Common.GetAccount().IdNhom;
+                TblNhomDich nhomDich = context.NhomDiches.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                if (nhomDich.Id == IdNhom)
+                {
+                    return XuLyUpDateNhom(NhomDich,id);
+                }
+                else
+                {
+                    ResponseInfo response = new ResponseInfo();
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    return response;
+                }
+
+            }
+
+            
+        }
+
+        //Xử lý cập nhật nhóm
+        public ResponseInfo XuLyUpDateNhom(NhomDich nhomDich, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
@@ -150,8 +205,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                     .Update(x => new TblNhomDich
                     {
                         TenNhomDich = nhomDich.TenNhomDich,
-                        Logo=nhomDich.Logo,
-                        MoTa=nhomDich.MoTa
+                        Logo = nhomDich.Logo,
+                        MoTa = nhomDich.MoTa
                     });
                 context.SaveChanges();
                 response.IsSuccess = true;
@@ -183,16 +238,16 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
                 ResponseInfo response = new ResponseInfo();
                 int Id = Common.Common.GetAccount().Id;
                 var TaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == Id && !x.DelFlag);
-                if(TaiKhoan.Id_PhanQuyen == 5 || TaiKhoan.Id_PhanQuyen == 4)
+                if (TaiKhoan.Id_PhanQuyen == 5 || TaiKhoan.Id_PhanQuyen == 4)
                 {
                     TaiKhoan.Id_PhanQuyen = 3;
                 }
                 int id = context.NhomDiches.Count() == 0 ? 1 : context.NhomDiches.Max(x => x.Id) + 1;
-                var nhom=context.NhomDiches.Add(new TblNhomDich
+                var nhom = context.NhomDiches.Add(new TblNhomDich
                 {
                     TenNhomDich = nhomDich.TenNhomDich,
-                    MoTa=nhomDich.MoTa,
-                    Logo=nhomDich.Logo
+                    MoTa = nhomDich.MoTa,
+                    Logo = nhomDich.Logo
                 });
                 TaiKhoan.Id_NhomDich = nhom.Id;
                 context.SaveChanges();
@@ -244,6 +299,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyNhomDich
             }
         }
 
-       
+
     }
 }

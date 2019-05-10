@@ -142,6 +142,10 @@
     <Compile Include="Migrations\201904200523117_fixTheoDoiTruyen_2.Designer.cs">
       <DependentUpon>201904200523117_fixTheoDoiTruyen_2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905100038124_edit truyen.cs" />
+    <Compile Include="Migrations\201905100038124_edit truyen.Designer.cs">
+      <DependentUpon>201905100038124_edit truyen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\BinhLuan.cs" />
@@ -224,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904200523117_fixTheoDoiTruyen_2.resx">
       <DependentUpon>201904200523117_fixTheoDoiTruyen_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905100038124_edit truyen.resx">
+      <DependentUpon>201905100038124_edit truyen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

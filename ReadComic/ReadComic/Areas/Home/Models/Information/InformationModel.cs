@@ -42,6 +42,7 @@ namespace ReadComic.Areas.Home.Models.Information
             TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
             GetAccount getAccount = context.TaiKhoans.Where(x => x.Id == TblToken.Id_TaiKhoan && !x.DelFlag).Select(x => new GetAccount
             {
+                Id_TaiKhoan=x.Id,
                 Email = x.Email,
                 GioiTinh = x.ThongTinNguoiDung.GioiTinh,
                 Id_Face = x.Id_Face,
@@ -87,32 +88,48 @@ namespace ReadComic.Areas.Home.Models.Information
                 string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
                 token = BaoMat.Base64Decode(token);
                 TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == token);
-                
-                if (account.New_Passord != "" && string.Compare(account.New_Passord, account.Confirm_Password) == 0)
-                {
-                    string Hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(account.New_Passord), context.TaiKhoans.Where(x => x.Id == TblToken.TaiKhoan.Id && !x.DelFlag).FirstOrDefault().salt_Pass);
-                    //cập nhật mật khẩu
-                    context.TaiKhoans.Where(x => x.Id == TblToken.TaiKhoan.Id && !x.DelFlag).Update(y => new TblTaiKhoan
-                    {
-                        hash_Pass = Hash_Pass
-
-                    });
-                }
-
-
                 context.ThongTinNguoiDungs.Where(x => x.Id == TblToken.TaiKhoan.ThongTinNguoiDung.Id && !x.DelFlag).Update(x => new TblUser
                 {
                     Ten = account.Ten,
                     NgaySinh = account.NgaySinh,
                     GioiTinh = account.GioiTinh
                 });
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatThongTinThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+
+                if (account.New_Password != "" && account.Old_Password != "")
+                {
+                    string Hash_Pass_Old = BaoMat.GetMD5(BaoMat.GetSimpleMD5(account.Old_Password), context.TaiKhoans.Where(x => x.Id == TblToken.TaiKhoan.Id && !x.DelFlag).FirstOrDefault().salt_Pass);
+                    string HashPassAccount = context.TaiKhoans.Where(x => x.Id == TblToken.TaiKhoan.Id && !x.DelFlag).FirstOrDefault().hash_Pass;
+                    if (string.Compare(HashPassAccount, Hash_Pass_Old) == 0)
+                    {
+                        string Hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(account.New_Password), context.TaiKhoans.Where(x => x.Id == TblToken.TaiKhoan.Id && !x.DelFlag).FirstOrDefault().salt_Pass);
+
+                        //cập nhật mật khẩu
+                        context.TaiKhoans.Where(x => x.Id == TblToken.TaiKhoan.Id && !x.DelFlag).Update(y => new TblTaiKhoan
+                        {
+                            hash_Pass = Hash_Pass
+
+                        });
+                    }
+                    else
+                    {
+                        errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.MatKhauCuKhongDung);
+                        response.TypeMsgError = errorMsg.Type;
+                        response.MsgError = errorMsg.Msg;
+                    }
+
+                    
+                }
+
+
+                
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
 
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatThongTinThanhCong);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
+                
             }
             catch (Exception e)
             {

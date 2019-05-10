@@ -26,14 +26,14 @@ namespace ReadComic.Areas.Admin.Models.QuanLyThanhVienTrongNhom
         /// Author       :   HoangNM - 07/05/2019 - create
         /// </summary>
         /// <returns>Danh sách nhóm dịch. Exception nếu có lỗi</returns>
-        public DanhSachThanhVien GetDanhSachNhomDichCuaTaiKhoan()
+        public DanhSachThanhVien GetDanhSachNhomDichCuaTaiKhoan(int IdNhom)
         {
             try
             {
                 DanhSachThanhVien danhSachThanhVien = new DanhSachThanhVien();
-                danhSachThanhVien.Id_NhomDich = Common.Common.GetAccount().IdNhom;
+                danhSachThanhVien.Id_NhomDich = IdNhom;
 
-                danhSachThanhVien.ThanhVienList = context.TaiKhoans.Where(x => !x.DelFlag && x.Id_NhomDich == danhSachThanhVien.Id_NhomDich).OrderBy(x => x.Id)
+                danhSachThanhVien.ThanhVienList = context.TaiKhoans.Where(x => !x.DelFlag && x.Id_NhomDich == IdNhom).OrderBy(x => x.Id)
                     .Select(x => new ThanhVien
                     {
                         Id_TaiKhoanThanhVien = x.Id,
@@ -54,12 +54,12 @@ namespace ReadComic.Areas.Admin.Models.QuanLyThanhVienTrongNhom
         /// Author       :   HoangNM - 07/05/2019 - create
         /// </summary>
         /// <returns>lấy ra nhóm dịch theo id. Exception nếu có lỗi</returns>
-        public ThanhVien LoadThanhVien(int id)
+        public ThanhVien LoadThanhVien(int id, int IdNhom)
         {
             try
             {
                 ThanhVien ThanhVien = new ThanhVien();
-                TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && x.Id_NhomDich == IdNhom && !x.DelFlag);
                 if (tblTaiKhoan != null)
                 {
                     ThanhVien.Id_TaiKhoanThanhVien = tblTaiKhoan.Id;
@@ -80,13 +80,12 @@ namespace ReadComic.Areas.Admin.Models.QuanLyThanhVienTrongNhom
         /// </summary>
         /// <param name="nhomDich">nhóm dịch sẽ thêm</param>
         /// <returns>Trả về các thông tin khi cập nhật nhóm dịch, Excetion nếu có lỗi</returns>
-        public ResponseInfo ThemThanhVienVaoNhom(AddThanhVien data)
+        public ResponseInfo ThemThanhVienVaoNhom(int IdNhom, AddThanhVien data)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             try
             {
                 ResponseInfo response = new ResponseInfo();
-                int Id = Common.Common.GetAccount().IdNhom;
                 var TaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Username == data.Username && !x.DelFlag);
                 if (TaiKhoan == null)
                 {
@@ -96,10 +95,17 @@ namespace ReadComic.Areas.Admin.Models.QuanLyThanhVienTrongNhom
                     response.Code = 400;
                     return response;
                 }
+                if (TaiKhoan.Id_NhomDich != 1)
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.TaiKhoanDaCoNhom);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    return response;
+                }
                 else
                 {
 
-                    TaiKhoan.Id_NhomDich = Id;
+                    TaiKhoan.Id_NhomDich = IdNhom;
                     context.SaveChanges();
                     transaction.Commit();
                     var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ThemThanhvienThanhCong);
@@ -122,18 +128,44 @@ namespace ReadComic.Areas.Admin.Models.QuanLyThanhVienTrongNhom
         /// </summary>
         /// <param name="data">thông tin về nhóm dịch muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật nhóm dịch, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateThanhVienRole(UpdateThanhVien data, int id)
+        public ResponseInfo UpadateThanhVienRole(int IdNhom, UpdateThanhVien data, int id)
+        {
+            DbContextTransaction transaction = context.Database.BeginTransaction();
+            ResponseInfo response = new ResponseInfo();
+
+            if (Common.Common.GetAccount().IdQuyen == 1)
+            {
+                return XuLyThemQuyenChoThanhVien(IdNhom, data, id);
+            }
+            else
+            {
+                if (context.PhanQuyens.Where(x => x.Id == data.Id_Role && x.TenVaiTro.StartsWith("Team") && !x.DelFlag) != null)
+                {
+                    return XuLyThemQuyenChoThanhVien(IdNhom, data, id);
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.BanKhongDuQuyen);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                    return response;
+                }
+            }
+
+
+        }
+
+        public ResponseInfo XuLyThemQuyenChoThanhVien(int IdNhom, UpdateThanhVien data, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-
-                context.TaiKhoans.Where(x => x.Id == id && !x.DelFlag)
-                    .Update(x => new TblTaiKhoan
-                    {
-                        Id_PhanQuyen = data.Id_Role
-                    });
+                context.TaiKhoans.Where(x => x.Id == id && x.Id_NhomDich == IdNhom && !x.DelFlag)
+                        .Update(x => new TblTaiKhoan
+                        {
+                            Id_PhanQuyen = data.Id_Role
+                        });
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
@@ -148,27 +180,30 @@ namespace ReadComic.Areas.Admin.Models.QuanLyThanhVienTrongNhom
                 transaction.Rollback();
                 throw e;
             }
-        }
 
+        }
         /// <summary>
         /// Xóa thành viên khỏi nhóm dịch
         /// Author       :   HoangNM - 07/05/2019 - create
         /// </summary>
         /// <param name="ids">Danh sách id của các nhóm dịch sẽ xóa</param>
         /// <returns>True nếu xóa thành công, False nếu không còn nhóm dịch được hiển thị trên trang chủ, Excetion nếu có lỗi</returns>
-        public bool DeleteThanhVien(int id)
+        public bool DeleteThanhVien(int IdNhom, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             try
             {
                 bool result = true;
-                if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && x.Id_NhomDich == IdNhom && !x.DelFlag) != null)
                 {
-                    context.TaiKhoans.Where(x => x.Id == id && !x.DelFlag)
-                    .Update(x => new TblTaiKhoan
+                    var TaiKhoan = context.TaiKhoans.Where(x => x.Id == id && x.Id_NhomDich == IdNhom && !x.DelFlag).FirstOrDefault();
+                    TaiKhoan.Id_NhomDich = 1;
+                    if (context.TaiKhoans.Where(x => x.Id == id && x.Id_NhomDich == IdNhom && !x.DelFlag && x.PhanQuyen.TenVaiTro.StartsWith("Team")).FirstOrDefault() != null)
                     {
-                        Id_NhomDich = 1
-                    });
+                        TaiKhoan.Id_PhanQuyen = 5;
+                    }
+
+
                     context.SaveChanges();
                 }
                 else

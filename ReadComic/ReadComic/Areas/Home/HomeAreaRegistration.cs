@@ -145,8 +145,29 @@ namespace ReadComic.Areas.Home
            );
 
             context.Routes.MapHttpRoute(
+               "DeleteBookMarkByIdTruyen",
+               "bookmarks/strory/{Id_Truyen}",
+               new { controller = "TheoDoiTruyen", action = "XoaTheoDoiTruyenByIdTruyen", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("DELETE") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "GetListTheoDoiTruyenByIdTruyen",
+               "bookmarks/strory/{Id_Truyen}",
+               new { controller = "TheoDoiTruyen", action = "GetTheoDoiTruyenByIdTruyen", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("GET") }
+           );
+
+            context.Routes.MapHttpRoute(
+               "UpdateBookMark2",
+               "bookmarks/{idBookmark}",
+               new { controller = "TheoDoiTruyen", action = "UpdateTheoDoi_2", id = UrlParameter.Optional },
+               constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
+           );
+
+            context.Routes.MapHttpRoute(
                "UpdateBookMark",
-               "bookmarks/{id}",
+               "bookmarks",
                new { controller = "TheoDoiTruyen", action = "UpdateTheoDoi", id = UrlParameter.Optional },
                constraints: new { httpMethod = new HttpMethodConstraint("PUT") }
            );

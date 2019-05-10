@@ -169,6 +169,20 @@
     }
   },
   {
+    "key": 25,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Tài khoản đã có nhóm không thể thêm vào nhóm này được"
+    }
+  },
+  {
+    "key": 26,
+    "ErrorMsg": {
+      "Type": 4,
+      "Msg": "Bạn nhập vào mật khẩu cũ không đúng, bạn vui lòng kiểm tra lại"
+    }
+  },
+  {
     "key": 500,
     "ErrorMsg": {
       "Type": 6,

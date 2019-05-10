@@ -21,7 +21,7 @@ namespace ReadComic.Areas.Home.Models.TheoDoiTruyen.Schema
 
         public string TenChuongDanhDau { get; set; }
 
-        public int Id_ChuongMoiNhat { get; set; }
+        public int? Id_ChuongMoiNhat { get; set; }
 
         public string TenChuongMoiNhat { get; set; }
     }

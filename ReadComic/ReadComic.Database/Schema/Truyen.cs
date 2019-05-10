@@ -43,17 +43,19 @@ namespace ReadComic.DataBase.Schema
 
         public int NamPhatHanh { get; set; }
 
-        [Required]
-        [StringLength(256)]
-        public string AnhBia { get; set; }
-
-        [Required]
-        [StringLength(256)]
-        public string AnhDaiDien { get; set; }
+       
 
         public string MoTa { get; set; }
 
-        
+        [Required]
+        [StringLength(500)]
+        public string anhBia { get; set; }
+
+        [Required]
+        [StringLength(500)]
+        public string anhDaiDien { get; set; }
+
+
         public DateTime NgayTao { get; set; }
 
 

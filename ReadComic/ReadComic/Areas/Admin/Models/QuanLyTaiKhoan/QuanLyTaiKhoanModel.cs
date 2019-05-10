@@ -45,23 +45,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         {
             try
             {
-                // Nếu không tồn tại điều kiện tìm kiếm thì khởi tạo giá trị tìm kiếm ban đầu
-                //if (condition == null)
-                //{
-                //    condition = new TaiKhoanConditionSearch();
-                //}
+
                 DanhSachTaiKhoan listTaiKhoan = new DanhSachTaiKhoan();
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-
-                if (kt == 0)
-                {
-                    string Token = Common.Common.GetTokenTaiKhoan();
-                    TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-                    int IdNhom = context.TaiKhoans.FirstOrDefault(x => x.Id == TblToken.Id_TaiKhoan).Id_NhomDich;
-                }
-
                 // Lấy các thông tin dùng để phân trang
-                listTaiKhoan.Paging = new Paging(context.TaiKhoans.Count(x =>!x.DelFlag), page);
+                listTaiKhoan.Paging = new Paging(context.TaiKhoans.Count(x => !x.DelFlag), page);
                 // Tìm kiếm và lấy dữ liệu theo trang
                 listTaiKhoan.listTaiKhoan = context.TaiKhoans.Where(x => !x.DelFlag).OrderBy(x => x.Id)
                     .Skip((listTaiKhoan.Paging.CurrentPage - 1) * listTaiKhoan.Paging.NumberOfRecord)
@@ -69,12 +56,12 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                     {
                         Id = x.Id,
                         Username = x.Username,
-                        Email=x.Email,
-                        IdNhom=x.Id_NhomDich,
-                        IdTrangThai=x.Id_TrangThai,
-                        TenNhom=x.NhomDich.TenNhomDich,
-                        IdQuyen=x.Id_PhanQuyen,
-                        TenQuyen=x.PhanQuyen.TenVaiTro
+                        Email = x.Email,
+                        IdNhom = x.Id_NhomDich,
+                        IdTrangThai = x.Id_TrangThai,
+                        TenNhom = x.NhomDich.TenNhomDich,
+                        IdQuyen = x.Id_PhanQuyen,
+                        TenQuyen = x.PhanQuyen.TenVaiTro
 
                     }).ToList();
                 listTaiKhoan.CurrentPage = page;
@@ -98,7 +85,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             {
                 QL_TaiKhoan taiKhoan = new QL_TaiKhoan();
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt!=0)
+                if (kt != 0)
                 {
                     TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
                     if (tblTaiKhoan != null)
@@ -110,9 +97,9 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                         taiKhoan.IdNhom = tblTaiKhoan.Id_NhomDich;
                     }
                 }
-                else 
+                else
                 {
-                    TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id &&x.Id_NhomDich== Common.Common.GetAccount().IdNhom && !x.DelFlag);
+                    TblTaiKhoan tblTaiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && x.Id_NhomDich == Common.Common.GetAccount().IdNhom && !x.DelFlag);
                     if (tblTaiKhoan != null)
                     {
                         taiKhoan.Id = tblTaiKhoan.Id;
@@ -122,7 +109,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                         taiKhoan.IdNhom = tblTaiKhoan.Id_NhomDich;
                     }
                 }
-                
+
                 return taiKhoan;
             }
             catch (Exception e)
@@ -142,38 +129,17 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
             DbContextTransaction transaction = context.Database.BeginTransaction();
             try
             {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
                 bool result = true;
-                if (kt != 0)
+                if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
                 {
-                    if (context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
-                    {
-                        TblTaiKhoan taiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                        taiKhoan.DelFlag = true;
-                        context.SaveChanges();
-                    }
-                    else
-                    {
-                        result = false;
-                    }
+                    TblTaiKhoan taiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                    taiKhoan.DelFlag = true;
+                    context.SaveChanges();
                 }
                 else
                 {
-                    int id_nhomDich = Common.Common.GetAccount().IdNhom;
-                    if (context.TaiKhoans.FirstOrDefault(x => x.Id == id &&x.Id_NhomDich==id_nhomDich && !x.DelFlag) != null)
-                    {
-                        TblTaiKhoan taiKhoan = context.TaiKhoans.FirstOrDefault(x => x.Id == id && x.Id_NhomDich == id_nhomDich && !x.DelFlag);
-                        taiKhoan.DelFlag = true;
-                        context.SaveChanges();
-                    }
-                    else
-                    {
-                        result = false;
-                    }
+                    result = false;
                 }
-                    
-                
-                
                 transaction.Commit();
                 return result;
             }
@@ -190,50 +156,29 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
         /// </summary>
         /// <param name="taiKhoan">thông tin về tài khoản muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật tài khoản, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateTaiKhoan(NewTaiKhoan taiKhoan,int id)
+        public ResponseInfo UpadateTaiKhoan(NewTaiKhoan taiKhoan, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                TblTaiKhoan TK = context.TaiKhoans.FirstOrDefault(x => x.Username == taiKhoan.Username && x.Id!=id && !x.DelFlag);
+                TblTaiKhoan TK = context.TaiKhoans.FirstOrDefault(x => x.Username == taiKhoan.Username && x.Id != id && !x.DelFlag);
                 if (TK == null)
                 {
-                    TK = context.TaiKhoans.FirstOrDefault(x => x.Email == taiKhoan.Email &&x.Id!=id && !x.DelFlag);
+                    TK = context.TaiKhoans.FirstOrDefault(x => x.Email == taiKhoan.Email && x.Id != id && !x.DelFlag);
                     if (TK == null)
                     {
-                        var kt = Convert.ToInt64(new GetPermission().GetQuyen("ACCOUNT_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                        if (kt != 0)
-                        {
 
-                            TblTaiKhoan updateTaiKhoan = context.TaiKhoans.Where(x => x.Id == id && !x.DelFlag).FirstOrDefault();
-                            updateTaiKhoan.Username = taiKhoan.Username;
-                            updateTaiKhoan.Email = taiKhoan.Email;
-                            updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
-                            updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
-                            updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
-                            //updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
-                            //updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
-                            //updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
-                            //updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
-                        }
-                        else
-                        {
-                            int id_nhomDich = Common.Common.GetAccount().IdNhom;
-
-                            TblTaiKhoan updateTaiKhoan = context.TaiKhoans.Where(x => x.Id == id && x.Id_NhomDich == id_nhomDich && !x.DelFlag).FirstOrDefault();
-                            updateTaiKhoan.Username = taiKhoan.Username;
-                            updateTaiKhoan.Email = taiKhoan.Email;
-                            updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
-                            updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
-                            updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
-                            //updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
-                            //updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
-                            //updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
-                            //updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
-
-                        }
-
+                        TblTaiKhoan updateTaiKhoan = context.TaiKhoans.Where(x => x.Id == id && !x.DelFlag).FirstOrDefault();
+                        updateTaiKhoan.Username = taiKhoan.Username;
+                        updateTaiKhoan.Email = taiKhoan.Email;
+                        updateTaiKhoan.Id_TrangThai = taiKhoan.IdTrangThai;
+                        updateTaiKhoan.Id_NhomDich = taiKhoan.IdNhom;
+                        updateTaiKhoan.Id_PhanQuyen = taiKhoan.IdQuyen;
+                        //updateTaiKhoan.ThongTinNguoiDung.Ten = taiKhoan.HoTen;
+                        //updateTaiKhoan.ThongTinNguoiDung.NgaySinh = taiKhoan.NgaySinh;
+                        //updateTaiKhoan.ThongTinNguoiDung.GioiTinh = taiKhoan.GioiTinh;
+                        //updateTaiKhoan.hash_Pass = BaoMat.GetMD5(BaoMat.GetSimpleMD5(taiKhoan.pass), updateTaiKhoan.salt_Pass);
                         context.SaveChanges();
                         response.IsSuccess = true;
                         transaction.Commit();
@@ -255,7 +200,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTaiKhoan
                     response.MsgError = errorMsg.Msg;
                 }
 
-                
+
                 return response;
             }
             catch (Exception e)

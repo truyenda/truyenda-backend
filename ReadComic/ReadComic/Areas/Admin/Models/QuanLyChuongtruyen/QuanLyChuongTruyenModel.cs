@@ -11,6 +11,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using TblChuongTruyen = ReadComic.DataBase.Schema.Chuong;
+using TblTheoDoiTruyen = ReadComic.Database.Schema.TheoDoiTruyen;
 
 namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
 {
@@ -46,16 +47,16 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
                 List<GetChuong> listChuongTruyen = new List<GetChuong>();
 
                 // Lấy các thông tin dùng để phân trang
-                
+
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listChuongTruyen = context.Chuongs.Where(x => x.Id_Truyen==Id_Truyen && !x.DelFlag).OrderBy(x => x.SoThuTu)
+                listChuongTruyen = context.Chuongs.Where(x => x.Id_Truyen == Id_Truyen && !x.DelFlag).OrderBy(x => x.SoThuTu)
                     .Select(x => new GetChuong
                     {
                         Id = x.Id,
                         TenChuong = x.TenChuong,
                         SoThuTu = x.SoThuTu,
-                        LuotXem =x.LuotXem,
-                        NgayTao=x.NgayTao
+                        LuotXem = x.LuotXem,
+                        NgayTao = x.NgayTao
                     }).ToList();
 
                 return listChuongTruyen;
@@ -110,34 +111,23 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
             try
             {
                 bool result = true;
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
+
+                if (context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
                 {
-                    if (context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag) != null)
+                    TblChuongTruyen chuong = context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag);
+                    chuong.DelFlag = true;
+                    context.TheoDoiTruyens.Where(x => x.Id_Truyen == chuong.Id_Truyen && x.Id_ChuongDanhDau == chuong.Id && !x.DelFlag).Update(x => new TblTheoDoiTruyen
                     {
-                        TblChuongTruyen chuong = context.Chuongs.FirstOrDefault(x => x.Id == id && !x.DelFlag);
-                        chuong.DelFlag = true;
-                        context.SaveChanges();
-                    }
-                    else
-                    {
-                        result = false;
-                    }
+                        Id_ChuongDanhDau = null
+                    });
+                    context.SaveChanges();
                 }
                 else
                 {
-                    if (context.Chuongs.FirstOrDefault(x => x.Id == id && x.Truyen.Id_Nhom==Common.Common.GetAccount().IdNhom && !x.DelFlag) != null)
-                    {
-                        TblChuongTruyen chuong = context.Chuongs.FirstOrDefault(x => x.Id == id && x.Truyen.Id_Nhom == Common.Common.GetAccount().IdNhom && !x.DelFlag);
-                        chuong.DelFlag = true;
-                        context.SaveChanges();
-                    }
-                    else
-                    {
-                        result = false;
-                    }
+                    result = false;
                 }
-                
+
+
                 transaction.Commit();
                 return result;
             }
@@ -154,36 +144,20 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
         /// </summary>
         /// <param name="chuong">thông tin về chương truyện muốn thay đổi</param>
         /// <returns>Trả về các thông tin khi cập nhật chương truyện, Excetion nếu có lỗi</returns>
-        public ResponseInfo UpadateChuongTruyen(ChuongCuaTruyen chuong,int id)
+        public ResponseInfo UpadateChuongTruyen(ChuongCuaTruyen chuong, int id)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
-                var kt = Convert.ToInt64(new GetPermission().GetQuyen("CHAPTER_MAN")) & Convert.ToInt64(Common.Common.GetTongQuyen());
-                if (kt != 0)
+                context.Chuongs.Where(x => x.Id == id && !x.DelFlag)
+                .Update(x => new TblChuongTruyen
                 {
-                    context.Chuongs.Where(x => x.Id == id && !x.DelFlag)
-                    .Update(x => new TblChuongTruyen
-                    {
-                        Id_Truyen = chuong.IdTruyen,
-                        TenChuong = chuong.TenChuong,
-                        SoThuTu = chuong.SoThuTu,
-                        LinkAnh = chuong.LinkAnh
-                    });
-                }
-                else
-                {
-                    context.Chuongs.Where(x => x.Id == id && x.Truyen.Id_Nhom==Common.Common.GetAccount().IdNhom && !x.DelFlag)
-                    .Update(x => new TblChuongTruyen
-                    {
-                        Id_Truyen = chuong.IdTruyen,
-                        TenChuong = chuong.TenChuong,
-                        SoThuTu = chuong.SoThuTu,
-                        LinkAnh = chuong.LinkAnh
-                    });
-                }
-                    
+                    Id_Truyen = chuong.IdTruyen,
+                    TenChuong = chuong.TenChuong,
+                    SoThuTu = chuong.SoThuTu,
+                    LinkAnh = chuong.LinkAnh
+                });
                 context.SaveChanges();
                 response.IsSuccess = true;
                 transaction.Commit();
@@ -235,6 +209,43 @@ namespace ReadComic.Areas.Admin.Models.QuanLyChuongtruyen
             catch (Exception e)
             {
                 transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Tìm kiếm các truyện phân trang theo phân trang và tìm kiếm
+        /// Author       :   HoangNM - 14/04/2019 - create
+        /// </summary>
+        /// <param name="condition">Đối tượng chứa điều kiện tìm kiếm</param>
+        /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachNewChuong GetListChuongTruyenNewUpdate(int page)
+        {
+            try
+            {
+                DanhSachNewChuong listChuongTruyen = new DanhSachNewChuong();
+
+                // Tìm kiếm và lấy dữ liệu theo trang
+                List<int> list_IdTruyen = context.Chuongs.Where(x => !x.DelFlag && !x.Truyen.DelFlag).Select(x => x.Id_Truyen).Distinct().ToList();
+                listChuongTruyen.Paging = new Paging(list_IdTruyen.Count, page);
+                foreach (int i in list_IdTruyen)
+                {
+                    listChuongTruyen.listNewChuong.Add(context.Chuongs.Where(x => x.Id_Truyen == i).Select(x => new NewChuong
+                    {
+                        Id_Truyen = x.Id_Truyen,
+                        TenTruyen = x.Truyen.TenTruyen,
+                        Id_Chuong = x.Id,
+                        AnhDaiDien = x.Truyen.anhDaiDien,
+                        TenChuong = x.TenChuong,
+                        NgayTao = x.NgayTao
+                    }).FirstOrDefault());
+                }
+                listChuongTruyen.listNewChuong = listChuongTruyen.listNewChuong.OrderByDescending(x => x.NgayTao).ToList();
+
+                return listChuongTruyen;
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }

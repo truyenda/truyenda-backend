@@ -8,6 +8,8 @@ namespace ReadComic.Areas.Home.Models.Information.Schema
 {
     public class GetAccount
     {
+        public int Id_TaiKhoan { get; set; }
+
         public int Id_TrangThai { get; set; }
 
         public string TenTrangThai { get; set; }

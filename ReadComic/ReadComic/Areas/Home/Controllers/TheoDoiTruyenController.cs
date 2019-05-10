@@ -104,12 +104,12 @@ namespace ReadComic.Areas.Home.Controllers
         /// RouterName: APIUpdateChuKyPhatHanh
         /// </remarks>
         [HttpPut]
-        public ResponseInfo UpdateTheoDoi(int id, UpdateTheoDoi data)
+        public ResponseInfo UpdateTheoDoi(UpdateTheoDoi data)
         {
             ResponseInfo response = new ResponseInfo();
             try
             {
-                response = new TheoDoiTruyenModel().UpadateTheoDoi(id, data);
+                response = new TheoDoiTruyenModel().UpadateTheoDoi(data);
             }
             catch (Exception e)
             {
@@ -123,5 +123,91 @@ namespace ReadComic.Areas.Home.Controllers
         }
 
 
+        /// <summary>
+        /// Dùng để thay đổi thông tin theo dõi truyện
+        /// Author       :   HoangNM - 22/04/2019 - create
+        /// </summary>
+        /// <param name="data">Là chu kỳ phát hành truyện cần thay đổi</param>
+        /// <returns>Đối tượng chứa thông tin về quá trình thay đổi thông tin loại truyện</returns>
+        /// <remarks>
+        /// Method: PUT
+        /// RouterName: APIUpdateChuKyPhatHanh
+        /// </remarks>
+        [HttpPut]
+        public ResponseInfo UpdateTheoDoi_2(int idBookmark)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                response = new TheoDoiTruyenModel().UpadateTheoDoi(idBookmark);
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+
+        //Lấy danh sách truyện theo dõi ra
+        [HttpDelete]
+        public ResponseInfo XoaTheoDoiTruyenByIdTruyen(int id_Truyen)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                bool deleted = new TheoDoiTruyenModel().DeleteTheoDoiTruyenbyIdTruyen(id_Truyen);
+                if (deleted)
+                {
+                    response.IsSuccess = true;
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThanhCong);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+                else
+                {
+                    var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.XoaDuLieuThatBai);
+                    response.TypeMsgError = errorMsg.Type;
+                    response.MsgError = errorMsg.Msg;
+                }
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
+
+        //Lấy danh sách truyện theo dõi ra
+        [HttpGet]
+        public ResponseInfo GetTheoDoiTruyenByIdTruyen(int Id_Truyen)
+        {
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+
+                response.Data = new TheoDoiTruyenModel().GetTheoDoiTruyenByIdTruyen(Id_Truyen);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+            return response;
+        }
     }
 }

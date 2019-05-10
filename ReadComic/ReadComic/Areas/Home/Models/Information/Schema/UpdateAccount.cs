@@ -13,8 +13,8 @@ namespace ReadComic.Areas.Home.Models.Information.Schema
 
         public bool GioiTinh { get; set; }
 
-        public string Confirm_Password { get; set; }
+        public string New_Password { get; set; }
 
-        public string New_Passord { get; set; }
+        public string Old_Password { get; set; }
     }
 }

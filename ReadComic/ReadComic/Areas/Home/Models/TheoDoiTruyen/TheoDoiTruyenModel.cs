@@ -29,10 +29,8 @@ namespace ReadComic.Areas.Home.Models.TheoDoiTruyen
             ResponseInfo response = new ResponseInfo();
             try
             {
-                string token = HttpContext.Current.Request.Cookies["ToKen"].Value.Replace("%3d", "=");
-                string Token = BaoMat.Base64Decode(token);
-                TblToken TblToken = context.Tokens.FirstOrDefault(x => x.TokenTaiKhoan == Token);
-                int ID_TaiKhoan = TblToken.Id_TaiKhoan;
+              
+                int ID_TaiKhoan = Common.Common.GetAccount().Id;
                 TblTheoDoiTruyen tblTheoDoiTruyen = context.TheoDoiTruyens.FirstOrDefault(x => x.Id_NguoiDoc == ID_TaiKhoan && x.Id_Truyen == data.id_Truyen);
                 if (tblTheoDoiTruyen == null)
                 {
@@ -74,7 +72,7 @@ namespace ReadComic.Areas.Home.Models.TheoDoiTruyen
                         Id_NhomDich = x.Truyen.Id_Nhom,
                         TenNhom = x.Truyen.NhomDich.TenNhomDich,
                         Id_ChuongDanhDau = x.Id_ChuongDanhDau,
-                        TenChuongDanhDau = x.Truyen.Chuongs.FirstOrDefault(y=>y.Id==x.Id_ChuongDanhDau).TenChuong ,
+                        TenChuongDanhDau = x.Truyen.Chuongs.FirstOrDefault(y => y.Id == x.Id_ChuongDanhDau).TenChuong,
                         Id_ChuongMoiNhat = x.Truyen.Chuongs.OrderByDescending(y=>y.Id).FirstOrDefault().Id,
                         TenChuongMoiNhat = x.Truyen.Chuongs.OrderByDescending(y=>y.Id).FirstOrDefault().TenChuong
                     }).OrderBy(x=>x.Id_BookMark).ToList();
@@ -121,18 +119,19 @@ namespace ReadComic.Areas.Home.Models.TheoDoiTruyen
 
         // Cập nhật thông tin theo dõi truyện
         
-        public ResponseInfo UpadateTheoDoi(int id, UpdateTheoDoi data)
+        public ResponseInfo UpadateTheoDoi(UpdateTheoDoi data)
         {
             DbContextTransaction transaction = context.Database.BeginTransaction();
             ResponseInfo response = new ResponseInfo();
             try
             {
                 int idTaiKhoan = Common.Common.GetAccount().Id;
-                context.TheoDoiTruyens.Where(x => x.Id == id && !x.DelFlag)
+                context.TheoDoiTruyens.Where(x => x.Id_Truyen == data.IdTruyen &&x.Id_NguoiDoc==idTaiKhoan && !x.DelFlag)
                     .Update(x => new TblTheoDoiTruyen
                     {
                         Id_ChuongDanhDau = data.IdChuongTheoDoi,
-                        Id_NguoiDoc=idTaiKhoan
+                        Id_NguoiDoc=idTaiKhoan,
+                        Id_Truyen=data.IdTruyen
                     });
                 context.SaveChanges();
                 response.IsSuccess = true;
@@ -146,6 +145,103 @@ namespace ReadComic.Areas.Home.Models.TheoDoiTruyen
             {
                 response.IsSuccess = false;
                 transaction.Rollback();
+                throw e;
+            }
+        }
+
+        // Cập nhật thông tin theo dõi truyện
+
+        public ResponseInfo UpadateTheoDoi(int id)
+        {
+            DbContextTransaction transaction = context.Database.BeginTransaction();
+            ResponseInfo response = new ResponseInfo();
+            try
+            {
+                int idTaiKhoan = Common.Common.GetAccount().Id;
+                int idTruyen = context.Chuongs.FirstOrDefault(x => x.Id == id).Id_Truyen;
+                context.TheoDoiTruyens.Where(x => x.Id_Truyen == idTruyen && x.Id_NguoiDoc==idTaiKhoan && !x.DelFlag)
+                    .Update(x => new TblTheoDoiTruyen
+                    {
+                        Id_ChuongDanhDau = id,
+                        Id_NguoiDoc= idTaiKhoan,
+                        Id_Truyen= idTruyen
+                    });
+                context.SaveChanges();
+                response.IsSuccess = true;
+                transaction.Commit();
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.CapNhatDuLieuThanhCong);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.IsSuccess = false;
+                transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Xóa theo dõi truyên trong db theo id truyện
+        /// Author       :   HoangNM - 08/05/2019 - create
+        /// </summary>
+        /// <param name="id">id của theo dõi truyện sẽ xóa sẽ xóa</param>
+        /// <returns>True nếu xóa thành công, False nếu không còn Loại truyện được hiển thị trên trang chủ, Excetion nếu có lỗi</returns>
+        public bool DeleteTheoDoiTruyenbyIdTruyen(int id)
+        {
+            DbContextTransaction transaction = context.Database.BeginTransaction();
+            try
+            {
+                bool result = true;
+                int idTaiKhoan = Common.Common.GetAccount().Id;
+                if (context.TheoDoiTruyens.FirstOrDefault(x => x.Id_Truyen == id && x.Id_NguoiDoc== idTaiKhoan && !x.DelFlag) != null)
+                {
+                    context.TheoDoiTruyens.Where(x => x.Id_Truyen == id && x.Id_NguoiDoc == idTaiKhoan && !x.DelFlag).Delete();
+                    context.SaveChanges();
+                }
+                else
+                {
+                    result = false;
+                }
+                transaction.Commit();
+                return result;
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                throw e;
+            }
+        }
+
+        /// <summary>
+        /// Lấy thông tin bookmark của truyện
+        /// Author       :   HoangNM - 08/05/2019 - create
+        /// </summary>
+        /// <returns>Danh sách theo dõi truyện của tài khoản. Exception nếu có lỗi</returns>
+        public BookMark GetTheoDoiTruyenByIdTruyen(int Id_Truyen)
+        {
+            try
+            {
+                int Id_TaiKhoan = Common.Common.GetAccount().Id;
+
+                 return context.TheoDoiTruyens.Where(x => x.Id_NguoiDoc == Id_TaiKhoan && x.Id_Truyen==Id_Truyen && !x.DelFlag)
+                    .Select(x => new BookMark
+                    {
+                        Id_BookMark = x.Id,
+                        Id_Truyen = x.Id_Truyen,
+                        TenTruyen = x.Truyen.TenTruyen,
+                        Id_NhomDich = x.Truyen.Id_Nhom,
+                        TenNhom = x.Truyen.NhomDich.TenNhomDich,
+                        Id_ChuongDanhDau = x.Id_ChuongDanhDau,
+                        TenChuongDanhDau = x.Truyen.Chuongs.FirstOrDefault(y => y.Id == x.Id_ChuongDanhDau).TenChuong,
+                        Id_ChuongMoiNhat = x.Truyen.Chuongs.OrderByDescending(y => y.Id).FirstOrDefault().Id,
+                        TenChuongMoiNhat = x.Truyen.Chuongs.OrderByDescending(y => y.Id).FirstOrDefault().TenChuong
+                    }).FirstOrDefault();
+
+            }
+            catch (Exception e)
+            {
                 throw e;
             }
         }

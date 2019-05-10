@@ -24,36 +24,7 @@ namespace ReadComic.Areas.Admin.Controllers
     /// </remarks>
     public class QuanLyTruyenController : ApiController
     {
-        /// <summary>
-        /// Lấy danh sách tất cả các truyện trong nhóm tài khoản đang tham gia
-        /// Author       :   HoangNM - 05/06/2019 - create
-        /// </summary>
-        /// <returns>
-        /// Trang danh sách tất cả truyện của nhóm đang tham gia
-        /// </returns>
-        /// <remarks>
-        /// Method: GET
-        /// RouterName: APIDanhSachTruyen
-        /// </remarks>
-        [HttpGet]
-        public ResponseInfo DanhSachTatCaTruyenTrongNhom()
-        {
-            ResponseInfo response = new ResponseInfo();
-            try
-            {
-                response.Data = new QuanLyTruyenModel().GetListTruyenTrongNhom();
-                response.IsSuccess = true;
-            }
-            catch (Exception e)
-            {
-                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
-                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
-                response.TypeMsgError = errorMsg.Type;
-                response.MsgError = errorMsg.Msg;
-                response.ThongTinBoSung1 = e.Message;
-            }
-            return response;
-        }
+        
 
         /// <summary>
         /// Điều hướng đến trang hiển thị danh sách truyên
@@ -123,10 +94,11 @@ namespace ReadComic.Areas.Admin.Controllers
             ResponseInfo response = new ResponseInfo();
             try
             {
-                bool deleted = new QuanLyTruyenModel().DeleteTruyen(id);
+              
                 var kt = Convert.ToInt64(new GetPermission().GetQuyen("STORY_DEL")) & Convert.ToInt64(Common.Common.GetTongQuyen());
                 if (kt != 0)
                 {
+                    bool deleted = new QuanLyTruyenModel().DeleteTruyen(id);
                     if (deleted)
                     {
                         response.IsSuccess = true;
@@ -404,6 +376,37 @@ namespace ReadComic.Areas.Admin.Controllers
             return response;
         }
 
-       
+        /// <summary>
+        /// Tìm kiếm tác giả theo tên
+        /// Điều hướng về trang lỗi nếu có lỗi sảy ra.
+        /// Author       :   HoangNM - 24/04/2019 - create
+        /// </summary>
+        /// <remarks>
+        /// Method: GET
+        /// RouterName: APISearchDanhSachTacGia
+        /// </remarks>
+        [HttpGet]
+        public ResponseInfo SearchDanhSachTruyenTrongNhom(string query, int index)
+        {
+            ResponseInfo response = new ResponseInfo();
+
+            try
+            {
+                response.Data = new QuanLyTruyenModel().GetListTruyenTrongNhomSearch(query, index);
+                response.IsSuccess = true;
+            }
+            catch (Exception e)
+            {
+                response.Code = (int)ConstantsEnum.CodeResponse.ServerError;
+                var errorMsg = new GetErrorMsg().GetMsg((int)MessageEnum.MsgNO.ServerError);
+                response.TypeMsgError = errorMsg.Type;
+                response.MsgError = errorMsg.Msg;
+                response.ThongTinBoSung1 = e.Message;
+            }
+
+
+            return response;
+        }
+
     }
 }

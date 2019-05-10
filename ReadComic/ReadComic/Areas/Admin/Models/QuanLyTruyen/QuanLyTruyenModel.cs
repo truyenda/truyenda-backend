@@ -12,7 +12,6 @@ using TblLuuTacGia = ReadComic.DataBase.Schema.LuuTacGia;
 using TblLuuLoaiTruyen = ReadComic.DataBase.Schema.LuuLoaiTruyen;
 using TblChuongTruyen = ReadComic.DataBase.Schema.Chuong;
 using TblTacGia = ReadComic.DataBase.Schema.TacGia;
-using TblToken = ReadComic.DataBase.Schema.Token;
 using System.IO;
 using System.Text;
 using System.Web.Script.Serialization;
@@ -58,7 +57,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 // Lấy các thông tin dùng để phân trang
                 listTruyen.Paging = new Paging(context.Truyens.Count(x => !x.DelFlag), index);
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listTruyen.listTruyen = context.Truyens.Where(x => !x.DelFlag).OrderBy(x => x.Id)
+                listTruyen.listTruyen = context.Truyens.Where(x => !x.DelFlag).OrderByDescending(x => x.NgayTao)
                     .Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
                     .Take(listTruyen.Paging.NumberOfRecord).Select(x => new Truyen
                     {
@@ -70,8 +69,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         TrangThai = x.TrangThaiTruyen.TenTrangThai,
                         Id_Nhom = x.Id_Nhom,
                         TenNhom = x.NhomDich.TenNhomDich,
-                        AnhDaiDien = x.AnhDaiDien,
-                        AnhBia = x.AnhBia,
+                        AnhDaiDien = x.anhDaiDien,
+                        AnhBia = x.anhBia,
                         NamPhatHanh = x.NamPhatHanh,
                         MoTa = x.MoTa,
                         DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
@@ -119,8 +118,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         Id = y.Id_TacGia,
                         TenTacGia = y.TacGia.TenTacGia
                     }).ToList(),
-                    AnhBia = x.AnhBia,
-                    AnhDaiDien = x.AnhDaiDien,
+                    AnhBia = x.anhBia,
+                    AnhDaiDien = x.anhDaiDien,
                     DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
                     {
                         Id = y.LoaiTruyen.Id,
@@ -184,6 +183,10 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         {
                             DelFlag = true
                         });
+                        context.LuotXemTuans.Where(x => x.Id_Truyen == id).Delete();
+                        context.LuotXemNgays.Where(x => x.Id_Truyen == id).Delete();
+                        context.LuotXemThangs.Where(x => x.Id_Truyen == id).Delete();
+                        context.TheoDoiTruyens.Where(x => x.Id_Truyen == id).Delete();
                         context.SaveChanges();
                     }
                     else
@@ -293,8 +296,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     Id_ChuKy = truyen.Id_ChuKy,
                     Id_TrangThai = truyen.Id_TrangThai,
                     NamPhatHanh = truyen.NamPhatHanh,
-                    AnhBia = truyen.AnhBia,
-                    AnhDaiDien = truyen.AnhDaiDien,
+                    anhBia = truyen.AnhBia,
+                    anhDaiDien = truyen.AnhDaiDien,
                     MoTa = truyen.MoTa,
                     NgayTao = DateTime.Now
                 });
@@ -411,10 +414,27 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 {
                     Id = x.Id,
                     TenTruyen = x.TenTruyen,
+                    TenKhac = x.TenKhac,
                     Id_ChuKy = x.Id_ChuKy,
                     Id_TrangThai = x.Id_TrangThai,
+                    TrangThai = x.TrangThaiTruyen.TenTrangThai,
+                    Id_Nhom = x.Id_Nhom,
                     TenNhom = x.NhomDich.TenNhomDich,
-                    AnhDaiDien = x.AnhDaiDien
+                    AnhDaiDien = x.anhDaiDien,
+                    AnhBia = x.anhBia,
+                    NamPhatHanh = x.NamPhatHanh,
+                    MoTa = x.MoTa,
+                    DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
+                    {
+                        Id = y.TacGia.Id,
+                        TenTacGia = y.TacGia.TenTacGia
+                    }).ToList(),
+                    DanhSachTheLoai = x.LuuLoaiTruyens.Where(y => !y.DelFlag).Select(y => new TheLoai
+                    {
+                        Id = y.LoaiTruyen.Id,
+                        TenTheLoai = y.LoaiTruyen.TenTheLoai,
+                        MoTa = y.LoaiTruyen.Mota
+                    }).ToList()
 
                 }).ToList();
 
@@ -433,8 +453,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         TenKhac = truyen.TenKhac,
                         Id_TrangThai = truyen.Id_TrangThai,
                         NamPhatHanh = truyen.NamPhatHanh,
-                        AnhBia = truyen.AnhBia,
-                        AnhDaiDien = truyen.AnhDaiDien,
+                        anhBia = truyen.AnhBia,
+                        anhDaiDien = truyen.AnhDaiDien,
                         MoTa = truyen.MoTa,
                         Id_Nhom=truyen.Id_NhomDich
                     });
@@ -522,8 +542,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     TenKhac = string.Join(",", Story.oname),
                     Id_TrangThai = new Random().Next(2, 4),
                     NamPhatHanh = new Random().Next(2004, 2018),
-                    AnhBia = Story.thumb,
-                    AnhDaiDien = Story.thumb,
+                    anhBia = Story.thumb,
+                    anhDaiDien = Story.thumb,
                     MoTa = Story.description,
                     NgayTao = DateTime.Now
                 });
@@ -550,7 +570,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     });
                     context.SaveChanges();
                 }
-                response.ThongTinBoSung2 = "Thêm chương thành công";
 
                 //thêm thể loại cho truyện ----------------------------------------------------------------
 
@@ -564,7 +583,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 //}
 
                 context.SaveChanges();
-                response.ThongTinBoSung3 = "Thêm thể loại thành công";
 
                 //thêm tác giả cho truyên ----------------------------------------------------------------
 
@@ -593,7 +611,6 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     context.SaveChanges();
 
                 }
-                response.ThongTinBoSung5 = "Thêm tác giả thành công";
                 response.TypeMsgError = id_truyen;
                 transaction.Commit();
                 response.MsgError = "Thêm thành công";
@@ -656,8 +673,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                     TrangThai = x.TrangThaiTruyen.TenTrangThai,
                     Id_Nhom = x.Id_Nhom,
                     TenNhom = x.NhomDich.TenNhomDich,
-                    AnhDaiDien = x.AnhDaiDien,
-                    AnhBia = x.AnhBia,
+                    AnhDaiDien = x.anhDaiDien,
+                    AnhBia = x.anhBia,
                     NamPhatHanh = x.NamPhatHanh,
                     MoTa = x.MoTa,
                     DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
@@ -686,7 +703,7 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                 }
                 else if (data.Sort < 2)
                 {
-                    listTruyen.listTruyen=listTruyen.listTruyen.OrderByDescending(x => x.TenTruyen).Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
+                    listTruyen.listTruyen=listTruyen.listTruyen.OrderBy(x => x.TenTruyen).Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
                     .Take(listTruyen.Paging.NumberOfRecord).ToList();
 
                     return listTruyen;
@@ -731,8 +748,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         TrangThai = x.TrangThaiTruyen.TenTrangThai,
                         Id_Nhom = x.Id_Nhom,
                         TenNhom = x.NhomDich.TenNhomDich,
-                        AnhDaiDien = x.AnhDaiDien,
-                        AnhBia = x.AnhBia,
+                        AnhDaiDien = x.anhDaiDien,
+                        AnhBia = x.anhBia,
                         NamPhatHanh = x.NamPhatHanh,
                         MoTa = x.MoTa,
                         DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
@@ -759,21 +776,25 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
         }
 
         /// <summary>
-        /// lấy tất cả truyện của nhóm mà tài khoản tham gia
-        /// Author       :   HoangNM - 05/06/2019 - create
+        /// Tìm kiếm truyện trong nhóm đang tham gia
+        /// Author       :   HoangNM - 07/04/2019 - create
         /// </summary>
-        /// <returns>Danh sách các truyện đã tìm kiếm được. Exception nếu có lỗi</returns>
-        public List<Truyen> GetListTruyenTrongNhom()
+        /// <param name="query">tên tác giả cần tìm kiếm</param>
+        /// <returns>Danh sách các tác giả đã tìm kiếm được. Exception nếu có lỗi</returns>
+        public DanhSachTruyen GetListTruyenTrongNhomSearch(string query, int index)
         {
             try
             {
 
-                List<Truyen> listTruyen = new List<Truyen>();
-                var taiKhoan = Common.Common.GetAccount();
-                
+                DanhSachTruyen listTruyen = new DanhSachTruyen();
+
+                int IdNhom = Common.Common.GetAccount().IdNhom;
+                // Lấy các thông tin dùng để phân trang
+                listTruyen.Paging = new Paging(context.Truyens.Count(x => x.TenTruyen.Contains(query) &&x.Id_Nhom==IdNhom && !x.DelFlag), index);
                 // Tìm kiếm và lấy dữ liệu theo trang
-                listTruyen = context.Truyens.Where(x =>x.Id_Nhom== taiKhoan.IdNhom && !x.DelFlag).OrderBy(x => x.Id)
-                    .Select(x => new Truyen
+                listTruyen.listTruyen = context.Truyens.Where(x => !x.DelFlag && x.TenTruyen.Contains(query) && x.Id_Nhom == IdNhom).OrderBy(x => x.Id)
+                    .Skip((listTruyen.Paging.CurrentPage - 1) * listTruyen.Paging.NumberOfRecord)
+                    .Take(listTruyen.Paging.NumberOfRecord).Select(x => new Truyen
                     {
                         Id = x.Id,
                         TenTruyen = x.TenTruyen,
@@ -783,8 +804,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         TrangThai = x.TrangThaiTruyen.TenTrangThai,
                         Id_Nhom = x.Id_Nhom,
                         TenNhom = x.NhomDich.TenNhomDich,
-                        AnhDaiDien = x.AnhDaiDien,
-                        AnhBia = x.AnhBia,
+                        AnhDaiDien = x.anhDaiDien,
+                        AnhBia = x.anhBia,
                         NamPhatHanh = x.NamPhatHanh,
                         MoTa = x.MoTa,
                         DanhSachTacGia = x.LuuTacGias.Where(y => !y.DelFlag).Select(y => new TacGia
@@ -800,6 +821,8 @@ namespace ReadComic.Areas.Admin.Models.QuanLyTruyen
                         }).ToList()
 
                     }).ToList();
+
+                
 
                 return listTruyen;
             }

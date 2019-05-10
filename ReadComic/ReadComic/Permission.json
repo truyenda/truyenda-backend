@@ -9,39 +9,39 @@
   },
   {
     "TongBit": 4,
-    "Name": "ACCOUNT_GET"
-  },
-  {
-    "TongBit": 8,
     "Name": "ACCOUNT_UPD"
   },
   {
-    "TongBit": 16,
+    "TongBit": 8,
     "Name": "ACCOUNT_DEL"
   },
   {
-    "TongBit": 32,
+    "TongBit": 16,
     "Name": "ACCOUNT_PER"
   },
   {
-    "TongBit": 64,
+    "TongBit": 32,
     "Name": "CHAPTER_MAN"
   },
   {
-    "TongBit": 128,
+    "TongBit": 64,
     "Name": "CHAPTER_CRE"
   },
   {
-    "TongBit": 256,
+    "TongBit": 128,
     "Name": "CHAPTER_UPD"
   },
   {
-    "TongBit": 512,
+    "TongBit": 256,
     "Name": "CHAPTER_DEL"
   },
   {
-    "TongBit": 1024,
+    "TongBit": 512,
     "Name": "STORY_MAN"
+  },
+  {
+    "TongBit": 1024,
+    "Name": "STORY_ALL"
   },
   {
     "TongBit": 2048,
@@ -124,6 +124,10 @@
     "Name": "TEAM_MAN"
   },
   {
+    "TongBit": 2147483648,
+    "Name": "TEAM_ALL"
+  },
+  {
     "TongBit": 4294967296,
     "Name": "TEAM_UPD"
   },
@@ -133,26 +137,18 @@
   },
   {
     "TongBit": 17179869184,
-    "Name": "TEAMMEM_MAN"
-  },
-  {
-    "TongBit": 34359738368,
     "Name": "TEAMMEM_LIS"
   },
   {
-    "TongBit": 68719476736,
+    "TongBit": 34359738368,
     "Name": "TEAMMEM_ADD"
   },
   {
-    "TongBit": 137438953472,
-    "Name": "TEAMMEM_GET"
-  },
-  {
-    "TongBit": 274877906944,
+    "TongBit": 68719476736,
     "Name": "TEAMMEM_PER"
   },
   {
-    "TongBit": 549755813888,
+    "TongBit": 137438953472,
     "Name": "TEAMMEM_DEL"
   }
 ]
